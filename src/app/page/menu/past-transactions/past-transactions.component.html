@@ -1,0 +1,39 @@
+<!-- <p>過去取引確認画面</p> -->
+<div class="main-content">
+  <aside>
+    <app-side-menu
+    ></app-side-menu>
+  </aside>
+  <div *ngIf="loading; else mainContent" class="loading">
+    <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
+  </div>
+  <ng-template #mainContent>
+
+    <div class="container">
+      <div *ngIf="authDiv else ViewMode">
+        <!-- 管理者表示 -->
+        <div *ngIf="dispInfo.length > 0 else EmptyContents">
+          <div class="contents" *ngFor="let item of dispInfo">
+            <div>item.title</div>
+          </div>
+        </div>
+        <ng-template #EmptyContents>
+          <p>過去の取引はありません。</p>
+        </ng-template>
+
+      </div>
+      <ng-template #ViewMode>
+        <!-- 参照表示 -->
+        <div *ngIf="dispInfo.length > 0 else EmptyContents">
+          <div class="contents" *ngFor="let item of dispInfo">
+            <div>item.title</div>
+          </div>
+        </div>
+        <ng-template #EmptyContents>
+          <p>{{emptyMessage}}</p>
+        </ng-template>
+      </ng-template>
+    </div>
+
+  </ng-template>
+</div>

@@ -1,0 +1,103 @@
+.title {
+  display: flex;
+  justify-content: center;
+
+  #modal_title {
+    font-size: 22px;
+    margin: 20px 0px 10px 5px;
+  }
+}
+
+.close {
+  display: flex;
+  justify-content: end;
+
+  #id {
+    margin: 10px 10px 10px 10px;
+  }
+}
+
+.row {
+  margin : 10px 10px 10px 10px;
+}
+
+.form_label {
+  width: 100px;
+}
+
+.none_msg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 10px 10px 10px;
+}
+
+.btn_area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.list_area {
+  table {
+    border-collapse: collapse;
+    font-size: 1px;
+    margin: 20px 20px 10px 30px;
+    th {
+      border: 0.5px gray solid;
+      font-size: medium;
+      text-align: center;
+      margin-bottom: 10px;
+      background-color: gray;
+      #name {
+        width: 300px;
+      }
+      #association {
+        width: 100px;
+        font-size: medium;
+      }
+    }
+    td {
+      border: 0.5px gray solid;
+      text-align: center;
+      font-size: medium;
+      margin: 5px 5px 5px 5px;
+    }
+  }
+  tr:hover td {
+    background-color: #ffdaf8;
+  }
+}
+
+
+
+#close {
+  margin-left: 40px;
+}
+
+
+.area_select {
+  margin-right: 30px;
+  height: 40px;
+  width: 150px;
+}
+
+.city_select {
+  margin-right: 30px;
+  height: 40px;
+  width: 200px;
+}
+
+
+#serch_form_title {
+  width: 300px;
+}
+
+.loading {
+  height: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+

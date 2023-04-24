@@ -1,0 +1,118 @@
+
+.service-contents {
+  margin-top: 2%;
+  margin-left: 5%;
+}
+
+
+.table_area {
+  background-color: #fff;
+  border: #000;
+  th {
+    position: sticky;
+    background: #f2f2f2;
+    top: 0;
+    left: 0;
+  }
+  .table2 {
+    height: 450px;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+}
+
+
+.item-list-heder {
+  display: flex;
+  height: 2em;
+  text-align: center;
+  font-size: 1.5em;
+
+
+  .heder-title {
+    border: 1px solid #000;
+    width: 200px;
+    background-color: #97cdf3;
+    padding-top: 0.6em;
+  }
+
+  .heder-price {
+    border: 1px solid #000;
+    width: 150px;
+    background-color: #97cdf3;
+    padding-top: 0.6em;
+  }
+
+  .heder-whet {
+    border: 1px solid #000;
+    width: 120px;
+    background-color: #97cdf3;
+    padding-top: 0.6em;
+  }
+
+  .heder-endDate {
+    border: 1px solid #000;
+    width: 120px;
+    background-color: #97cdf3;
+    padding-top: 0.6em;
+  }
+
+  .heder-status {
+    border: 1px solid #000;
+    width: 200px;
+    background-color: #97cdf3;
+    padding-top: 0.6em;
+  }
+}
+
+
+.item-list {
+  display: flex;
+  height: 3em;
+  text-align: center;
+
+
+  .item-title {
+    border: 1px solid #000;
+    width: 200px;
+    padding-top: 1.4em;
+    cursor:pointer;
+    color: blue;
+  }
+
+  .item-price {
+    border: 1px solid #000;
+    width: 150px;
+    padding-top: 1.4em;
+  }
+
+  .item-whet {
+    border: 1px solid #000;
+    width: 120px;
+    padding-top: 1.4em;
+  }
+
+  .item-endDate {
+    border: 1px solid #000;
+    width: 120px;
+    padding-top: 1.4em;
+  }
+
+  .item-status {
+    border: 1px solid #000;
+    width: 200px;
+    padding-top: 1.4em;
+  }
+}
+
+.delete-btn {
+  margin-top: 5vh;
+  margin-left: 7vh;
+}
+
+.loading {
+  height: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

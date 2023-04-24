@@ -1,0 +1,16 @@
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'trim'
+})
+
+export class TrimPipe implements PipeTransform {
+
+  transform(value: string) {
+    if (typeof value !== 'string') {
+      return value; //の半角文字以外をreplaceしたものを返す
+    }
+    return value.trim();
+  }
+
+}

@@ -1,0 +1,36 @@
+
+<div class="container">
+
+  <div class="row">
+    <div class="col text-center">
+      <div class="title">依頼または出品するサービスを選ぶ</div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col text-center">
+      <button type="button" class="btn btn-outline-primary" (click)="onClick('0')">ご自身のお車の作業を依頼する</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col text-center">
+      <button type="button" class="btn btn-outline-primary" (click)="onClick('1')">メカニックとして出品する</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col text-center">
+      <button type="button" class="btn btn-outline-primary" (click)="onClick('2')">工場として出品する</button>
+    </div>
+  </div>
+
+
+  <div *ngIf="officeBtnDiv" class="row">
+    <div class="col text-center">
+      <button type="button" class="btn btn-outline-primary" (click)="onReturn()">戻る</button>
+    </div>
+  </div>
+
+</div>

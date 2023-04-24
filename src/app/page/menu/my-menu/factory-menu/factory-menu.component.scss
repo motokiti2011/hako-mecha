@@ -1,0 +1,219 @@
+.main-content {
+  display: flex;
+}
+
+.main {
+  // width: 70%;
+  // width: 900px;
+  margin: 5px 0px 0px 40px;
+
+  .contents_area {
+    height: 800px;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+
+  .row_item {
+    margin: 20px 0px 0px 0px;
+  }
+
+  .form_title {
+    font-size: x-large;
+    text-align: center;
+    margin: 10px 0px 20px 0px;
+  }
+
+  #name {
+    width: 280px;
+  }
+
+
+  #email {
+    width: 280px;
+  }
+
+  #qualification {
+    margin-bottom: 15px;
+    width: 280px;
+  }
+
+  #workcontents {
+    margin-bottom: 15px;
+    width: 312px;
+  }
+  .hour_area {
+    display: flex;
+    #hours {
+      width: 50px;
+      margin: 0px 10px 0px 10px;
+    }
+  }
+
+  .item {
+    text-align: center;
+  }
+
+  .intermediate {
+    font-size: large;
+    text-align: center;
+    margin: 5px 5px 0px -5px
+  }
+
+  .img_area {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .intermediate2 {
+    font-size: large;
+    text-align: center;
+    margin: 5px 5px 0px 5px;
+  }
+
+  .mandatory {
+    width: 50px;
+    color: #ffff;
+    background-color: #cc0000;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    font-size: 14px;
+    text-align: center;
+  }
+
+
+  .btn_area {
+    margin-left: 20px;
+    width: 150px;
+
+    .btn {
+      font-size: small;
+    }
+  }
+
+  .add_form {
+    display: flex;
+    //   // margin-left: 15px;
+    margin-top: 15px;
+  }
+
+  .qualification {
+
+    // display: flex;
+    .btn_area {
+      display: flex;
+      margin: 15px 15px 15px 70px;
+      // margin-left: 15px;
+    }
+  }
+
+
+  .add_work_contents {
+    display: flex;
+    .add_btn_area {
+      display: flex;
+      margin: 15px 15px 15px 15px;
+      // margin-left: 15px;
+    }
+
+    .del_btn {
+      font-size: small;
+      margin: 0px 0px 15px 20px;
+      width: 50px;
+    }
+  }
+
+
+  .mandatory {
+    width: 50px;
+    color: #ffff;
+    background-color: #cc0000;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .office_msg {
+    font-size: small;
+  }
+
+
+
+  .bt_area {
+    margin: 20px 0px 10px 20px;
+    text-align: center;
+
+    .btn {
+      width: 200px;
+      height: 40px;
+    }
+  }
+
+  .btn_init_register {
+    margin: 150px 0px 10px 200px;
+    width: 350px;
+    height: 100px;
+    font-size: x-large;
+  }
+
+
+  .work_contents {
+
+    .item {
+      text-align: center;
+    }
+
+    // display: flex;
+    .btn_area {
+      display: flex;
+      margin: 15px 15px 15px 70px;
+      // margin-left: 15px;
+    }
+  }
+
+  #area_select {
+    height: 40px;
+  }
+
+  .post_forms {
+    display: flex;
+    font-size: 20px;
+
+    .mainus {
+      margin: 0px 10px 0px 10px;
+    }
+
+    #postCode {
+      width: 100px;
+      // margin: 0px 10px 0px 0px;
+    }
+  }
+
+  .tel_forms {
+    display: flex;
+    font-size: 20px;
+
+    #tel {
+      width: 80px;
+      margin: 0px 10px 0px 0px;
+    }
+
+    #tel2 {
+      width: 80px;
+      margin: 0px 5px 0px 5px;
+    }
+
+    #tel3 {
+      width: 80px;
+      margin: 0px 0px 0px 10px;
+    }
+  }
+}
+
+.loading {
+  height: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

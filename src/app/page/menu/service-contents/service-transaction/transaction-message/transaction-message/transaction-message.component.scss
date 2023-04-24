@@ -1,0 +1,101 @@
+.disp_area {
+  width: 100%;
+  height: 100%;
+  margin: 20px 20px 20px 20px;
+  overflow:hidden;
+  overflow-y:scroll;
+}
+
+
+.to-msg {
+  width: 75%;
+  height: 100%;
+  padding: 5px 5px 5px 10px;
+  border:1px solid;
+  border-color: black;
+  border-radius: 10px 10px 10px 10px;
+  margin-bottom: 10px;
+  background-color: #dbedf0;
+  .index {
+    font-size: 14px;
+  }
+  .sender {
+    margin-top: 2px;
+    font-size: 14px;
+  }
+  .question {
+    margin-top: 2px;
+  }
+  .sender-text {
+    height: 50px;
+    margin-top: 2px;
+  }
+  .anser {
+    margin-top: 5px;
+    height: 50px;
+  }
+}
+
+.from-msg {
+  width: 75%;
+  height: 70px;
+  margin-left: 110px;
+  padding: 5px 5px 5px 10px;
+  border:1px solid;
+  border-color: black;
+  border-radius: 10px 10px 10px 10px;
+  margin-bottom: 10px;
+  background-color: #dbedf0;
+  margin-bottom: 10px;
+  .index {
+    font-size: 14px;
+  }
+  .sender {
+    margin-top: 2px;
+    font-size: 14px;
+  }
+  .question {
+    margin-top: 2px;
+  }
+  .sender-text {
+    height: 50px;
+    margin-top: 2px;
+  }
+  .anser {
+    margin-top: 5px;
+    height: 50px;
+  }
+}
+
+
+
+.form {
+ .adress-select{
+  margin-top: 10px;
+ }
+ .form-btn {
+  display: flex;
+ }
+
+ .form-question {
+  width: 430px;
+  height: 30px;
+  margin-top: 10px;
+  // margin-left: 20px;
+ }
+ .submit-button {
+  margin-left: 15px;
+  height: 36px;
+  margin-top: 10px;
+  position: flex;
+  position: absolute;
+  align-items: end;
+ }
+}
+
+.loading {
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

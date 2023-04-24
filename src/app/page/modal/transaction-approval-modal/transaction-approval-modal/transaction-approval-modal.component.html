@@ -1,0 +1,17 @@
+<p>取引商品モーダル</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>申込ユーザー名</th>
+      <th>ファイル</th>
+      <th>依頼状況</th>
+
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of dispData">
+      <td><div (click)="approvalUser(item)" >{{item.requestUserName}}</div></td>
+      <td>{{item.files}}</td>
+      <td>{{item.requestStatus}}</td>
+    </tr>
+  </tbody>
+</table>

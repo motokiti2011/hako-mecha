@@ -1,0 +1,101 @@
+.main-content {
+  display: flex;
+}
+
+.sid_menu {
+  // width: 210px;
+  width: 15%;
+  margin: 40px 0px 0px 40px;
+}
+
+.main {
+  width: 70%;
+  // width: 800px;
+  margin: 40px 0px 0px 40px;
+
+
+
+  .table_area {
+    background-color: #fff;
+    border: #000;
+
+    .table {
+      border: none;
+      border-collapse: collapse;
+      font-size: 1px;
+
+      th {
+        font-size: medium;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      th {
+        position: sticky;
+        background: #f2f2f2;
+        top: 0;
+        left: 0;
+        text-align: center;
+      }
+
+      td {
+        border: 2px #ff0000 solid;
+        // border: none;
+        text-align: center;
+        font-size: medium;
+        // margin: 5px 5px 5px 5px;
+        padding: 12px 12px 12px 12px;
+      }
+
+      .table2 {
+        height: 450px;
+        border: none;
+        overflow: hidden;
+        overflow-y: auto;
+      }
+    }
+
+
+
+
+    .select_point {
+      cursor: pointer;
+      color: blue;
+    }
+
+    #no {
+      width: 60px;
+    }
+
+    #name {
+      width: 200px;
+    }
+
+    #fleam_number {
+      width: 250px;
+    }
+
+    #mileage {
+      width: 200px;
+    }
+
+    #inspection_expiration {
+      width: 220px;
+    }
+
+    #history {
+      width: 150px;
+    }
+
+    #del {
+      width: 150px;
+    }
+  }
+}
+
+.loading {
+  height: 700px;
+  display: flex;
+  justify-content: center;
+  margin-top: 120px;
+}

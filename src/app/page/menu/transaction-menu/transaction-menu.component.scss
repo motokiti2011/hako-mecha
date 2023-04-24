@@ -1,0 +1,80 @@
+
+
+.transaction-menu {
+  display: flex;
+
+}
+
+aside {
+  width: 15%;
+  display: flex;
+  justify-content: center;
+  margin: 40px 0px 0px 0px;
+}
+
+article {
+  width: 70%;
+  margin: 40px 20px 0px 0px;
+}
+
+.bid-method {
+  margin: 40px;
+}
+
+.sid-menu {
+  border-right: 2px;
+  border-color: black;
+}
+
+div.tab-area-base {
+  height: 60px;
+  width: 100%;
+  margin: auto;
+}
+
+ul.tab-menu-base {
+  overflow: hidden;
+  list-style: none;
+  margin-left: 8vh;
+  padding: 0;
+  // border-bottom: 5px solid rgb(240, 240, 240);
+  height: 8vh;
+}
+
+ul.tab-menu-base li {
+  float: left;
+  margin: 10px 8px 0 0 ;
+  border-radius: 10px 10px 0 0;
+  padding: 0;
+  // background: rgb(180, 180, 180);
+  background: rgb(240, 240, 240);
+  // background:#f7efa2;
+  height: 100%;
+  width: 150px;
+  font-size: 1.5em;
+  text-align: center;
+  padding-top: 2vh;
+}
+
+ul.tab-menu-base li.current {
+  // background: rgb(240, 240, 240);
+  background: #e3a44e;
+}
+
+.tab_contents {
+  height: 500px;
+}
+
+
+.select-btn {
+  margin-left: -75vh;
+  margin-top: 6vh;
+  width: 10vh;
+}
+
+.loading {
+  height: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

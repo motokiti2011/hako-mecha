@@ -1,0 +1,150 @@
+<div class="main-content">
+
+  <div class="sid_menu">
+    <app-side-menu [acceseUser]="user"></app-side-menu>
+  </div>
+
+  <div class="main">
+
+
+    <div class="container">
+      <div class="row mt-4">
+        <div class="col-4"></div>
+        <h1>工場情報登録</h1>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-2">工場表示名</div>
+        <div class="col-1">
+          <div class="mandatory">必須</div>
+        </div>
+        <div class="col-4">
+          <input class="form-control" id="name" type="text" [formControl]="officeName" />
+        </div>
+        <div class="col-1"></div>
+        <div class="btn_area">
+          <button type="button" class="btn btn-outline-primary" (click)="onSomeUserInfo('1')">ユーザー登録を反映</button>
+        </div>
+
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-2">工場電話番号</div>
+        <div class="col-1">
+          <div class="mandatory">必須</div>
+        </div>
+        <div class="col-4">
+          <div class="tel_forms">
+            <input class="form-control" id="tel" type="tel" [formControl]="telNo1" />
+            <p>-</p>
+            <input class="form-control" id="tel2" type="tel" [formControl]="telNo2" />
+            <p>-</p>
+            <input class="form-control" id="tel3" type="tel" [formControl]="telNo3" />
+          </div>
+        </div>
+        <div class="col-1"></div>
+        <div class="btn_area">
+          <button type="button" class="btn btn-outline-primary" (click)="onSomeUserInfo('2')">ユーザー登録を反映</button>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-2">工場メールアドレス</div>
+        <div class="col-1">
+          <div class="mandatory">必須</div>
+        </div>
+        <div class="col-4">
+          <input class="form-control" id="email" type="email" [formControl]="officeMailAdress" />
+        </div>
+        <div class="col-1"></div>
+        <div class="btn_area">
+          <button type="button" class="btn btn-outline-primary" (click)="onSomeUserInfo('3')">ユーザー登録を反映</button>
+        </div>
+      </div>
+
+
+      <div class="row mt-2 factory_adress">
+        <div class="col-3"></div>
+        <div class="col-3 adress">工場所在地</div>
+        <div class="btn_area">
+          <button type="button" class="btn btn-outline-primary" (click)="onSomeUserInfo('4')">ユーザー登録を反映</button>
+        </div>
+      </div>
+
+
+      <div class="row mt-2">
+        <div class="col-2">郵便番号</div>
+        <div class="col-1"></div>
+        <div class="col-4">
+          <div class="post_forms">
+            <input class="form-control" id="postCode" type="tel" [formControl]="postCode1"
+              (change)="onPostCodeSerch()" />
+            <p class="mainus">-</p>
+            <input class="form-control" id="postCode" type="tel" [formControl]="postCode2"
+              (change)="onPostCodeSerch()" />
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row mt-2">
+        <div class="col-2">都道府県</div>
+        <div class="col-1">
+          <div class="mandatory">必須</div>
+        </div>
+        <div class="col-4">
+          <select id="area-select" name="area" [(ngModel)]="areaSelect" (change)="selectArea()">
+            <option value="">地域を選択してください。</option>
+            <option *ngFor="let area of areaData" [value]="area.code" [selected]="area.code === officeArea1">
+              {{area.prefectures}}</option>
+          </select>
+        </div>
+      </div>
+
+
+      <div class="row mt-2">
+        <div class="col-2">市町村</div>
+        <div class="col-1">
+          <div class="mandatory">必須</div>
+        </div>
+        <div class="col-4">
+          <select id="area_select" name="area" [(ngModel)]="citySelect" (change)="onSelectCity()"
+            [disabled]="officeArea1 == ''">
+            <option value="">地域を選択してください。</option>
+            <option *ngFor="let city of areaCityData" [value]="city.city"
+              [selected]="city.city === citySelect">
+              {{city.city}}</option>
+          </select>
+        </div>
+      </div>
+
+
+      <div class="row mt-2">
+        <div class="col-2">その他</div>
+        <div class="col-1">
+          <div class="mandatory">必須</div>
+        </div>
+        <div class="col-4">
+          <input class="form-control" id="name" type="text" [formControl]="officeAdress" />
+        </div>
+      </div>
+
+      <div class="row mt-2 factory_adress">
+        <div class="col-3"></div>
+        <div class="adress">その他の情報は登録後に編集できます。</div>
+      </div>
+
+      <div class="row">
+        <div class="col-2"></div>
+        <div class="col-6">
+          <div class="bt_area">
+            <button type="submit" class="btn btn-primary" on-click="onRegister()"
+              [disabled]="groupForm.invalid">登録</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

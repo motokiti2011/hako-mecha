@@ -1,0 +1,35 @@
+.main-content {
+  display: flex;
+}
+
+.side_menu {
+  width: 15%;
+  // width: 250px;
+  display: flex;
+  justify-content: center;
+  margin: 40px 0px 0px 20px;
+}
+
+.main_area {
+  width: 70%;
+  // width: 55%;
+  margin: 50px 30px 10px 30px;
+}
+
+
+.table {
+  background-color: #fff;
+  border: #000;
+  margin-top: 30px;
+  th {
+    position: sticky;
+    background: #f2f2f2;
+    top: 0;
+    left: 0;
+  }
+}
+.table2 {
+  height: 450px;
+  overflow: hidden;
+  overflow-y: auto;
+}

@@ -1,0 +1,156 @@
+
+.service-contents {
+  margin-top: 2%;
+  margin-left: 5%;
+}
+
+
+.item-list-heder {
+  display: flex;
+  height: 2em;
+  text-align: center;
+  font-size: 1.5em;
+
+  .heder-check {
+    border: 1px solid #000;
+    background-color: #97cdf3;
+    width: 40px;
+    padding: 0%;
+    padding-top: 0.6em;
+  }
+
+  .heder-title {
+    border: 1px solid #000;
+    width: 200px;
+    background-color: #97cdf3;
+    padding-top: 0.6em;
+  }
+
+  .heder-price {
+    border: 1px solid #000;
+    width: 150px;
+    background-color: #97cdf3;
+    padding-top: 0.6em;
+  }
+
+  .heder-whet {
+    border: 1px solid #000;
+    width: 120px;
+    background-color: #97cdf3;
+    padding-top: 0.6em;
+  }
+
+  .heder-endDate {
+    border: 1px solid #000;
+    width: 120px;
+    background-color: #97cdf3;
+    padding-top: 0.6em;
+  }
+}
+
+
+.item-list {
+  display: flex;
+  height: 3em;
+  text-align: center;
+
+  .item-check {
+    border: 1px solid #000;
+    width: 40px;
+    padding: 0%;
+    padding-top: 0.8em;
+  }
+
+  .item-title {
+    border: 1px solid #000;
+    width: 200px;
+    padding-top: 1.4em;
+    cursor:pointer;
+    color: blue;
+  }
+
+  .item-price {
+    border: 1px solid #000;
+    width: 150px;
+    padding-top: 1.4em;
+  }
+
+  .item-whet {
+    border: 1px solid #000;
+    width: 120px;
+    padding-top: 1.4em;
+  }
+
+  .item-endDate {
+    border: 1px solid #000;
+    width: 120px;
+    padding-top: 1.4em;
+  }
+}
+
+.table_area {
+  background-color: #fff;
+  border: #000;
+  th {
+    position: sticky;
+    background: #f2f2f2;
+    top: 0;
+    left: 0;
+  }
+  .table2 {
+    height: 450px;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+}
+
+.delete-btn {
+  margin-top: 5vh;
+  margin-left: 7vh;
+}
+
+.service_index {
+  justify-content: center;
+  display: flex;
+  height: 80px;
+  align-items: center;
+
+  .buttom_area {
+    display: flex;
+
+    div.buttom-base {
+      text-align: center;
+      border: 2px solid #000;
+      border-radius: 2;
+      // background: #fff;
+      width: 3.5em;
+      height: 2.5em;
+      margin-left: 0.5em;
+      padding: 10px 5px 0px 5px;
+    }
+
+    .buttom-base:hover {
+      color: #fff;
+      background: #000;
+    }
+
+    div.index {
+      color: #fff;
+      background: #000;
+      text-align: center;
+      border: 2px solid #000;
+      border-radius: 2;
+      width: 3.5em;
+      height: 2.5em;
+      margin-left: 0.5em;
+      padding: 10px 5px 0px 5px;
+    }
+  }
+}
+
+.loading {
+  height: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

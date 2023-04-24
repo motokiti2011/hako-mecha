@@ -1,0 +1,78 @@
+<div class="maincontent">
+  <div *ngIf="loading; else mainContent" class="loading">
+    <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
+  </div>
+  <ng-template #mainContent>
+    <div class="btn_area">
+      <input type="button" class="btn_item" on-click="onReturn()" value="詳細に戻る">
+      <input type="button" class="btn_item" on-click="onServiceList()" value="一覧に戻る">
+      <input type="button" class="btn_item" on-click="onQuestion()" value="質問">
+
+      <div *ngIf="privateDiv">
+        <p class="private_message">このサービスのメッセージは<br>非公開です。</p>
+      </div>
+
+      <div *ngIf="adminUserDiv">
+        <input type="button" class="btn_item" on-click="onOpenLevelSet()" value="メッセージ公開レベル設定">
+      </div>
+
+      <div *ngIf="openDiv">
+        <input type="button" class="btn_item" on-click="onMsgPrmReq()" value="メッセージ許可申請">
+      </div>
+      
+      <div *ngIf="!adminUserDiv && !transactionTarget">
+        <input type="button" class="btn_item" on-click="onTransactionRequest()" value="取引を依頼する">
+      </div>
+
+
+
+      <div *ngIf="adminUserDiv">
+        <input type="button" class="btn_item" on-click="onTransactionApproval()" value="取引依頼を承認する">
+      </div>
+      <div *ngIf="privateDiv">
+        <p class="private_message">このサービスのメッセージは<br>非公開です。</p>
+      </div>
+    </div>
+
+
+    <div class="main_area">
+      <div class="messages">
+        <app-transaction-message></app-transaction-message>
+      </div>
+    </div>
+
+
+    <div class="sb-area">
+      <div class="sb-disp">
+        <p class="title">サービスタイトル</p>
+        <div class="item">{{dispTitle}}</div>
+      </div>
+
+      <div class="sb-disp">
+        <p class="title">日付</p>
+        <div class="item">{{dispYmd}}</div>
+      </div>
+
+      <div class="sb-disp">
+        <p class="title">価格</p>
+        <!-- <div class="item">{{dispPrice}}</div> -->
+        <div class="item" *ngIf="dispPrice != 0 else noPrice">
+          <div>　{{dispPrice | currency: 'JPY': true }}</div>
+        </div>
+        <ng-template #noPrice>
+          <div>　見積中</div>
+        </ng-template>
+      </div>
+
+      <div class="sb-disp">
+        <p class="title">地域</p>
+        <div class="item">{{dispArea}}</div>
+      </div>
+
+      <div class="sb-disp">
+        <p class="title">説明</p>
+        <div class="item">{{dispExplanation}}</div>
+      </div>
+    </div>
+  </ng-template>
+</div>

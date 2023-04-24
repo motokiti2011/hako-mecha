@@ -1,0 +1,46 @@
+<div class="service-contents">
+  <div *ngIf="loading; else mainContent" class="loading">
+    <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
+  </div>
+  <ng-template #mainContent>
+    <div>
+      <select class="select-btn" [(ngModel)]="selected" (change)="changeOrder()">
+        <option value="">並び順</option>
+        <option *ngFor="let item of orderMenu" [value]="item.value" [selected]="item.value === selected">{{item.value}}
+        </option>
+      </select>
+    </div>
+
+    <div class="contants">
+      <div *ngIf="detailList.length > 0; ElseContents" class="table_area">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>{{HEAD.title}}</th>
+              <th>{{HEAD.relation}}</th>
+              <th>{{HEAD.adminName}}</th>
+              <th>{{HEAD.completionScheduledDate}}</th>
+          </thead>
+        </table>
+        <div class="table2">
+          <table class="table">
+            <tbody>
+              <tr *ngFor="let item of detailList">
+                <td>{{item.serviceTitle}}</td>
+                <td>{{item.slipRelation}}</td>
+                <td>{{item.slipAdminName}}</td>
+                <td>{{item.completionScheduledDate}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <ng-component #ElseContents>
+        <div>取引中のサービスはありません。</div>
+      </ng-component>
+    </div>
+    <div class="delete-btn">
+      <button (click)="deleteCheck()" [disabled]="checkbutton">選択を削除する</button>
+    </div>
+  </ng-template>
+</div>

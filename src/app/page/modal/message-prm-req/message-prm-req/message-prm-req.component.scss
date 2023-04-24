@@ -1,0 +1,53 @@
+#modal-content-wrapper {
+  width: 1%;
+  height: 1%;
+  display: grid;
+  grid-template-rows: repeat(1fr, 3);
+  color: black;
+  background-color: gray;
+}
+
+#modal-hedder {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 40px;
+  #modal-title {
+    font-size: 15px;
+  }
+}
+
+.btn-area {
+  display: flex;
+  text-align: center;
+  .btn {
+    width: 80px;
+    height: 50px;
+    margin-left: 70px;
+  }
+  .btn-close {
+    width: 80px;
+    height: 50px;
+    margin-left: 60px;
+  }
+}
+
+
+#modal-footer {
+  justify-self: right;
+  align-self: center;
+}
+
+#close {
+  margin-left: 10vh;
+}
+
+
+
+
+
+.name {
+  cursor: pointer;
+  margin-top: 20px;
+  margin-left: 5vh;
+  color: blue;
+}

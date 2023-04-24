@@ -1,0 +1,182 @@
+<div class="container">
+
+  <div class="row">
+    <div class="title">
+      <div id="modal_title">{{title}}</div>
+    </div>
+    <div class="col-6"></div>
+    <div class="close">
+      <button id="close" mat-button (click)="closeModal()">✖</button>
+    </div>
+  </div>
+
+  <div *ngIf="targetService == '0' else serviceRequest">
+    <!-- ユーザー依頼表示 -->
+
+    <div class="vehicle_list_area" *ngIf="registerVehicle.length > 0 else ElseContents">
+      <label>登録中の車両から選ぶ場合、対象をクリックしてください。</label>
+      <table>
+        <thead>
+          <tr>
+            <th id="name">車名</th>
+            <th id="fleam_number">ナンバー(下４桁)</th>
+            <th id="mileage">走行距離</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let vehicle of registerVehicle">
+            <td (click)="onSelectVehicle(vehicle)">
+              <div class="select_point" (click)="onSelectVehicle(vehicle)">
+                {{vehicle.vehicleName}}</div>
+            </td>
+            <td (click)="onSelectVehicle(vehicle)">{{vehicle.vehicleNoSerialNum}}</td>
+            <td (click)="onSelectVehicle(vehicle)">{{vehicle.mileage | number: '1.0-0'}} Km</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ng-template #ElseContents>
+      <div class="vehicle_msg">登録中の車両はありません</div>
+    </ng-template>
+
+    <!-- <div class="row">
+      <div class="col-3"></div>
+      <label>この伝票に車両を登録</label>
+    </div> -->
+
+    <div class="row">
+      <!-- <div class="col-1"></div> -->
+      <label>車名</label>
+    </div>
+
+    <div class="row">
+      <div class="col-1"></div>
+      <input type="text" class="form-control" id="vehicle_name" [(ngModel)]="dispVehicleName" />
+    </div>
+
+    <!-- 車両区分ラジオボタン -->
+    <div class="row">
+      <div class="col-1"></div>
+      <form class="vehicle_div">
+        <ng-container *ngFor="let data of vehicleDivData; index as i">
+          <label>
+            <input type="radio" name="vehicle_div" id="book{{i}}" [(ngModel)]="dispVehicleDiv" [value]="data.vehicleDiv"
+              [checked]="dispVehicleDiv == data.vehicleDiv" (change)="onSelectVehicleDiv(i)">{{data.value}}
+          </label><br />
+        </ng-container>
+      </form>
+    </div>
+
+    <div *ngIf="dispVehicleDiv == '0' && '1'">
+      <div class="row">
+        <!-- <div class="col-1"></div> -->
+        <label>メーカー</label>
+      </div>
+
+      <div class="row">
+        <div class="col-1"></div>
+        <select class="maker_select" name="maker" [(ngModel)]="dispVehicleMaker" (change)="onSelectMaker()">
+          <option value="">メーカーを選択してください</option>
+          <optgroup *ngFor="let group of makerDataGroupData" label={{group.key}}>
+            <option *ngFor="let maker of group.items" [value]="maker.name" [selected]="maker.name === dispVehicleMaker">
+              {{maker.name}}
+            </option>
+          </optgroup>
+        </select>
+
+      </div>
+
+      <div class="row">
+        <!-- <div class="col-1"></div> -->
+        <label>車両形状</label>
+      </div>
+
+      <div class="row">
+        <div class="col-1"></div>
+        <select class="form_select" [(ngModel)]="dispVehicleForm" (change)="onSelectForm()">
+          <option value="">車両形状を選択してください</option>
+          <option *ngFor="let form of formData" [value]="form.name" [selected]="form.name === dispVehicleForm">
+            {{form.name}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row btn_area">
+      <button type="submit" class="btn btn-primary" on-click="getResult()">決定</button>
+    </div>
+  </div>
+
+  <ng-template #serviceRequest>
+    <!-- メカニック、工場依頼表示 -->
+    <div class="row">
+      <!-- <div class="col-1"></div> -->
+      <label>車名</label>
+    </div>
+
+    <div class="row">
+      <div class="col-1"></div>
+      <input type="text" class="form-control" id="vehicle_name" [(ngModel)]="dispVehicleName" [disabled]="unspecifiedDiv"/>
+    </div>
+
+    <!-- 車両区分ラジオボタン -->
+    <div class="row">
+      <div class="col-1"></div>
+      <form class="vehicle_div">
+        <ng-container *ngFor="let data of vehicleDivData; index as i">
+          <label>
+            <input type="radio" name="vehicle_div" id="book{{i}}" [(ngModel)]="dispVehicleDiv" [value]="data.vehicleDiv"
+              [checked]="dispVehicleDiv == data.vehicleDiv" (change)="onSelectVehicleDiv(i)">{{data.value}}
+          </label><br />
+        </ng-container>
+      </form>
+    </div>
+
+
+    <div class="unspecified_check">
+      <!-- <div class="col-1"></div> -->
+      <input type="checkbox" name="unspecified" [(ngModel)]="unspecifiedDiv" (change)="onUnspecified()">
+      <label>　指定しない</label>
+    </div>
+
+
+    <div *ngIf="dispVehicleDiv == '0' && '1' && !unspecifiedDiv">
+
+
+      <div class="row">
+        <!-- <div class="col-1"></div> -->
+        <label>メーカー</label>
+      </div>
+
+      <div class="row">
+        <div class="col-1"></div>
+        <select class="maker_select" name="maker" [(ngModel)]="dispVehicleMaker" (change)="onSelectMaker()">
+          <option value="">メーカーを選択してください</option>
+          <optgroup *ngFor="let group of makerDataGroupData" label={{group.key}}>
+            <option *ngFor="let maker of group.items" [value]="maker.name" [selected]="maker.name === dispVehicleMaker">
+              {{maker.name}}
+            </option>
+          </optgroup>
+        </select>
+      </div>
+
+      <div class="row">
+        <!-- <div class="col-1"></div> -->
+        <label>車両形状</label>
+      </div>
+
+      <div class="row">
+        <div class="col-1"></div>
+        <select class="form_select" [(ngModel)]="dispVehicleForm" (change)="onSelectForm()">
+          <option value="">車両形状を選択してください</option>
+          <option *ngFor="let form of formData" [value]="form.name" [selected]="form.name === dispVehicleForm">
+            {{form.name}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row btn_area">
+      <button type="submit" class="btn btn-primary" on-click="getResult()">決定</button>
+    </div>
+
+  </ng-template>
+
+</div>

@@ -1,0 +1,114 @@
+<!-- <p>service-serch-conditions works!</p> -->
+<!-- <button (click)="goBack()">戻る</button> -->
+
+<div class="category">地域から探す</div>
+<div class="map-area">
+  <div (click)="mapSelect($event)">
+    <img src="assets/images/map-japan.png" alt="image1">
+    <map name="map">
+      <area shape="rect" coords="129,379,216,429"  />
+
+      <area shape="default" />
+    </map>
+  </div>
+
+  <div class="area-name">
+    <div class="prefectures">
+      <div class="prefecture-name3">北海道</div>
+      <div class="name" (click)="areaSelect('01')">北海道</div>
+    </div>
+
+    <div class="prefectures">
+      <div class="prefecture-name2">東北</div>
+      <div class="name" (click)="areaSelect('02')">青森県</div>
+      <div class="name" (click)="areaSelect('03')">岩手県</div>
+      <div class="name" (click)="areaSelect('04')">宮城県</div>
+      <div class="name" (click)="areaSelect('05')">秋田県</div>
+      <div class="name" (click)="areaSelect('06')">山形県</div>
+      <div class="name" (click)="areaSelect('07')">福島県</div>
+    </div>
+
+    <div class="prefectures">
+      <div class="prefecture-name2">関東</div>
+      <div class="name" (click)="areaSelect('08')">茨城県</div>
+      <div class="name" (click)="areaSelect('09')">栃木県</div>
+      <div class="name" (click)="areaSelect('10')">群馬県</div>
+      <div class="name" (click)="areaSelect('11')">埼玉県</div>
+      <div class="name" (click)="areaSelect('12')">千葉県</div>
+      <div class="name" (click)="areaSelect('13')">東京県</div>
+      <div class="name" (click)="areaSelect('14')">神奈川県</div>
+    </div>
+
+    <div class="prefectures">
+      <div class="prefecture-name2">中部</div>
+      <div class="name" (click)="areaSelect('15')">新潟県</div>
+      <div class="name" (click)="areaSelect('16')">富山県</div>
+      <div class="name" (click)="areaSelect('17')">石川県</div>
+      <div class="name" (click)="areaSelect('18')">福井県</div>
+      <div class="name" (click)="areaSelect('19')">山梨県</div>
+      <div class="name" (click)="areaSelect('20')">長野県</div>
+      <div class="name" (click)="areaSelect('21')">岐阜県</div>
+      <div class="name" (click)="areaSelect('22')">静岡県</div>
+      <div class="name" (click)="areaSelect('23')">愛知県</div>
+    </div>
+
+    <div class="prefectures">
+      <div class="prefecture-name2">近畿</div>
+      <div class="name" (click)="areaSelect('24')">三重県</div>
+      <div class="name" (click)="areaSelect('25')">滋賀県</div>
+      <div class="name" (click)="areaSelect('26')">京都府</div>
+      <div class="name" (click)="areaSelect('27')">大阪府</div>
+      <div class="name" (click)="areaSelect('28')">兵庫県</div>
+      <div class="name" (click)="areaSelect('29')">奈良県</div>
+      <div class="name" (click)="areaSelect('30')">和歌山県</div>
+    </div>
+
+    <div class="prefectures">
+      <div class="prefecture-name2">中国</div>
+      <div class="name" (click)="areaSelect('31')">鳥取県</div>
+      <div class="name" (click)="areaSelect('32')">島根県</div>
+      <div class="name" (click)="areaSelect('33')">岡山県</div>
+      <div class="name" (click)="areaSelect('34')">広島県</div>
+      <div class="name" (click)="areaSelect('35')">山口県</div>
+    </div>
+
+    <div class="prefectures">
+      <div class="prefecture-name2">四国</div>
+      <div class="name" (click)="areaSelect('36')">徳島県</div>
+      <div class="name" (click)="areaSelect('37')">香川県</div>
+      <div class="name" (click)="areaSelect('38')">愛媛県</div>
+      <div class="name" (click)="areaSelect('39')">高知県</div>
+    </div>
+
+    <div class="prefectures">
+      <div class="prefecture-name2">九州</div>
+      <div class="name" (click)="areaSelect('40')">福岡県</div>
+      <div class="name" (click)="areaSelect('41')">佐賀県</div>
+      <div class="name" (click)="areaSelect('42')">長崎県</div>
+      <div class="name" (click)="areaSelect('43')">熊本県</div>
+      <div class="name" (click)="areaSelect('44')">大分県</div>
+      <div class="name" (click)="areaSelect('45')">宮崎県</div>
+      <div class="name" (click)="areaSelect('46')">鹿児島県</div>
+      <div class="name" (click)="areaSelect('47')">沖縄県</div>
+    </div>
+  </div>
+
+
+</div>
+
+
+<div class="category">サービス内容から探す</div>
+<div class="service-contents">
+  <div class="contents">
+    <div class="content" (click)="contentsSelect(1)">洗車</div>
+    <div class="content1" (click)="contentsSelect(2)">コーティング/ラッピング</div>
+  </div>
+  <div class="contents">
+    <div class="content" (click)="contentsSelect(3)">カスタマイズ</div>
+    <div class="content2" (click)="contentsSelect(4)">部品・用品取り付け</div>
+  </div>
+  <div class="contents">
+    <div class="content" (click)="contentsSelect(5)">点検・整備</div>
+    <div class="content3" (click)="contentsSelect(6)">手続き</div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="main-content">
+
+  <div class="side_menu">
+    <app-side-menu [acceseUser]="user"></app-side-menu>
+  </div>
+
+  <div class="main_area">
+    <div *ngIf="loading; else mainContent" class="loading">
+      <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
+    </div>
+    <ng-template #mainContent>
+      <div class="container">
+        <p class="title">サービス管理者情報</p>
+
+        <div class="row">
+          <p class="discript">管理{{serviceTypeName}}</p>
+        </div>
+
+        <div class="row">
+          <div class="left_menu">お名前：{{adminName}}</div>
+          <div *ngIf="serviceType !='0'" class="col-1"></div>
+          <div>メールアドレス：{{mailAdless}}</div>
+        </div>
+
+        <div class="row">
+          <div class="left_menu">
+            <img class="img" [src]="imageUrl" alt="Random first slide">
+          </div>
+
+          <div class="col-1"></div>
+
+          <div>
+            <div class="right_menu">〒：{{postNo}}</div>
+            <div class="right_menu">住所：{{adress}}</div>
+            <div class="right_menu">TEL：{{telNo}}</div>
+            <div class="right_menu">評価：{{evaluation}}</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="left_menu introduction">
+            紹介文:{{introduction}}
+          </div>
+
+          <div class="col-1"></div>
+
+          <div>
+            <div *ngIf="user && serviceType!='0'">
+              <button type="button" class="btn btn-outline-primary" (click)="onAddFavorite()">お気に入りに追加する</button>
+            </div>
+            <div>
+              <button type="button" class="btn btn-outline-primary" (click)="onPastTransaction()">過去の取引</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+
+
+</div>

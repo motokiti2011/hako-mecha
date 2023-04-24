@@ -1,0 +1,22 @@
+<p>工場メカニック商品管理</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th id="name">商品名</th>
+      <th id="status">取引状況</th>
+      <th id="count">閲覧数</th>
+      <th id="count">お気に入り</th>
+  </thead>
+</table>
+<div class="table2">
+  <table class="table">
+  <tbody>
+    <tr *ngFor="let item of itemList">
+      <td><div class="item_title" (click)="onItemSelect(item)" >{{item.serviceName}}</div></td>
+      <td>{{item.transactionStatus}}</td>
+      <td>{{item.browsingCount}}　件</td>
+      <td>{{item.favoriteCount}}　件</td>
+    </tr>
+  </tbody>
+</table>

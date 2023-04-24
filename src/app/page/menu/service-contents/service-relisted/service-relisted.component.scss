@@ -1,0 +1,89 @@
+.main-content {
+  display: flex;
+}
+
+aside {
+  width: 230px;
+  margin-right: 30px;
+}
+
+article {
+  width: 100%;
+  margin-top: 3vh;
+  // margin-left: 5vh;
+  // background-color: blue;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 10px;
+}
+
+.form {
+  width: 350px;
+  .explanation {
+    height: 200px;
+  }
+}
+
+.explanation {
+  height: 150px;
+}
+
+.mandatory-area {
+  width: 50px;
+}
+
+.margin {
+  margin-left: 50px;
+}
+
+.mandatory {
+  width: 50px;
+  color: #ffff;
+  background-color: #cc0000;
+  padding: 0.3em;
+  border-radius: 0.5em;
+  font-size: 13px;
+}
+
+.error-message {
+  color: #ffff;
+  background-color: #cc0000;
+  padding: 0.3em;
+  border-radius: 0.5em;
+  font-size: 13px;
+  margin-left: 20px;
+  width: 20%;
+}
+
+.error-message-day {
+  color: #ffff;
+  background-color: #cc0000;
+  padding: 0.3em;
+  border-radius: 0.5em;
+  font-size: 0.8em;
+  margin-right: 40px;
+  width: 20%;
+}
+
+.submit-button {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  margin-left: 100px;
+  width: 80px;
+  height: 40px;
+  font-size: 16px;
+}
+
+.dragarea {
+  height: 300px;
+}
+
+.loading {
+  height: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+

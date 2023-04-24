@@ -1,0 +1,168 @@
+.main-content {
+  display: flex;
+}
+
+.sid_menu {
+  width: 300px;
+  margin: 10px 0px 0px 40px;
+}
+
+
+.main {
+  width: 850px;
+  margin: 5px 0px 0px 40px;
+
+  .row_item {
+    margin: 20px 0px 0px 0px;
+  }
+
+  .form_title {
+    font-size: x-large;
+    text-align: center;
+    margin: 10px 0px 20px 0px;
+  }
+
+  #name {
+    width: 340px;
+  }
+
+
+  #email {
+    width: 340px;
+  }
+
+  #workcontents {
+    margin-bottom: 15px;
+    width: 340px;
+  }
+
+  #hours {
+    // margin-bottom: 15px;
+    width: 100%;
+  }
+
+  #introduction {
+    margin: 0px 15px 20px 0px;
+  }
+
+  .item {
+    text-align: center;
+  }
+
+  .factory_adress {
+    margin-top: 30px;
+  }
+
+
+  .intermediate {
+    font-size: large;
+    text-align: center;
+    margin: 0px 8px 0px 8px;
+  }
+
+  .mandatory {
+    width: 50px;
+    color: #ffff;
+    background-color: #cc0000;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    font-size: 14px;
+    text-align: center;
+  }
+
+
+  .btn_area {
+    margin-left: 20px;
+    width: 150px;
+
+    .btn {
+      font-size: small;
+    }
+  }
+
+  .add_form {
+    display: flex;
+    // margin-left: 15px;
+  }
+
+  .bt_area {
+    margin: 20px 0px 10px 20px;
+    text-align: center;
+
+    .btn {
+      width: 200px;
+      height: 40px;
+    }
+  }
+
+
+  .work_contents {
+    // display: flex;
+    .btn_area {
+      display: flex;
+      margin: 15px 15px 15px 70px;
+      // margin-left: 15px;
+    }
+  }
+
+  .post_forms {
+    display: flex;
+    font-size: 20px;
+    .mainus {
+      margin: 0px 10px 0px 10px;
+    }
+    #postCode {
+      width: 100px;
+      // margin: 0px 10px 0px 0px;
+    }
+  }
+
+  .tel_forms {
+    display: flex;
+    font-size: 20px;
+    #tel {
+      width: 80px;
+      margin: 0px 10px 0px 0px;
+    }
+    #tel2 {
+      width: 80px;
+      margin: 0px 5px 0px 5px;
+    }
+    #tel3 {
+      width: 80px;
+      margin: 0px 0px 0px 10px;
+    }
+  }
+
+
+  .add_work_contents {
+    display: flex;
+    .add_btn_area {
+      display: flex;
+      margin: 15px 15px 15px 15px;
+      // margin-left: 15px;
+    }
+
+    .del_btn {
+      font-size: small;
+      margin: 0px 0px 15px 20px;
+      width: 50px;
+    }
+  }
+
+  .btn_area {
+    margin-left: 20px;
+    width: 150px;
+  
+    .btn {
+      font-size: small;
+    }
+  }
+
+  .adress {
+    text-align: center;
+    font-size: x-large;
+  }
+
+
+}

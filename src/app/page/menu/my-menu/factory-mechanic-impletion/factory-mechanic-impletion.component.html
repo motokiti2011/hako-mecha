@@ -1,0 +1,45 @@
+<p>インプレッション画面</p>
+
+<div *ngIf="loading; else mainContent" class="loading">
+  <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
+</div>
+<ng-template #mainContent>
+  <div class="container">
+    <div class="row">
+      <div class="col-2"></div>
+        <p>工場・メカニック名</p>
+        <p>{{createDate}}</p>
+    </div>
+
+    <div class="row">
+      <div class="col-2"></div>
+        <p>累計お気に入り件数</p>
+        <p>{{favoriteCount}}件</p>
+    </div>
+
+    <div class="row">
+      <div class="col-2"></div>
+        <p>これまでの取引件数</p>
+        <p>{{transactionCount}}件</p>
+    </div>
+
+    <div class="row">
+      <div class="col-2"></div>
+        <p>評価平均</p>
+        <p>{{evaluationAverage}}件</p>
+    </div>
+
+    <div class="row">
+      <div class="col-2"></div>
+        <div (click)="onEvaluationList">評価内容はこちらから</div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-2"></div>
+        <p>今月の取引件数</p>
+        <p>{{monthTransactionCount}}件</p>
+    </div>
+
+  </div>
+</ng-template>

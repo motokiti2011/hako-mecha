@@ -1,0 +1,36 @@
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="title">
+      {{serchTypeMsg}}：{{serchValueMsg}}のサービスを検索します。
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="title">
+      どのサービスを探しますか？
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col text-center">
+      <div class="menu_item item" (click)="onClick('0')">ユーザーの依頼を探す</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col text-center">
+      <div class="menu_item item" (click)="onClick('1')">お店の商品・サービスを探す</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col text-center">
+      <button type="button" class="btn btn-outline-primary" (click)="onClick('')">戻る</button>
+    </div>
+  </div>
+
+</div>

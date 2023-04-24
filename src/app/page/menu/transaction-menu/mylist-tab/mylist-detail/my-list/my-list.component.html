@@ -1,0 +1,76 @@
+<div class="disp_area">
+  <div *ngIf="loading; else mainContent" class="loading">
+    <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
+  </div>
+  <ng-template #mainContent>
+    <!-- <p class="title">お知らせ一覧</p> -->
+
+    <div class="list-option">
+      <div class="alert-message">
+        新着メッセージ・質問{{messageAlert}}
+      </div>
+
+      <div>
+        <select class="select_btn" [(ngModel)]="selected" (change)="changeOrderSort()">
+          <option value="">並び順</option>
+          <option *ngFor="let item of orderMenu" [value]="item.id" [selected]="item.id === selected">{{item.value}}
+          </option>
+        </select>
+      </div>
+    </div>
+
+
+    <div class="service_contents">
+
+      <div *ngIf="detailList.length > 0; ElseContents" class="table_area">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>{{HEAD.readDiv}}</th>
+              <th>{{HEAD.msgPage}}</th>
+              <th>{{HEAD.adlessMsg}}</th>
+              <th>{{HEAD.messageDate}}</th>
+          </thead>
+        </table>
+        <div class="table2">
+          <table class="table">
+            <tbody>
+              <tr *ngFor="let item of detailList | slice: begin: begin+maxLength">
+                <td>{{detailList.length}}</td>
+                <td>{{item.dispRead}}</td>
+                <td>
+                  <div class="item-title" (click)="contentsDetail(item)">{{item.serviceTitle}}</div>
+                </td>
+                <td>{{item.message}}</td>
+                <td>{{item.messageDate}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+      <ng-component #ElseContents>
+        <div>
+          お知らせはありません。
+        </div>
+      </ng-component>
+    </div>
+
+    <div *ngIf="detailList.length > 0;" class="service_index">
+      <div class="buttom_area">
+        <div *ngIf="minPageDisp" class="buttom-base" (click)="onContentsForward()">前へ</div>
+
+        <ng-container *ngFor="let page of pageIndex">
+          <div [class.buttom-base]="page.index!=currentIndex" [class.index]="page.index==currentIndex"
+            (click)="onContentsIndex(page.index)">{{page.page}}</div>
+        </ng-container>
+
+        <div *ngIf="maxPageDisp" class="buttom-base" (click)="onContentsNext()">次へ</div>
+
+      </div>
+    </div>
+
+  </ng-template>
+
+</div>

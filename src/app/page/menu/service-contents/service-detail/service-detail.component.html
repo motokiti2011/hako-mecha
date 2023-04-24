@@ -1,0 +1,117 @@
+<div class="main-content">
+  <div *ngIf="loading; else elseContent" class="loading">
+    <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
+  </div>
+  <ng-template #elseContent>
+    <div class="sid_menu">
+      <div class="container">
+        <div *ngIf="user">
+          <div class="row button_item">
+            <button type="button" class="btn btn-outline-primary" (click)="onTransaction()">取引する</button>
+          </div>
+
+          <div class="row button_item">
+            <button type="button" class="btn btn-outline-primary" (click)="onFavorite()">お気に入りに追加</button>
+          </div>
+        </div>
+
+        <div class="row button_item">
+          <button type="button" class="btn btn-outline-primary" (click)="goBack()">一覧に戻る</button>
+        </div>
+
+        <div class="row button_item">
+          <div *ngIf="user; else loginRequest">
+            <button type="button" class="btn btn-outline-primary" (click)="onTransactionStatus()">取引状況を確認する</button>
+          </div>
+          <ng-template #loginRequest>
+            <p>取引情報は<br>ログイン後に確認できます。</p>
+          </ng-template>
+
+        </div>
+
+        <div *ngIf="adminDiv">
+          <div class="row button_item">
+            <button type="button" class="btn btn-outline-primary" (click)="onServiceEdit()">サービスを編集する</button>
+          </div>
+        </div>
+
+        <div *ngIf="relistedDiv">
+          <div class="row button_item">
+            <button type="button" class="btn btn-outline-primary" (click)="onRelisted()">再出品</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="contents-area">
+        <div class="title">{{serviceTitle}}</div>
+
+        <div class="container-fluid">
+          <ngb-carousel>
+            <ng-template ngbSlide *ngFor="let image of images">
+              <div class="wrapper">
+                <img class="img" [src]="image.src" alt="Random first slide">
+              </div>
+              <div class="carousel-caption">
+                <p>{{ image.imageNo }}</p>
+              </div>
+            </ng-template>
+          </ngb-carousel>
+        </div>
+
+        <div class="explanation">
+          <p>サービス説明</p>
+          <div class="ex_value">{{dispExplanation}}</div>
+        </div>
+
+      </div>
+
+      <div class="detail_area">
+
+        <div class="service_info">
+          <div *ngIf="user; else NoneUser">
+            <p>この{{serviceTypeName}}の管理者</p>
+            <div class="service_admin" (click)="onServiceAdmin(serviceAdminInfo.id)">　{{serviceAdminInfo.name}}</div>
+          </div>
+          <ng-template #NoneUser>
+            <p>この{{serviceTypeName}}の管理者</p>
+            <div class="service_admin_none">　{{serviceAdminInfo.name}}</div>
+          </ng-template>
+
+        </div>
+
+        <div class="ymd">
+          <p>ご希望日時</p>
+          <div>　{{dispYMD}}　{{dispTime}}時</div>
+        </div>
+
+        <div class="price">
+          <p>価格</p>
+          <div *ngIf="dispPrice != 0 else noPrice">
+            <div>　{{dispPrice | currency: 'JPY': true }}</div>
+          </div>
+          <ng-template #noPrice>
+            <div>　見積中</div>
+          </ng-template>
+        </div>
+
+        <div class="service_info">
+          <p>場所</p>
+          <div>　{{dispArea}}</div>
+        </div>
+
+        <div class="service_info">
+          <p>作業場所</p>
+          <div>　{{dispWorkArea}}</div>
+        </div>
+
+        <div class="service_info">
+          <p>対象車両</p>
+          <div>　{{dispTargetVehicle}}</div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

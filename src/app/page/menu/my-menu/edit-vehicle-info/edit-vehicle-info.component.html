@@ -1,0 +1,127 @@
+<div class="main-content">
+
+  <div class="sid_menu">
+    <app-side-menu [acceseUser]="user"></app-side-menu>
+  </div>
+
+  <div class="main">
+    <div *ngIf="loading; else elseContent" class="loading">
+      <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
+    </div>
+    <ng-template #elseContent>
+      <div class="container">
+
+        <div class="row mt-4">
+          <div class="col-4"></div>
+          <h1>車両情報照会</h1>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-3">車両名</div>
+          <div class="col-1">
+            <div class="mandatory">必須</div>
+          </div>
+          <input class="form-control col-5" id="id" type="text" [formControl]="vehicleName" placeholder="車両名" />
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-3">車両番号<br>（ナンバー）</div>
+          <div class="col-1"></div>
+          <input class="form-control" id="np_area" type="text" [formControl]="vehicleNoAreaName" placeholder="北海道" />
+          <input class="form-control" id="np_class" type="text" [formControl]="vehicleNoClassificationNum"
+            placeholder="300" />
+          <input class="form-control" id="np_kana" type="text" [formControl]="vehicleNoKana" placeholder="あ" />
+          <input class="form-control" id="np_serua" type="text" [formControl]="vehicleNoSerialNum" placeholder="1234" />
+          <div class="col-1"></div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-3">車台番号<br>（フレームNo.）</div>
+          <div class="col-1"></div>
+          <input class="form-control" id="model" type="text" [formControl]="modelNo" placeholder="型式" />
+          <div class="supplement">-</div>
+          <input class="form-control" id="chassisNo" type="text" [formControl]="chassisNo" placeholder="車台番号" />
+          <div class="col-1"></div>
+        </div>
+
+
+        <div class="row mt-2">
+          <div class="col-3">指定番号<br>類別区分番号</div>
+          <div class="col-1"></div>
+          <input class="form-control" id="designated" type="text" [formControl]="designatedNo" placeholder="12345" />
+          <input class="form-control" id="designated" type="text" [formControl]="classificationNo" placeholder="0001" />
+          <div class="col-2"></div>
+        </div>
+
+
+        <div class="row mt-2">
+          <div class="col-3">カラー
+            <!-- <br>カラーNo. -->
+          </div>
+          <div class="col-1"></div>
+
+          <select id="coler_select" name="coler" [(ngModel)]="coloerSelect">
+            <option value="">カラーを選択してください。</option>
+            <option *ngFor="let coler of coloerData" [value]="coler.id" [selected]="coler.id === coloerSelect">
+              {{coler.name}}</option>
+          </select>
+          <!-- <input class="form-control" id="coler" type="text" [(ngModel)]="inputData.coler" />
+        <input class="form-control" id="coler" type="text" [(ngModel)]="inputData.colerNo" /> -->
+          <div class="col-1"></div>
+        </div>
+
+
+        <div class="row mt-2">
+          <div class="col-3">走行距離</div>
+          <div class="col-1"></div>
+          <input class="form-control col-3" id="area" type="text" [formControl]="mileage" placeholder="12345" />
+          <div class="supplement">Km</div>
+          <div class="col-1"></div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-3">初年度登録日</div>
+          <div class="col-1"></div>
+
+          <select id="date_select" name="era" [(ngModel)]="eraSelect">
+            <option value="">元号を選択してください。</option>
+            <option *ngFor="let era of eraData" [value]="era.id" [selected]="era.name === eraSelect">
+              {{era.name}}</option>
+          </select>
+
+          <input class="form-control" id="date" type="text" [formControl]="firstRegistrationYear" />
+          <div class="supplement">年</div>
+          <input class="form-control" id="date" type="text" [formControl]="firstRegistrationMonth" />
+          <div class="supplement">月</div>
+          <div class="col-1"></div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-3">車検満了日</div>
+          <div class="col-1"></div>
+          <input class="form-control" id="date" type="text" [formControl]="inspectionExpirationYear" />
+          <div class="supplement">年</div>
+          <input class="form-control" id="date" type="text" [formControl]="inspectionExpirationMonth" />
+          <div class="supplement">月</div>
+          <input class="form-control" id="date" type="text" [formControl]="inspectionExpirationDay" />
+          <div class="supplement">日</div>
+          <div class="col-1"></div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-2"></div>
+          <div class="col-6">
+            <div class="bt_area">
+              <button type="submit" class="btn btn-primary" on-click="onRegister()"
+                [disabled]="groupForm.invalid">登録</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+
+
+
+</div>

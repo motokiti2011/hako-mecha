@@ -1,0 +1,35 @@
+// 評価情報
+export interface evaluationInfo {
+  // ID
+  id: string;
+  // 伝票番号
+  slipNo: string;
+  // 評価情報ID
+  evaluationInfoId: string;
+  // メカニックID
+  mechanicId: string;
+  // 事業所ID
+  officeId: string;
+  // サービスタイトル
+  serviceTitle: string;
+  // サービスタイプ
+  serviceType: string;
+  // 日付
+  date: string;
+  // 評価者表示区分
+  evaluationDispDiv: string;
+  // 評価者ユーザーID
+  evaluationUserId: string;
+  // 評価者ユーザー名
+  evaluationUserName: string;
+  // 評価値
+  evaluation: string;
+  // 評価コメント
+  evaluationComment: string;
+  // 対評価コメント
+  versusEvaluationComment: string;
+  // 作成日時
+  created: string;
+  // 更新日時
+  updated: string;
+}

@@ -1,0 +1,111 @@
+<!-- 工場管理者設定モーダル -->
+<!-- <p>factory-admin-setting-modal works!</p> -->
+
+<div *ngIf="loading; else mainContent" class="loading">
+  <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
+</div>
+<ng-template #mainContent>
+  <div class="container">
+    <div class="row">
+      <div class="title">
+        <div id="modal_title">{{title}}</div>
+      </div>
+      <div class="col-6"></div>
+      <div class="close">
+        <button id="close" mat-button (click)="closeModal()">✖</button>
+      </div>
+    </div>
+
+
+
+    <!-- 管理者表示エリア -->
+    <div class="list_area">
+      <label>現在の管理者設定</label>
+      <table>
+        <thead>
+          <tr>
+            <th id="name">管理者名</th>
+            <th id="association">所属</th>
+            <th id="association">役割</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let adminUser of dispAdminData">
+            <td>
+              {{adminUser.mechanicName}}
+            </td>
+            <td>
+              <div *ngIf="adminUser.belongsDiv == '0' else elseContents">
+                <div>管理者</div>
+              </div>
+              <ng-template #elseContents>
+                <select class="select" [(ngModel)]="adminUser.belongsDiv" (change)="selectBelongs()">
+                  <option value="">所属を選択してください。</option>
+                  <option *ngFor="let belongs of belongsSelectData" [value]="belongs.belongsDiv"
+                    [selected]="belongs.belongsDiv === adminUser.belongsDiv">{{adminUser.belongs}}</option>
+                </select>
+              </ng-template>
+            </td>
+            <td>
+              <div *ngIf="adminUser.roleDiv == '0' else elseDispContents">
+                <div>管理者</div>
+              </div>
+              <ng-template #elseDispContents>
+                <select class="select" [(ngModel)]="adminUser.roleDiv" (change)="selectRole()">
+                  <option value="">役割を選択してください。</option>
+                  <option *ngFor="let role of roleSelectData" [value]="role.roleDiv"
+                    [selected]="role.roleDiv === adminUser.roleDiv">{{adminUser.role}}</option>
+                </select>
+              </ng-template>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="btn_area">
+        <button class="btn btn-primary" on-click="onResult()" [disabled]="resultDiv">決定する</button>
+      </div>
+
+    </div>
+
+    <!-- 所属メカニック検索・追加エリア -->
+    <div *ngIf="connectionMechanic.length > 0 else noneConnectionMc">
+      <div class="btn_area">
+        <button type="button" class="btn btn-primary" [(ngModel)]="listDispSwitchDiv"
+          on-click="onSwitchListDiv()">所属メカニックを管理者に追加する</button>
+      </div>
+      <div *ngIf="listDispSwitchDiv">
+        <label>所属メカニック情報</label>
+        <table>
+          <thead>
+            <tr>
+              <th id="name">メカニック名</th>
+              <th id="association">ステータス</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of connectionMechanic">
+              <td (click)="onSelectMechanic(data)">
+                <div class="select_point" (click)="onSelectMechanic(data)">
+                  {{data.mechanicName}}</div>
+              </td>
+              <td>
+                <button type="submit" class="btn btn-primary" on-click="onAddMechanic()">選択を追加する</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="btn_area">
+        <button class="btn btn-primary" on-click="onAddMechanic()" [(ngModel)]="listDispSwitchDiv">追加する</button>
+      </div>
+    </div>
+
+  </div>
+  <ng-template #noneConnectionMc>
+    <div>管理者以外の所属メカニックはおりません。</div>
+  </ng-template>
+
+
+  <div class="row btn_area">
+    <button type="submit" class="btn btn-primary" on-click="closeModal()">閉じる</button>
+  </div>
+</ng-template>

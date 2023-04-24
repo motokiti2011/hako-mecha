@@ -1,0 +1,20 @@
+
+<body  [ngClass]="heightDiv? 'defaltHeight':'tab_contentsHeight'">
+  <div class="content">
+    <header>
+      <app-header-menu></app-header-menu>
+    </header>
+    <main>
+      <div class="main_disp">
+        <router-outlet (activate)="onActivate()"></router-outlet>
+      </div>
+      <div class="advertisement_area">
+        <app-advertisement-sid-menu></app-advertisement-sid-menu>
+      </div>
+    </main>
+  </div>
+  <!-- <footer *ngIf="footerDiv"> -->
+  <footer>
+    <app-footer-menu></app-footer-menu>
+  </footer>
+</body>

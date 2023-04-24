@@ -1,0 +1,70 @@
+<!-- <p>reissue-passwd works!</p> -->
+
+
+<div class="confirmation">
+
+  <div class="container">
+    <div class="row">
+      <div id="title">パスワード変更</div>
+      <div class="col-1"></div>
+    </div>
+
+    <div *ngIf="!loading">
+      <div class="row">
+        <div class="col-1"></div>
+        <label>旧パスワード</label>
+      </div>
+
+      <div class="row">
+        <div class="col-1"></div>
+        <div class="col-4">
+          <input type="password" class="form-control" id="password" name="password" [(ngModel)]="oldPasswd" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1"></div>
+        <label>新パスワード</label>
+      </div>
+
+
+      <div class="row">
+        <div class="col-1"></div>
+        <div class="col-4">
+          <input type="password" class="form-control" id="password" name="password" [(ngModel)]="newPasswd"
+            (change)="onPasswd()" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1"></div>
+        <label>確認用パスワード</label>
+      </div>
+
+
+      <div class="row">
+        <div class="col-1"></div>
+        <div class="col-4">
+          <input type="password" class="form-control" id="password" name="password" [(ngModel)]="confirmationPasswd"
+            (change)="onPasswd()" />
+        </div>
+      </div>
+
+      <div class="row" *ngIf="errorMsg">
+        <div class="col-1"></div>
+        <div class="errorMsg">{{errorMsg}}</div>
+      </div>
+
+      <div class="row">
+        <div class="col-1"></div>
+        <button type="submit" class="btn btn-primary" on-click="btnAction()" [disabled]="errorMsg">送信する</button>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<div *ngIf="loading" class="loading">
+  <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
+</div>

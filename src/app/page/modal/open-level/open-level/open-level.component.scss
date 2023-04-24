@@ -1,0 +1,68 @@
+#modal-content-wrapper {
+  width: 1%;
+  height: 1%;
+  display: grid;
+  grid-template-rows: repeat(1fr, 3);
+  color: black;
+  background-color: gray;
+}
+
+#modal-hedder {
+  text-align:center;
+  margin-top: 3vh;
+  margin-left: 5vh;
+
+  #modal-title {
+    font-size: 14px;
+  }
+  
+}
+
+.mat-dialog-actions {
+  display: flex;
+  flex-direction: column;
+
+.btn-area {
+  height: 120px;
+  .btn {
+    width: 300px;
+    height: 50px;
+    margin-top: 20px;
+  }
+  .open-exp {
+    margin-top: 10px;
+    height: 25px;
+    background-color: black;
+    color: white;
+    padding: 8px 0px 0px 20px;
+  }
+  .exp {
+    margin-top: 10px;
+    height: 25px;
+    background-color: black;
+    color: white;
+    padding: 8px 0px 0px 30px;
+  }
+  .partially-exp {
+    margin-top: 10px;
+    height: 45px;
+    background-color: black;
+    color: white;
+    padding: 10px 10px 2px 55px;
+  }
+
+
+}
+
+.partially {
+  height: 100px;
+}
+
+.private {
+  margin-top: 20px;
+  
+}
+
+
+}
+

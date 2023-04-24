@@ -1,0 +1,63 @@
+<div class="main-content">
+
+  <div class="sid_menu">
+    <app-side-menu [acceseUser]="user"></app-side-menu>
+  </div>
+
+  <div class="main">
+    <div *ngIf="loading; else elseContent" class="loading">
+      <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
+    </div>
+    <ng-template #elseContent>
+      <div class="container" >
+        <div *ngIf="vehicleList.length">
+          <div class="row mt-4">
+            <div>車両情報の確認・編集する場合は車名を選択してください。</div>
+            <button type="button" class="btn btn-outline-primary" (click)="onVehcleInfo()">新規登録</button>
+          </div>
+          <div class="row mt-4 table_area">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th id="no">No</th>
+                  <th id="name">車名</th>
+                  <th id="fleam_number">ナンバー（登録番号）</th>
+                  <th id="mileage">走行距離</th>
+                  <th id="inspection_expiration">車検満了日</th>
+                  <!-- <th id="history">履歴</th> -->
+                  <th id="del">削除</th>
+              </thead>
+            </table>
+            <div class="table2">
+              <table class="table">
+                <tbody>
+                  <tr *ngFor="let vehicle of vehicleList">
+                    <td id="no">{{vehicleList.length}}</td>
+                    <td id="name">
+                      <div class="select_point" (click)="onVehicleSelect(vehicle.vehicleId)">
+                        {{vehicle.vehicleName}}</div>
+                    </td>
+                    <td id="fleam_number">{{vehicle.vehicleNo}}</td>
+                    <td id="mileage">{{vehicle.mileage | number: '1.0-0'}} Km</td>
+                    <td id="inspection_expiration">{{vehicle.inspectionExpirationDate}}</td>
+                    <!-- <td id="history"><button type="button" class="btn btn-secondary" (click)="onHistory(vehicle.vehicleId)">履歴</button></td> -->
+                    <td id="del"><button type="button" class="btn btn-secondary"
+                        (click)="onDeleteVehicle(vehicle.vehicleId)">削除</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="vehicleList.length == 0">
+          <div>現在登録されている車両はありません。</div>
+          <div><button type="button" class="btn btn-outline-primary" (click)="onVehcleInfo()">新規登録</button></div>
+        </div>
+      </div>
+    </ng-template>
+
+  </div>
+
+
+</div>

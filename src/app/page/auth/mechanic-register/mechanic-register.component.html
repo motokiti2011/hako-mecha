@@ -1,0 +1,156 @@
+<div class="main-content">
+
+  <div class="sid_menu">
+    <app-side-menu [acceseUser]="user"></app-side-menu>
+  </div>
+
+
+  <div class="main">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-4"></div>
+        <div class="col-6">
+          <div class="form_title">メカニック情報登録</div>
+        </div>
+      </div>
+
+      <div class="row row_item">
+        <div class="col-3 item">メカニック表示名</div>
+        <div class="col-1">
+          <div class="mandatory">必須</div>
+        </div>
+        <div class="col-5">
+          <input class="form-control" id="name" type="text" [formControl]="mechanicName" />
+        </div>
+        <div class="btn_area">
+          <button type="button" class="btn btn-outline-primary" (click)="onSomeUserInfo('1')">ユーザー登録を反映</button>
+        </div>
+      </div>
+
+
+      <div class="row row_item">
+        <div class="col-3 item">メールアドレス</div>
+        <div class="col-1">
+          <div class="mandatory">必須</div>
+        </div>
+        <div class="col-5">
+          <input class="form-control" id="email" type="email" [formControl]="mailAdress" />
+        </div>
+        <div class="btn_area">
+          <button type="button" class="btn btn-outline-primary" (click)="onSomeUserInfo('3')">ユーザー登録を反映</button>
+        </div>
+      </div>
+
+
+      <div class="row row_item">
+        <div class="col-3 item qualification">
+          <div>保有資格</div>
+          <div class="btn_area">
+            <button class="btn btn-outline-primary" (click)="addOptionForm()">追加</button>
+          </div>
+        </div>
+        <div class="col-1"></div>
+
+        <div class="col-5">
+          <input class="form-control" id="qualification" type="text" [(ngModel)]="qualificationOne" />
+
+          <form [formGroup]="form">
+
+            <div class="add_form">
+
+              <div formArrayName="options">
+                <div *ngFor="let option of options.controls; let i = index">
+                  <div class="add_qualification">
+                    <div [formGroupName]="i">
+                      <input class="form-control" id="qualification" type="text" formControlName="name" />
+                    </div>
+                    <button class="del_btn btn-outline-primary" (click)="removeOptionForm(i)">削除</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+
+        </div>
+
+      </div>
+
+
+
+
+      <div class="row row_item">
+        <div class="col-3 item">
+          <span class="item">得意作業</span>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-5">
+          <textarea cols="32" rows="6" id="introduction" [(ngModel)]="inputData.specialtyWork"></textarea>
+        </div>
+      </div>
+
+
+
+      <div class="row row_item">
+        <div class="col-3 item">メカニック紹介文</div>
+        <div class="col-1"></div>
+        <div class="col-5">
+          <!-- <input class="form-control" id="name" type="text" [(ngModel)]="inputData.mechanicName" /> -->
+          <textarea cols="32" rows="6" id="introduction" [(ngModel)]="inputData.introduction"></textarea>
+        </div>
+        <div class="btn_area">
+          <button type="button" class="btn btn-outline-primary" (click)="onSomeUserInfo('4')">ユーザー登録を反映</button>
+        </div>
+      </div>
+
+
+
+      <!-- 
+      <div class="row row_item">
+        <div class="col-3 item">所属工場</div>
+        <div class="col-1"></div>
+        <div class="col-5">
+
+          <div *ngIf="!inputData.officeId">
+            <div class="office_msg">現在所属工場はありません。<br> 工場を新規登録する場合はメカニック登録後に<br>すでに登録されている工場の場合右のボタンから紐づけしてください</div>
+          </div>
+          <div *ngIf="inputData.officeId">
+            <div class="office_msg">
+              {{inputData.officeName}}に所属しています。
+            </div>
+          </div>
+        </div>
+        <div class="btn_area">
+          <button type="button" class="btn btn-outline-primary" (click)="onSerchFactory()">工場を検索する</button>
+        </div>
+      </div> -->
+
+      <div class="row row_item">
+        <div class="col-3 item">プロフィール画像</div>
+        <div class="col-1"></div>
+        <div class="col-5 image_disp">
+          <button type="button" class="btn btn-outline-primary" (click)="onImageUpload()" >画像を添付する</button>
+          <div class="col-3"></div>
+          <div *ngIf="imageFile.length > 0 else imgElseContents" class="img_status">画像あり</div>
+          <ng-template #imgElseContents>
+            <div class="img_status">画像なし</div>
+          </ng-template>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+          <div class="bt_area">
+            <button type="submit" class="btn btn-primary" 
+            on-click="onResister()" [disabled]="requiredForm.invalid">登録</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

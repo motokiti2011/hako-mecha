@@ -1,0 +1,134 @@
+<!-- 関連工場モーダル -->
+<div *ngIf="loading; else mainContent" class="loading">
+  <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
+</div>
+<ng-template #mainContent>
+  <div class="container">
+    <div class="row">
+      <div class="title">
+        <div id="modal_title">{{title}}</div>
+      </div>
+      <div class="col-6"></div>
+      <div class="close">
+        <button id="close" mat-button (click)="closeModal()">✖</button>
+      </div>
+    </div>
+
+    <!-- 関連工場検索・追加エリア -->
+    <div class="row">
+      <!-- <div class="col-1"></div> -->
+    </div>
+
+    <div *ngIf="serchAreaSwitchDiv; else serchResultContents">
+      <div class="row">
+        <label>地域</label>
+        <div class="col-1"></div>
+        <select class="area_select" name="area" [(ngModel)]="areaSelect" (change)="onSelectArea()">
+          <option value="">地域を選択してください。</option>
+          <option *ngFor="let area of areaData" [value]="area.code" [selected]="area.code === areaSelect">
+            {{area.prefectures}}</option>
+        </select>
+
+        <!-- <div class="col-1"></div> -->
+        <label>市町村</label>
+        <div class="col-1"></div>
+        <select class="city_select" name="area" [(ngModel)]="citySelect" (change)="onSelectCity()">
+          <option value="">地域を選択してください。</option>
+          <option *ngFor="let city of areaCityData" [value]="city.city"
+            [selected]="city.city === citySelect">
+            {{city.city}}</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <!-- <div class="col-1"></div> -->
+      </div>
+
+      <div class="row">
+        <label class="form_label">工場名検索</label>
+        <div class="col-1"></div>
+        <input type="text" class="form-control" id="serch_form_title" [(ngModel)]="serchInfo.name" />
+      </div>
+
+      <div class="row">
+        <label class="form_label">電話番号(-なし)</label>
+        <div class="col-1"></div>
+        <input type="text" class="form-control" id="serch_form_title" [formControl]="telNo" />
+      </div>
+
+      <!-- <div class="row"> -->
+      <div class="btn_area">
+        <button type="button" class="btn btn-primary" on-click="onSerch()" [disabled]="requiredForm.invalid">検索する</button>
+      </div>
+      <!-- </div> -->
+
+    </div>
+    <ng-template #serchResultContents>
+      <div>
+        <label>検索結果</label>
+        <table>
+          <thead>
+            <tr>
+              <th id="name">工場名</th>
+              <th id="association">ステータス</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of serchResult">
+              <td (click)="onSerchOffice(data)">
+                <div class="select_point" (click)="onSerchOffice(data)">
+                  {{data.name}}</div>
+              </td>
+              <td>
+                <button type="submit" class="btn btn-primary" on-click="onSerch()">{{data.name}}</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-1"></div>
+        <button class="btn btn-primary" on-click="onSerch()" [(ngModel)]="serchAreaSwitchDiv">決定する</button>
+      </div>
+    </ng-template>
+  </div>
+
+
+  <!-- 関連工場表示エリア -->
+  <div class="list_area" *ngIf="dispData.length > 0 else ElseContents">
+    <label>登録中の車両から選ぶ場合、対象をクリックしてください。</label>
+    <table>
+      <thead>
+        <tr>
+          <th id="name">工場名</th>
+          <th id="association">関係性</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let office of dispData">
+          <td (click)="onSelectOffice(office)">
+            <div class="select_point" (click)="onSelectOffice(office)">
+              {{office.officeName}}</div>
+          </td>
+          <td>
+            <select class="select" [(ngModel)]="office.officeAssociation" (change)="selectAssociation()">
+              <option value="">所属を選択してください。</option>
+              <option *ngFor="let association of officeAssociationData" [value]="office.officeAssociation"
+                [selected]="office.officeAssociation === officeAssociationSelect">{{office.officeName}}</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="btn_area">
+      <button class="btn btn-primary" on-click="onSerch()" [(ngModel)]="serchAreaSwitchDiv">決定する</button>
+    </div>
+  </div>
+  <ng-template #ElseContents>
+    <div class="none_msg">
+      <div>関連する工場はありません</div>
+    </div>
+  </ng-template>
+
+  <div class="row btn_area">
+    <button type="submit" class="btn btn-primary" on-click="closeModal()">閉じる</button>
+  </div>
+</ng-template>

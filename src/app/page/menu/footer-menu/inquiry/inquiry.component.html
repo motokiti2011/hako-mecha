@@ -1,0 +1,38 @@
+<!-- お問い合わせ -->
+
+
+<div class="text_area">
+  <div>
+    <div class="form_title">お問い合わせ</div>
+    <table class="table">
+      <tbody>
+        <tr>
+          <td class="item">お問い合わせ者名</td>
+          <td>
+            <input class="form-control" id="name" type="text" [formControl]="name" placeholder="名前"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="item">お問い合わせメールアドレス</td>
+          <td>
+            <input class="form-control" id="email" type="text" [formControl]="mail" placeholder="メール" />
+          </td>
+        </tr>
+        <tr>
+          <td class="item">お問い合わせ内容</td>
+          <td>
+            <textarea cols="40" rows="6" id="content" [formControl]="content" placeholder="お問い合わせ内容"></textarea>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="submit_button">
+      <button type="button" class="btn btn-outline-primary" (click)="getResult()"
+        [disabled]="groupForm.invalid">送信</button>
+    </div>
+
+
+  </div>
+
+</div>

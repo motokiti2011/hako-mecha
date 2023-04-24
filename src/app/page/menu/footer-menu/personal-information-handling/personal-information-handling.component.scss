@@ -1,0 +1,20 @@
+
+.text_area {
+  display: flex;
+  justify-content: center;
+  height: 650px;
+  overflow: hidden;
+  overflow-y: auto;
+
+  h1 {
+    font-weight:bold;
+  }
+  h2 {
+    font-weight:bold;
+  }
+
+  .text_block {
+    margin: 0px 0px 0px 25px;
+  }
+}
+

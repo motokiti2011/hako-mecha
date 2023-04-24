@@ -1,0 +1,121 @@
+<div class="container">
+
+  <div class="area_serch">
+    <div class="row">
+      <div>
+        <div class="title">地域（都道府県名）</div>
+        <div>
+          <select class="select_box" name="area" [(ngModel)]="areaSelect" (change)="onArea()">
+            <option value="">未選択</option>
+            <option *ngFor="let area of areaData" [value]="area.code" [selected]="area.code === areaSelect">
+              {{area.prefectures}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row ">
+      <div *ngIf="areaCityData.length">
+        <div>
+          <div class="title">地域詳細（市町村）</div>
+          <div>
+            <select class="select_box" name="area" [(ngModel)]="citySelect" (change)="onAreaCity()">
+              <option value="">未選択</option>
+              <option *ngFor="let city of areaCityData" [value]="city.city"
+                [selected]="city.city === citySelect">
+                {{city.city}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div>
+      <div class="title">作業内容</div>
+      <div>
+        <select class="select_box" name="category" [(ngModel)]="categorySelect" (change)="onWorkContents()">
+          <option value="">未選択</option>
+          <option *ngFor="let category of categoryData" [value]="category.id"
+            [selected]="category.id === categorySelect">{{category.category}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div>
+      <div class="title">金額</div>
+
+      <div class="amount_check">
+        <input type="checkbox" name="amountcheck" [(ngModel)]="serchAmount.selected" (change)="onAmount()">
+        <label>金額を指定しない場合はこちらをチェック</label>
+      </div>
+
+      <div>
+        <label>下限</label>
+        <div class="form_amount">
+          <input class="form-control" id="amount" type="text" [formControl]="amount1" [disabled]="!serchAmount.selected"
+            (change)="onAmount()" />
+          <label>円</label>
+        </div>
+      </div>
+      <div>
+        <label>上限</label>
+        <div class="form_amount">
+          <input class="form-control" id="amount" type="text" [formControl]="amount2" [disabled]="!serchAmount.selected"
+            (change)="onAmount()" />
+          <label>円</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="btn_area">
+      <button type="button" class="btn btn-outline-primary" (click)="onSerch()">検索する</button>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div *ngIf="userCertificationDiv" class="item-contents">
+      <p>お気に入り</p>
+      <div class="listarea" *ngFor="let data of favoriteList" (click)="onContentsDetail(data.id)">
+        {{data.title}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div *ngIf="userCertificationDiv">
+      <p class="link" (click)="listMenu()">お気に入り一覧へ</p>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div>
+      <div>閲覧履歴</div>
+      <div *ngIf="displayBrowsing.length; else noBrowsing">
+        <div class="itemList">
+          <div class="item" *ngFor="let data of displayBrowsing" (click)="onContentsDetail(data.id)">
+            {{data.title}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #noBrowsing>
+      履歴はありません。
+    </ng-template>
+  </div>
+
+  <div class="row">
+    <div *ngIf="userCertificationDiv">
+      <p class="link" (click)="listMenu()">閲覧履歴一覧へ</p>
+    </div>
+  </div>
+
+</div>

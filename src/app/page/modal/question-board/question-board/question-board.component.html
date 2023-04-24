@@ -1,0 +1,48 @@
+<!-- <p class="close" closeModal()>✖</p> -->
+<div *ngIf="loading; else mainContent" class="loading">
+  <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
+</div>
+<ng-template #mainContent>
+  <div class="head">
+    <p class="title">質問一覧</p>
+    <div class="close-button" (click)="closeModal()">✖</div>
+  </div>
+
+  <div class="disp_area">
+
+    <div *ngIf="questionList.length > 0; else elseContent">
+      <div *ngFor="let list of questionList; index as i">
+        <div class="question_contents">
+          <div class="index">No.{{i +1}}</div>
+          <div class="sender">質問者：{{list.senderName}}</div>
+          <div class="question">質問内容</div>
+          <div class="sender-text">{{list.senderText}}</div>
+          <div class="anser">解答：{{list.anserText}}</div>
+          <div *ngIf="adminDiv && list.anserDiv =='0' ">
+            <div *ngIf="!anserDiv; else AnserContent">
+              <input id="anser_btn" name="text" type="button" (click)="onAnser(i)" value="回答する" />
+            </div>
+            <ng-template #AnserContent>
+              <input id="anser_btn" name="text" type="button" (click)="onStopAnser()" value="回答をやめる" />
+            </ng-template>
+          </div>
+          <div *ngIf="adminDiv && list.anserDiv =='1' ">
+            <input id="anser_btn" name="text" type="button" (click)="onAnser(i)" value="回答を編集する" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #elseContent>
+      <div class="none">{{emptyMessage}}</div>
+    </ng-template>
+  </div>
+
+  <div>
+    <div class="form">
+      <textarea class="form-question" cols="60" rows="3" [(ngModel)]="sernderMessage" (change)="sendMessageCheck()"
+        placeholder={{formPlaceholder}}></textarea>
+      <input type="button" class="submit-button" value={{buttonMessage}} (click)="onSubmit()" [disabled]="isDisabled" />
+    </div>
+
+  </div>
+</ng-template>

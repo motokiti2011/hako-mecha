@@ -1,0 +1,33 @@
+.head-display {
+  display: flex;
+  justify-content: space-between;
+  width: 1000px;
+  margin: 0 auto;
+}
+
+
+.btn-list {
+  display: flex;
+}
+
+
+.btn-border {
+  border: 2px solid #000;
+  border-radius: 0;
+  background: #fff;
+  width: 120px;
+  height: 40px;
+  margin: 1em;
+}
+
+.btn-border:hover {
+  color: #fff;
+  background: #000;
+}
+
+.menu {
+  cursor:pointer;
+  margin-top: 10px;
+  margin-left: 30px;
+  font-size: 40px;
+}

@@ -1,0 +1,172 @@
+<div class="main-content">
+
+  <div class="sid_menu">
+    <app-side-menu [acceseUser]="user"></app-side-menu>
+  </div>
+
+
+  <div class="main">
+
+    <div class="container">
+
+      <!-- <div class="row">
+          <div class="col-3">
+            <div>ユーザーID</div>
+          </div>
+            <div class="col-2"></div>
+            <div class="col-6">
+              <div>{{user.userId}}</div>
+            </div>
+            <div class="col-1"></div>
+        </div> -->
+
+      <div class="row">
+        <div class="col-3">
+          <div>ユーザー名</div>
+        </div>
+        <div class="col-2">
+          <div class="mandatory">必須</div>
+        </div>
+        <div class="col-6">
+          <input class="form-control" id="name" type="text" [formControl]="name" />
+        </div>
+        <div class="col-1"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-3">
+          <div>メールアドレス</div>
+        </div>
+        <div class="col-2">
+          <div class="mandatory">必須</div>
+        </div>
+        <div class="col-6">
+          <input class="form-control" id="email" type="text" [formControl]="mail" />
+        </div>
+        <div class="col-1"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-3">
+          <div>電話番号</div>
+        </div>
+        <div class="col-2">
+          <div class="mandatory">必須</div>
+        </div>
+        <div class="col-6">
+          <div class="tel_forms">
+            <input class="form-control" id="tel" type="tel" [formControl]="telNo1" />
+            <p>-</p>
+            <input class="form-control" id="tel2" type="tel" [formControl]="telNo2" />
+            <p>-</p>
+            <input class="form-control" id="tel3" type="tel" [formControl]="telNo3" />
+          </div>
+        </div>
+        <div class="col-1"></div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-3">
+          <div>郵便番号</div>
+        </div>
+        <div class="col-2"></div>
+        <div class="col-6">
+          <div class="post_forms">
+            <input class="form-control" id="postCode" type="tel" [formControl]="postCode1" (change)="onPostCodeSerch()"/>
+            <p class="mainus">-</p>
+            <input class="form-control" id="postCode" type="tel" [formControl]="postCode2" (change)="onPostCodeSerch()"/>
+          </div>
+        </div>
+        <div class="col-1"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-3">
+          <div>住所<br>（都道府県）</div>
+        </div>
+        <div class="col-2">
+          <div class="mandatory">必須</div>
+        </div>
+        <div class="col-6">
+          <select id="area_select" name="area" [(ngModel)]="areaSelect" (change)="selectArea()">
+            <option value="">地域を選択してください。</option>
+            <option *ngFor="let area of areaData" [value]="area.code" [selected]="area.code === areaSelect">
+              {{area.prefectures}}</option>
+          </select>
+        </div>
+        <div class="col-1"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-3">
+          <div>住所（市町村）</div>
+        </div>
+        <div class="col-2"></div>
+        <div class="col-6">
+          <!-- <input class="form-control" id="name" type="text" [(ngModel)]="inputData.areaNo2" /> -->
+          <select id="area_select" name="area" [(ngModel)]="citySelect" (change)="onSelectCity()"
+            [disabled]="inputData.areaNo1 == ''">
+            <option value="">地域を選択してください。</option>
+            <option *ngFor="let city of areaCityData" [value]="city.city"
+              [selected]="city.city === citySelect">
+              {{city.city}}</option>
+          </select>
+        </div>
+        <div class="col-1"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-3">
+          <div>住所(その他)</div>
+        </div>
+        <div class="col-2"></div>
+        <div class="col-6">
+          <input class="form-control" id="name" type="text" [(ngModel)]="inputData.adress" />
+        </div>
+        <div class="col-1"></div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-3">
+          <div>紹介文</div>
+        </div>
+        <div class="col-2"></div>
+        <div class="col-6">
+          <textarea cols="40" rows="6" id="introduction" [(ngModel)]="inputData.introduction"></textarea>
+          <!-- <input class="form-control" id="introduction" type="text" [(ngModel)]="inputData.introduction" /> -->
+        </div>
+        <div class="col-1"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-3">
+          <div>画像</div>
+        </div>
+        <div class="col-2"></div>
+        <button type="button" class="btn btn-outline-primary" (click)="onImageUpload()">画像を添付する</button>
+        <div class="col-1"></div>
+        <div *ngIf="imageFile.length > 0 else imgElseContents">画像あり</div>
+        <ng-template #imgElseContents>
+          <div>画像なし</div>
+        </ng-template>
+      </div>
+
+
+
+      <div class="row">
+        <div class="col-4"></div>
+        <div class="col-6">
+          <div class="bt_area">
+            <button type="submit" class="btn btn-primary" on-click="onResister()"
+              [disabled]="groupForm.invalid">登録する</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+</div>

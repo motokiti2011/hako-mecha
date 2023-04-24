@@ -1,0 +1,264 @@
+<div class="main">
+
+  <div *ngIf="loading; else mainContent" class="loading">
+    <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
+  </div>
+  <ng-template #mainContent>
+    <div *ngIf="fcRegisDiv; else elseContent">
+      <div>
+        <button type="submit" class="btn btn-primary btn_init_register" on-click="onInitFactory()">工場登録はこちらから</button>
+      </div>
+    </div>
+    <ng-template #elseContent>
+      <div class="contents_area">
+        <div class="container">
+          <div class="row row_item">
+            <div class="col-3 item">工場名</div>
+            <div class="col-5">
+              <input class="form-control" id="id" type="text" [formControl]="officeName" />
+            </div>
+            <div class="col-3">
+              <div>公開されます。</div>
+            </div>
+          </div>
+
+
+          <div class="row row_item">
+            <div class="col-3 item">工場電話番号</div>
+            <div class="col-5">
+              <div class="tel_forms">
+                <input class="form-control" id="tel" type="tel" [formControl]="telNo1" />
+                <p>-</p>
+                <input class="form-control" id="tel2" type="tel" [formControl]="telNo2" />
+                <p>-</p>
+                <input class="form-control" id="tel3" type="tel" [formControl]="telNo3" />
+              </div>
+            </div>
+            <div class="col-3">
+              <div>公開されます。</div>
+            </div>
+          </div>
+
+          <div class="row row_item">
+            <div class="col-3 item">工場メールアドレス</div>
+            <div class="col-5">
+              <input class="form-control" id="id" type="text" [formControl]="officeMailAdress" />
+            </div>
+            <div class="col-3">
+              <div>公開されます。</div>
+            </div>
+          </div>
+
+
+          <div class="row row_item">
+            <div class="col-3"></div>
+            <div class="col-3 item">工場所在地</div>
+            <div class="col-5"></div>
+          </div>
+
+          <div class="row row_item">
+            <div class="col-3 item">郵便番号</div>
+            <div class="col-5">
+              <div class="post_forms">
+                <input class="form-control" id="postCode" type="tel" [formControl]="postCode1"
+                  (change)="onPostCodeSerch()" />
+                <p class="mainus">-</p>
+                <input class="form-control" id="postCode" type="tel" [formControl]="postCode2"
+                  (change)="onPostCodeSerch()" />
+              </div>
+            </div>
+            <div class="col-3">
+              <div>公開されます。</div>
+            </div>
+          </div>
+
+
+          <div class="row row_item">
+            <div class="col-3 item">都道府県</div>
+            <div class="col-5">
+
+              <select id="area_select" name="area" [formControl]="officeArea1" (change)="onSelectArea1()">
+                <option value="">地域を選択してください。</option>
+                <option *ngFor="let area of areaData" [value]="area.code" [selected]="area.code === areaSelect">
+                  {{area.prefectures}}</option>
+              </select>
+
+              <!-- <input class="form-control" id="id" type="text" [(ngModel)]="dispInfo.officeArea1" /> -->
+            </div>
+            <div class="col-3">
+              <div>公開されます。</div>
+            </div>
+          </div>
+
+          <div class="row row_item">
+            <div class="col-3 item">市町村</div>
+            <div class="col-5">
+              <!-- <input class="form-control" id="id" type="text" [(ngModel)]="dispInfo.officeArea" /> -->
+              <select id="area_select" name="area" [(ngModel)]="citySelect" (change)="onSelectCity()"
+                [disabled]="areaSelect == ''">
+                <option value="">地域を選択してください。</option>
+                <option *ngFor="let city of areaCityData" [value]="city.city"
+                  [selected]="city.city === citySelect">
+                  {{city.city}}</option>
+              </select>
+            </div>
+            <div class="col-3">
+              <div>公開されます。</div>
+            </div>
+          </div>
+
+          <div class="row row_item">
+            <div class="col-3 item">その他</div>
+            <div class="col-5">
+              <input class="form-control" id="id" type="text" [(ngModel)]="dispInfo.officeAdress" />
+            </div>
+            <div class="col-3">
+              <div>公開されます。</div>
+            </div>
+          </div>
+
+          <div class="row row_item">
+            <div class="col-3 item">営業時間</div>
+            <div class="col-2 hour_area">
+              <input class="form-control" id="hours" type="text" [formControl]="businessHoursStart1" />
+              <div class="intermediate2">:</div>
+              <input class="form-control" id="hours" type="text" [formControl]="businessHoursStart2" />
+              <div class="col-1 intermediate">~</div>
+              <input class="form-control" id="hours" type="text" [formControl]="businessHoursEnd1" />
+              <div class="intermediate2">:</div>
+              <input class="form-control" id="hours" type="text" [formControl]="businessHoursEnd2" />
+            </div>
+
+          </div>
+
+          <div class="row row_item">
+            <div class="col-3 item">休憩時間</div>
+            <div class="col-2 hour_area">
+              <input class="form-control" id="hours" type="text" [formControl]="breakTimeStart1" />
+              <div class="intermediate2">:</div>
+              <input class="form-control" id="hours" type="text" [formControl]="breakTimeStart2" />
+              <div class="col-1 intermediate">~</div>
+              <input class="form-control" id="hours" type="text" [formControl]="breakTimeEnd1" />
+              <div class="intermediate2">:</div>
+              <input class="form-control" id="hours" type="text" [formControl]="breakTimeEnd2" />
+            </div>
+          </div>
+
+          <div class="row row_item">
+            <div class="col-3 work_contents">
+              <div class="item">業務内容</div>
+              <div class="btn_area">
+                <button class="btn btn-outline-primary" (click)="addOptionForm()">追加</button>
+              </div>
+            </div>
+            <div class="col-5">
+              <input class="form-control" id="workcontents" type="text" [(ngModel)]="workContentsOne" />
+
+              <form [formGroup]="form">
+                <div class="add_form">
+                  <div formArrayName="options">
+                    <div *ngFor="let option of options.controls; let i = index">
+                      <div class="add_work_contents">
+                        <div [formGroupName]="i">
+                          <input class="form-control" id="workcontents" type="text" formControlName="name" />
+                        </div>
+                        <button class="del_btn btn-outline-primary" (click)="removeOptionForm(i)">削除</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+
+
+          <div class="row row_item">
+            <div class="col-3 item">工場PR文</div>
+            <div class="col-5">
+              <textarea cols="36" rows="6" id="introduction" [(ngModel)]="dispInfo.officePR"></textarea>
+            </div>
+            <div class="col-3">
+              <div>公開されます。</div>
+            </div>
+          </div>
+
+          <div class="row row_item">
+            <div class="col-3 item">工場紹介画像</div>
+            <div class="col-5 img_area">
+              <div>
+                <button type="button" class="btn btn-outline-primary" (click)="onImageUpload()">画像を添付する</button>
+              </div>
+              <div>
+                <div *ngIf="imageFile.length > 0 else imgElseContents">画像あり</div>
+                <ng-template #imgElseContents>
+                  <div>画像なし</div>
+                </ng-template>
+              </div>
+
+            </div>
+            <div class="col-3">
+              <div>公開されます。</div>
+            </div>
+          </div>
+
+          <div class="row row_item">
+            <div class="col-1"></div>
+            <div class="col-6 item">以下は公開されない工場情報の設定となります。</div>
+            <!-- <div class="col-5"></div> -->
+          </div>
+
+
+          <div class="row row_item">
+            <div class="col-3 item">関連工場設定</div>
+            <div class="col-5">
+              <button type="button" class="btn btn-outline-primary" (click)="onButtonAction('0')">一覧はこちら</button>
+            </div>
+            <div class="col-3"></div>
+          </div>
+
+
+          <div class="row row_item">
+            <div class="col-3 item">関連メカニック設定</div>
+            <div class="col-5">
+              <button type="button" class="btn btn-outline-primary" (click)="onButtonAction('1')">一覧はこちら</button>
+            </div>
+            <div class="col-3"></div>
+          </div>
+
+
+          <div class="row row_item">
+            <div class="col-3 item">管理者設定</div>
+            <div class="col-5">
+              <button type="button" class="btn btn-outline-primary" (click)="onButtonAction('2')">一覧はこちら</button>
+            </div>
+            <div class="col-3"></div>
+          </div>
+
+          <div class="row">
+            <div class="col-2"></div>
+            <div class="col-6">
+              <div class="bt_area">
+                <button type="submit" class="btn btn-primary" on-click="onRegister()"
+                  [disabled]="groupForm.invalid">変更する</button>
+              </div>
+            </div>
+          </div>
+
+
+
+
+          <!-- <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+              <div class="bt_area">
+                <button type="submit" class="btn btn-primary" on-click="onResister()">登録</button>
+              </div>
+            </div>
+          </div> -->
+
+        </div>
+      </div>
+    </ng-template>
+  </ng-template>
+</div>

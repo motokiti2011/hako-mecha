@@ -1,0 +1,134 @@
+.main-content {
+  display: flex;
+}
+
+.sid_menu {
+  // width: 300px;
+  // width: 15%;
+  margin: 10px 0px 0px 40px;
+}
+
+
+.main {
+  // width: 850px;
+  // width: 70%;
+  height: 800px;
+  overflow: hidden;
+  overflow-y: auto;
+  margin: 5px 0px 0px 40px;
+
+  .row_item {
+    margin: 20px 0px 0px 0px;
+  }
+
+  .form_title {
+    font-size: x-large;
+    text-align: center;
+    margin: 10px 0px 20px 0px;
+  }
+
+  #name {
+    width: 280px;
+  }
+
+  
+  #email {
+    width: 280px;
+  }
+
+  #qualification {
+    margin-bottom: 15px;
+    width: 280px;
+  }
+
+  .item {
+    text-align: center;
+  }
+
+  .img_area {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .mandatory {
+    width: 50px;
+    color: #ffff;
+    background-color: #cc0000;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    font-size: 14px;
+    text-align: center;
+  }
+
+
+  .btn_area {
+    margin-left: 20px;
+    width: 150px;
+  
+    .btn {
+      font-size: small;
+    }
+  }
+  
+  .add_form {
+    display: flex;
+    // margin-left: 15px;
+  }
+  
+  .qualification {
+    // display: flex;
+    .btn_area {
+      display: flex;
+      margin: 15px 15px 15px 70px;
+      // margin-left: 15px;
+    }
+  }
+  
+  
+  
+  .add_qualification {
+    display: flex;
+    .add_btn_area {
+      display: flex;
+      margin: 15px 15px 15px 15px;
+      // margin-left: 15px;
+    }
+  
+    .del_btn {
+      font-size: small;
+      margin: 0px 0px 15px 20px;
+      width: 50px;
+    }
+  }
+  
+  
+  .mandatory {
+    width: 50px;
+    color: #ffff;
+    background-color: #cc0000;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  .office_msg {
+    font-size: small;
+  }
+  
+  
+  
+  .bt_area {
+    margin: 20px 0px 10px 20px;
+    text-align: center;
+  
+    .btn {
+      width: 200px;
+      height: 40px;
+    }
+  }
+}
+
+
+

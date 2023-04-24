@@ -1,0 +1,80 @@
+.container {
+  margin-left: 10px;  
+  .row {
+    margin: 0px 0px 20px 0px;
+
+    #amount {
+      width: 120px;
+      margin-right: 10px;
+    }
+  }
+}
+
+.title {
+  margin: 0px 0px 5px 0px;
+  font-size: large;  
+}
+
+.area_serch {
+  height: 180px;
+  margin-top: 50px;
+}
+
+.select_box {
+  width: 215px;
+  height: 40px;
+}
+
+.btn_area {
+  margin: 10px 0px 20px 40px;
+}
+
+.amount_check {
+  font-size: 11px;
+  margin: 0px 0px 10px 5px;
+  label {
+    margin: 0px 0px 10px 5px;
+  }
+
+}
+
+.form_amount {
+  display: flex;
+}
+
+.itemList {
+  text-align: center;
+  margin-top: 5px;
+  .item {
+    cursor: pointer;
+    color: blue;
+  }
+}
+
+
+.button-item {
+  margin-left: 20px;
+  margin-top: 40px;
+
+  .serch-result {
+    margin-top: 8px;
+  }
+}
+
+.history-item {
+  margin-top: 8vh;
+  margin-left: 20px;
+}
+
+.listarea {
+  display: flex;
+  cursor: pointer;
+  color: blue;
+  margin-bottom: 3px;
+}
+
+.link {
+  cursor: pointer;
+  color: blue;
+  margin-left: 20px;
+}

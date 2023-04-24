@@ -1,0 +1,18 @@
+#modal-hedder {
+  text-align: center;
+  margin-top: 10px;
+  #modal-title {
+    font-size: 15px;
+  }
+}
+
+
+.btn-area {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  .btn {
+    width: 120px;
+    height: 40px;
+  }
+}

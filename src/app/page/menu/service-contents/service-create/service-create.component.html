@@ -1,0 +1,292 @@
+<div class="main-content">
+  <aside>
+    <app-side-menu
+    [acceseUser]="userInfo"
+    ></app-side-menu>
+  </aside>
+
+  <article>
+    <div *ngIf="loading; else mainContent" class="loading">
+      <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
+    </div>
+    <ng-template #mainContent>
+
+      <h1>{{dispTitle}}</h1>
+
+      <div class="container">
+        <table >
+          <!--タイトル　-->
+          <tr>
+            <td>タイトル</td>
+            <td>
+              <div class="mandatory-area">
+                <div *ngIf="titleDiv; else elseContent">
+                  <label class="mandatory">必須</label>
+                </div>
+                <ng-template #elseContent>
+                  <div class="margin"></div>
+                </ng-template>
+              </div>
+            </td>
+            <td>
+              <input class="form-control" id="title" type="text" [formControl]="title" (change)="inputTitle()" placeholder="タイトル" />
+            </td>
+          </tr>
+
+          <tr>
+            <!-- 作業場所　-->
+            <td>作業場所</td>
+            <td>
+              <div class="mandatory-area">
+                <div *ngIf="workAreaDiv; else elseContent">
+                  <label class="mandatory">必須</label>
+                </div>
+                <ng-template #elseContent>
+                  <div class="margin"></div>
+                </ng-template>
+              </div>
+            </td>
+            <td>
+              <select class="category-select" name="category" [(ngModel)]="workAreaSelect" (change)="inputWorkArea()">
+                <option *ngFor="let work of workAreaData"
+                [value]="work.id"
+                [selected]="work.id === workAreaSelect">{{work.label}}</option>
+              </select>
+            </td>
+          </tr>
+
+          <tr>
+            <!-- 地域　-->
+            <td>地域</td>
+            <td>
+              <div class="mandatory-area">
+                <div *ngIf="areaDiv; else elseContent">
+                  <label class="mandatory">必須</label>
+                </div>
+                <ng-template #elseContent>
+                  <div class="margin"></div>
+                </ng-template>
+              </div>
+            </td>
+            <td>
+              <div class="area_select_area">
+                <div>
+                  <select class="area_select" name="area" [(ngModel)]="areaSelect" (change)="onSelectArea()">
+                    <option value="">地域を選択してください</option>
+                    <option *ngFor="let area of areaData" [value]="area.code" [selected]="area.code === areaSelect">
+                      {{area.prefectures}}</option>
+                  </select>
+                </div>
+
+                <div *ngIf="areaCityData.length">
+                  <select class="city_select" name="area" [(ngModel)]="citySelect" (change)="onSelectCity()">
+                    <option value="">地域を選択してください</option>
+                    <option *ngFor="let city of areaCityData" [value]="city.city" [selected]="city.city === citySelect">
+                      {{city.city}}</option>
+                  </select>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <!-- カテゴリー　-->
+            <td>カテゴリー</td>
+            <td>
+
+            </td>
+            <td>
+              <select class="category-select" name="category" [(ngModel)]="inputData.category" (change)="selectCategory()">
+                <option *ngFor="let category of categoryData"
+                [value]="category.id"
+                [selected]="category.id === categorySelect"
+                >{{category.category}}</option>
+              </select>
+            </td>
+          </tr>
+
+          <tr>
+            <!-- 対象車両　-->
+            <td>対象車両</td>
+            <td>
+
+            </td>
+            <td>
+              <button type="button" class="btn btn-outline-primary" (click)="onVehicleSelect()" >車両を選択する</button>
+            </td>
+            <td>
+              <div *ngIf="inputData.targetVehcle != null else VehicleElseContents">車両あり</div>
+              <ng-template #VehicleElseContents>
+                <div>車両なし</div>
+              </ng-template>
+            </td>
+          </tr>
+
+          <tr>
+            <!-- 価格　-->
+            <td>価格</td>
+            <td>
+              <div class="mandatory-area">
+                <div *ngIf="priceDiv; else elseContent">
+                  <label class="mandatory">必須</label>
+                </div>
+                <ng-template #elseContent>
+                  <div class="margin"></div>
+                </ng-template>
+              </div>
+            </td>
+            <td>
+              <div *ngIf="priceFormDiv; else elseContent">
+                <input class="form-control" id="price" type="text" [formControl]="formPrice" (change)="inputPrice()" placeholder="{{pricePlace}}" />
+              </div>
+              <div *ngIf="!priceFormDiv; else elseContent">
+                <div>見積もりを依頼します</div>
+              </div>
+
+              <!-- <div *ngIf="errorFlg;">
+                <label class="error-message">{{errormessage}}</label>
+              </div> -->
+            </td>
+
+            <td>
+              <select class="bid-method" name="bidMethod" [(ngModel)]="this.inputData.bidMethod" (change)="selectBidMethod()">
+                <option *ngFor="let item of priceSelectData"
+                [value]="item.id"
+                [selected]="item.id === selected"
+                >{{item.label}}</option>
+              </select>
+            </td>
+          </tr>
+
+
+          <tr>
+            <!-- 説明　-->
+            <td>説明</td>
+            <td>
+              <div class="mandatory-area">
+                <div *ngIf="explanationDiv; else elseContent">
+                  <label class="mandatory">必須</label>
+                </div>
+                <ng-template #elseContent>
+                  <div class="margin"></div>
+                </ng-template>
+              </div>
+            </td>
+            <td>
+              <textarea cols="40" rows="6" id="introduction" [formControl]="explanation"(change)="inputExplanation()" placeholder="説明" ></textarea>
+            </td>
+          </tr>
+
+
+          <tr>
+            <!-- 希望日　-->
+            <td>希望日</td>
+            <td>
+              <div class="mandatory_area">
+                <div *ngIf="preferredDateDiv; else elseContent">
+                  <label class="mandatory">必須</label>
+                </div>
+                <ng-template #elseContent>
+                  <div class="margin"></div>
+                </ng-template>
+              </div>
+            </td>
+            <td>
+              <div>
+                <mat-form-field class="example-form-field" >
+                  <mat-label>希望日</mat-label>
+                  <input matInput [matDatepicker]="picker"[(ngModel)]="startDate" (dateChange)="inputPreferredDate($event)" >
+                  <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+                  <mat-datepicker #picker startView="year" [startAt]="startDate" ></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </td>
+            <td>
+              <div *ngIf="errorDayFlg;">
+                <label class="error-message-day">{{errormessageDay}}</label>
+              </div>
+            </td>
+          </tr>
+
+
+          <tr>
+            <!-- 希望時間　-->
+            <td>希望時間</td>
+            <td>
+              <div class="mandatory-area">
+                <div *ngIf="timeDiv; else elseContent">
+                  <label class="mandatory">必須</label>
+                </div>
+                <ng-template #elseContent>
+                  <div class="margin"></div>
+                </ng-template>
+              </div>
+            </td>
+            <td>
+              <select class="category-select" name="category" [(ngModel)]="timeSelect" (change)="selectTime()">
+                <option value="">希望時間を選択してください</option>
+                <option *ngFor="let time of timeData"
+                [value]="time.label"
+                [selected]="time.label === timeSelect">{{time.label}}</option>
+              </select>
+            </td>
+          </tr>
+
+          <tr>
+            <!-- メッセージの公開レベル　-->
+            <td>メッセージの<br>公開レベル</td>
+            <td></td>
+            <td>
+              <select [(ngModel)]="inputData.msgLv" (change)="inputWorkArea()">
+                <option *ngFor="let msgLv of msgLvData"
+                [value]="msgLv.id"
+                [selected]="msgLv.id === msgLvSelect">{{msgLv.label}}</option>
+              </select>
+            </td>
+          </tr>
+
+          <!-- <tr>
+            管理ユーザー設定　
+            <td>管理ユーザー<br></td>
+            <td></td>
+            <td>
+              <div *ngIf="adminSelectDiv">
+                <select [(ngModel)]="adminSelect" (change)="inputWorkArea()">
+                  <option *ngFor="let admin of adminUserData"
+                  [value]="admin.id"
+                  [selected]="admin.id === adminSelect">{{admin.label}}</option>
+                </select>
+              </div>
+
+                <div>この依頼は{{adminUserName}}によって管理されます。</div>
+
+            </td>
+          </tr> -->
+
+
+          <tr>
+            <!-- 添付画像　-->
+            <td>添付画像</td>
+            <td></td>
+            <td>
+              <button type="button" class="btn btn-outline-primary" (click)="onImageUpload()" >画像を添付する</button>
+            </td>
+            <td>
+              <div *ngIf="img.length > 0 else imgElseContents">画像あり</div>
+              <ng-template #imgElseContents>
+                <div>画像なし</div>
+              </ng-template>
+            </td>
+          </tr>
+        </table>
+
+        <div class="submit_button">
+            <button type="button" class="btn btn-outline-primary" (click)="getResult()" [disabled]="requiredForm.invalid">確定</button>
+        </div>
+
+
+      </div>
+    </ng-template>
+  </article>
+
+</div>

@@ -1,0 +1,130 @@
+.main-content {
+  display: flex;
+  // justify-content: center;
+  // align-items: center;
+}
+
+.sid_menu {
+  width: 270px;
+  margin: 150px 0px 0px 50px;
+  display: flex;
+  justify-content: center;
+
+  .button_item {
+    margin-top: 30px;
+    height: 30px;
+
+    .btn {
+      width: 200px;
+    }
+  }
+
+  .btn_border {
+    width: 180px;
+    height: 40px;
+  }
+}
+
+.main {
+  width: 60%;
+  // width: 500px;
+  margin: 5px 0px 0px 40px;
+  display: flex;
+
+
+  .contents-area {
+    width: 70%;
+    margin: 10px 40px 10px 20px;
+
+
+    .title {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0px 0px 0px;
+      font-size: larger;
+    }
+
+    .container-fluid {
+      display: flex;
+      justify-content: center;
+
+      .img {
+        margin-top: 60px;
+        max-width: 500px;
+        max-height: 350px;
+      }
+    }
+
+
+    .explanation {
+      margin: 30px 0px 0px 0px;
+
+      p {
+        font-size: large;
+        display: flex;
+        justify-content: center;
+      }
+
+      .ex_value {
+        font-size: medium;
+        height: 120px;
+        overflow: hidden;
+        overflow-y: auto;
+      }
+    }
+
+  }
+
+  .detail_area {
+    // width: 200px;
+    width: 30%;
+    margin: 100px 10px 10px 20px;
+
+    .ymd {
+      p {
+        font-size: large;
+      }
+
+      margin-top: 20px;
+    }
+
+    .price {
+      p {
+        font-size: large;
+      }
+
+      margin-top: 20px;
+    }
+
+    .area {
+      margin-top: 20px;
+    }
+
+    .service_info {
+      margin: 25px 0px 10px 0px;
+
+      p {
+        font-size: large;
+      }
+
+      .service_admin {
+        cursor: pointer;
+        color: blue;
+      }
+      .service_admin_none {
+        color: black;
+      }
+
+
+    }
+
+  }
+}
+
+.loading {
+  height: 700px;
+  width: 1600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

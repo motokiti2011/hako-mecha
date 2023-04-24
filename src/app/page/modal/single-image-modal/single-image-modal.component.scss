@@ -1,0 +1,63 @@
+header {
+  height: 10%;
+  align-items: center;
+
+  #modal-title {
+    font-size: x-large;
+    align-items: center;
+  }
+}
+
+body {
+  height: 80%;
+
+  .container-md {
+    text-align: center;
+
+    .dragarea {
+      border: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: gray;
+      height: 350px;
+      width: 400px;
+    }
+
+    .mx-auto {
+      background: gray;
+    }
+
+    .img_area {
+      height: 350px;
+      width: 100%;
+      display: grid;
+      justify-items: center;
+      align-items: center;
+      color: #FFF;
+
+      img {
+        height: 350px;
+        width: 400px;
+      }
+    }
+
+    // .input_btn {
+    //   height: ;
+    // }
+
+  }
+
+
+}
+
+footer {
+  height: 10%;
+  align-items: end;
+  display: flex;
+  justify-content: flex-end;
+
+  #btn {
+    margin-left: 10px;
+  }
+}

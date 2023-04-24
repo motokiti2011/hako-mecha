@@ -1,0 +1,15 @@
+<div id="modal-hedder">
+  <div *ngIf="requestDiv else elseContent">
+    <div id="modal-title">このサービスに対して<br>メッセージ許可申請を取り消しますか？</div>
+  </div>
+  <ng-template #elseContent>
+    <div id="modal-title">このサービスに対して<br>メッセージ許可申請を行いますがよろしいですか？</div>
+  </ng-template>
+</div>
+
+<div class="btn-area">
+  <input type="button" class="btn" on-click="btnAction(true)" value="OK" >
+  <input type="button" class="btn-close" on-click="btnAction(false)" value="閉じる" >
+</div>
+
+

@@ -1,0 +1,38 @@
+<header>
+  <div id="modal-hedder">
+    <div id="modal-title">{{title}}</div>
+  </div>
+</header>
+
+<body>
+  <div class="container-md">
+
+
+    <div class="img_area">
+      <div *ngIf="img.length < 1 else elseContent">
+        <div  class="dragarea" (dragover)="dragOver($event)" (drop)="imgDrop($event)">
+          <span class="dorag">ここにドラッグ＆ドロップ</span>
+        </div>
+        <div class="input_btn">
+          <input type="file" id="dragareaInput" style="display:none" (change)="onChangeDragAreaInput($event)">
+          <label class="mt-3 btn btn-secondary" for="dragareaInput">参照</label>
+        </div>
+      </div>
+
+      <ng-template #elseContent>
+        <div>
+          <img [src]="img[0].url">
+        </div>
+        <button id="btn" type="button" class="btn btn-outline-primary" (click)="onRemove(img[0])">画像を削除</button>
+      </ng-template>
+
+    </div>
+  </div>
+
+</body>
+
+
+<footer>
+  <button id="btn" type="button" class="btn btn-outline-primary" (click)="closeModal()">閉じる</button>
+  <button id="btn" type="button" class="btn btn-outline-primary" (click)="getResult()">決定</button>
+</footer>

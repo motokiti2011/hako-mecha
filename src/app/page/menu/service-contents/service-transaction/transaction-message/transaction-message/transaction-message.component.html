@@ -1,0 +1,42 @@
+<div *ngIf="loading; else mainContent" class="loading">
+  <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
+</div>
+<ng-template #mainContent>
+  <div class="disp_area">
+    <div *ngIf="dispDiv; else elseContent">
+
+      <div *ngIf="dispMessageList.length > 0; else emptyMsg">
+
+        <div *ngFor="let list of dispMessageList; index as i">
+          <div [ngClass]="list.position? 'to-msg':'from-msg'">
+            <div class="index">No.{{i + 1}}　コメント者名：{{list.sendUserName}}</div>
+            <div class="sender-text">{{list.comment}}</div>
+          </div>
+        </div>
+      </div>
+      <ng-template #emptyMsg>
+        <div class="none">現在メッセージはありません。</div>
+      </ng-template>
+
+
+
+    </div>
+    <ng-template #elseContent>
+      <div class="none">{{privateMessage}}</div>
+    </ng-template>
+  </div>
+
+
+  <div class="form">
+    <select class="adress-select" name="adress" [(ngModel)]="adressSelect" (change)="selectAdress()">
+      <option value="">宛先を選択してください。</option>
+      <option *ngFor="let adress of adressData" [value]="adress.sendId" [selected]="adress.sendId === adressSelect">
+        {{adress.name}}</option>
+    </select>
+    <div>
+      <input class="form-question" type="text" [(ngModel)]="sernderMessage" (change)="sendMessage()"
+        placeholder="メッセージはこちらに記入してください。" />
+      <input type="button" class="submit-button" value="投稿する" (click)="onSendMessage()" [disabled]="isDisabled" />
+    </div>
+  </div>
+</ng-template>
