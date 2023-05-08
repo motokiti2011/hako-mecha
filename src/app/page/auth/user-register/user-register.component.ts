@@ -156,10 +156,6 @@ export class UserRegisterComponent implements OnInit {
     this.location.back();
   }
 
-  show() {
-    console.log(1);
-  }
-
   /**
    * 地域選択イベント
    */
@@ -174,9 +170,7 @@ export class UserRegisterComponent implements OnInit {
    */
   onSelectCity() {
     this.inputData.areaNo2 = this.citySelect;
-    // console.log(this.inputData.area2);
   }
-
 
   /**
    * 郵便番号入力時イベント
@@ -188,17 +182,6 @@ export class UserRegisterComponent implements OnInit {
     // 郵便番号1,2の入力が行われた場合に郵便番号から地域検索を行う
     if (post1 != '' && post2 != '') {
       this.getPostCode(post);
-      // if (postCodeConectData) {
-      //   // 地域1(都道府県名)
-      //   this.areaSelect = postCodeConectData.prefecturesCode;
-      //   this.inputData.areaNo1 = postCodeConectData.prefecturesCode;
-      //   // 地域2(市町村)
-      //   this.inputData.areaNo2 = postCodeConectData.municipality;
-      //   this.getCityInfo();
-      //   this.citySelect = postCodeConectData.municipality;
-      //   // 地域3(その他)
-      //   this.inputData.adress = postCodeConectData.townArea;
-      // }
     }
   }
 
@@ -241,6 +224,7 @@ export class UserRegisterComponent implements OnInit {
    * 登録ボタン押下時イベント
    */
   onResister() {
+    this.overlayRef.attach(new ComponentPortal(MatProgressSpinner));
     if (this.imageFile != null && this.imageFile.length > 0) {
       this.setImageUrl();
     } else {
@@ -291,7 +275,7 @@ export class UserRegisterComponent implements OnInit {
         if (result == undefined) {
           this.openMsgDialog(messageDialogMsg.AnResister, false);
         } else {
-          this.router.navigate(["/main_menu"])
+          this.openMsgDialog(messageDialogMsg.Resister, true);
         }
       });
     }
@@ -307,8 +291,6 @@ export class UserRegisterComponent implements OnInit {
     if (areaa) {
       this.apiService.serchArea(areaa.prefectures)
         .subscribe(data => {
-          // console.log(data);
-          // console.log(data.response);
           console.log(data.response.location);
           if (data.response.location.length > 0) {
             this.areaCityData = data.response.location;
@@ -370,7 +352,8 @@ export class UserRegisterComponent implements OnInit {
         // ローディング解除
         this.overlayRef.detach();
         this.apiAuth.authenticationExpired();
-        this.location.back();
+        // this.location.back();
+        this.router.navigate(["/main_menu"])
       }
       console.log(result);
       // ローディング解除

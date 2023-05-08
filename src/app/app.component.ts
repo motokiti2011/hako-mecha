@@ -13,6 +13,9 @@ export class AppComponent implements OnInit {
 
   heightDiv = false;
 
+  /** 枠は準備するが非表示 */
+  advertiementDiv = false;
+
   /** 子コンポーネントを読み込む */
   @ViewChild(HeaderMenuComponent) head!: HeaderMenuComponent;
 
