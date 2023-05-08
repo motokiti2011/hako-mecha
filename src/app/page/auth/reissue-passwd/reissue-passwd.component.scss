@@ -1,76 +1,40 @@
-#modal-content-wrapper {
-  width: 1%;
-  height: 1%;
-  display: grid;
-  grid-template-rows: repeat(1fr, 3);
-  color: black;
-  background-color: gray;
+.container {
+  margin-top: 80px;
+
+  .row {
+    margin-top: 10px;
+  }
+
+  #name {
+    height: 30px;
+    margin-bottom: 20px;
+  }
+
+  #mail {
+    height: 30px;
+    margin-bottom: 10;
+  }
+
+  .btn {
+    width: 350px;
+    margin-top: 30px;
+  }
+
+
+  .name {
+    cursor: pointer;
+    margin-top: 20px;
+    margin-left: 5vh;
+    color: blue;
+  }
+
+  .link {
+    cursor: pointer;
+    color: blue;
+    margin-top: 20px;
+  }
+
 }
-
-#modal-hedder {
-  display: flex;
-  margin-left: 5vh;
-}
-
-#modal-title {
-  font-size: 22px;
-  margin: 20px 0px 10px 5px;
-
-}
-
-#modal-footer {
-  justify-self: right;
-  align-self: center;
-}
-
-#close {
-  margin-left: 40px;
-}
-
-
-#name {
-  width: 75%;
-  height: 30px;
-  margin-bottom: 20px;
-}
-
-#mail {
-  width: 75%;
-  height: 30px;
-  margin-bottom: 10;
-}
-
-.btn {
-  width: 75%;
-  margin-top: 30px;
-}
-
-
-.form {
-  margin-top: 10%;
-  margin-left: 5vh;
-}
-
-.checkbox {
-  margin-left: 5vh;
-  margin-top: 10px;
-}
-
-.mat-dialog-actions {
-  margin-left: 15vh;
-}
-
-
-.name {
-  cursor:pointer;
-  margin-top: 20px;
-  margin-left: 5vh;
-  color: blue;
-}
-
-// .form-control {
-//   width: 300px;
-// }
 
 .loading {
   height: 700px;
@@ -78,4 +42,3 @@
   justify-content: center;
   margin-top: 80px;
 }
-

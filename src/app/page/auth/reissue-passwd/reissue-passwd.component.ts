@@ -76,7 +76,7 @@ export class ReissuePasswdComponent implements OnInit {
 
   // }
 
-  onTest() {
+  onDispSwitch() {
     if(this.confirmationDiv) {
       this.confirmationDiv = false;
     } else {

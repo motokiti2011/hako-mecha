@@ -12,7 +12,7 @@ aside {
 }
 
 article {
-  width: 60%;
+  width: 80%;
   margin-left: 30px;
   margin-top: 30px;
 }
@@ -64,6 +64,7 @@ article {
 
 .serch-area {
   display: flex;
+
   .serch-form {
     width: 400px;
     height: 35px;
@@ -72,11 +73,11 @@ article {
     padding: 0.5em;
     margin: 15px 20px 20px 30px;
   }
+
   .button-serch {
     margin: 15px 10px 10px 10px;
   }
 }
-
 
 .other_area {
 
@@ -120,6 +121,7 @@ article {
       color: #ccc;
       display: flex;
     }
+
     .favori {
       font-size: small;
       color: #000;
@@ -166,6 +168,15 @@ article {
     }
   }
 }
+
+
+.empty_msg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 600px;
+}
+
 
 .loading {
   height: 700px;

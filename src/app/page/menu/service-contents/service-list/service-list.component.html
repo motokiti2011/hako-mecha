@@ -13,54 +13,66 @@
     <ng-template #elseContent>
       <div class="head-disp">
         <p>{{displayContentsList.length}}件がヒット</p>
-        <p class="margin">{{begin+1}}～{{begin+maxLength}}件を表示</p>
-        <select class="displayList" [(ngModel)]="selected" (change)="onDisplayList()">
-          <option *ngFor="let item of displayData" [value]="item.value" [disabled]="item.disabled"
-            [selected]="item.value === selected">{{item.label}}</option>
-        </select>
+        <ng-component *ngIf="displayContentsList.length > 0">
+          <p class="margin">{{begin+1}}～{{begin+maxLength}}件を表示</p>
+          <select class="displayList" [(ngModel)]="selected" (change)="onDisplayList()">
+            <option *ngFor="let item of displayData" [value]="item.value" [disabled]="item.disabled"
+              [selected]="item.value === selected">{{item.label}}</option>
+          </select>
+        </ng-component>
       </div>
 
-      <div class="serch-area">
-        <input id="serch" name="serch" class="serch-form" type="serch" [(ngModel)]="serchKeyWord"
-          placeholder="キーワードを入力してください。" />
-        <div class="button-serch">
-          <input type="button" class="btn-serch" on-click="onSerch()" value={{serchBtnValue}}>
+      <div *ngIf="displayContentsList.length > 0; else EmptyContent">
+
+
+        <div class="serch-area">
+          <input id="serch" name="serch" class="serch-form" type="serch" [(ngModel)]="serchKeyWord"
+            placeholder="キーワードを入力してください。" />
+          <div class="button-serch">
+            <input type="button" class="btn-serch" on-click="onSerch()" value={{serchBtnValue}}>
+          </div>
         </div>
-      </div>
 
 
+        <div class="other_area">
+          <!-- 商品表示エリア -->
+          <div class="item_area">
 
-      <div class="other_area">
-        <!-- 商品表示エリア -->
-        <div class="item_area">
+            <div *ngFor="let contents of displayContentsList | slice: begin: begin+maxLength">
 
-          <div *ngFor="let contents of displayContentsList | slice: begin: begin+maxLength">
-
-            <img [src]="contents.thumbnailUrl" alt="サムネイル" (click)="onContentsSelect(contents)">
-            <div class="title" (click)="onContentsSelect(contents)">{{contents.title}}</div>
-            <div *ngIf="userCertificationDiv">
-              <div [ngClass]="contents.favoriteFlg? 'favorite':'anfavorite'" (click)="onContentFavorite(contents)">
-                <p class="favori">お気に入りはこちら</p>　★
+              <img [src]="contents.thumbnailUrl" alt="サムネイル" (click)="onContentsSelect(contents)">
+              <div class="title" (click)="onContentsSelect(contents)">{{contents.title}}</div>
+              <div *ngIf="userCertificationDiv">
+                <div [ngClass]="contents.favoriteFlg? 'favorite':'anfavorite'" (click)="onContentFavorite(contents)">
+                  <p class="favori">お気に入りはこちら</p>　★
+                </div>
               </div>
+            </div>
+
+          </div>
+
+          <div class="service-index">
+            <div class="buttom-area">
+              <div class="buttom-base" (click)="onContentsForward()">前へ</div>
+
+              <ng-container *ngFor="let page of pageIndex">
+                <div [class.buttom-base]="page.index!=currentIndex" [class.index]="page.index==currentIndex"
+                  (click)="onContentsIndex(page.index)">{{page.page}}</div>
+              </ng-container>
+
+              <div class="buttom-base" (click)="onContentsNext()">次へ</div>
             </div>
           </div>
 
         </div>
 
-        <div class="service-index">
-          <div class="buttom-area">
-            <div class="buttom-base" (click)="onContentsForward()">前へ</div>
-
-            <ng-container *ngFor="let page of pageIndex">
-              <div [class.buttom-base]="page.index!=currentIndex" [class.index]="page.index==currentIndex"
-                (click)="onContentsIndex(page.index)">{{page.page}}</div>
-            </ng-container>
-
-            <div class="buttom-base" (click)="onContentsNext()">次へ</div>
-          </div>
-        </div>
-
       </div>
+      <ng-template #EmptyContent>
+        <div class="empty_msg">
+          対象のサービスが見つかりませんでした。
+        </div>
+      </ng-template>
+
     </ng-template>
   </article>
 

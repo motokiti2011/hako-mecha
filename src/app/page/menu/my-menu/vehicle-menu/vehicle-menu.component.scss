@@ -13,8 +13,6 @@
   // width: 800px;
   margin: 40px 0px 0px 40px;
 
-
-
   .table_area {
     background-color: #fff;
     border: #000;
@@ -91,6 +89,18 @@
       width: 150px;
     }
   }
+
+  .empty_disp {
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .btn {
+      margin-left: 10px;
+    }
+
+  }
+
 }
 
 .loading {

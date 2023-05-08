@@ -9,7 +9,7 @@
       <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
     </div>
     <ng-template #elseContent>
-      <div class="container" >
+      <div class="container">
         <div *ngIf="vehicleList.length">
           <div class="row mt-4">
             <div>車両情報の確認・編集する場合は車名を選択してください。</div>
@@ -51,8 +51,10 @@
         </div>
 
         <div *ngIf="vehicleList.length == 0">
-          <div>現在登録されている車両はありません。</div>
-          <div><button type="button" class="btn btn-outline-primary" (click)="onVehcleInfo()">新規登録</button></div>
+          <div class="empty_disp">
+            <div>現在登録されている車両はありません。</div>
+            <button type="button" class="btn btn-outline-primary" (click)="onVehcleInfo()">新規登録</button>
+          </div>
         </div>
       </div>
     </ng-template>
