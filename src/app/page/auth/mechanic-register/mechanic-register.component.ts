@@ -139,6 +139,7 @@ export class MechanicRegisterComponent implements OnInit {
           // ユーザー情報が取得できない場合
           this.authExpiredDiv = true;
           this.openMsgDialog(messageDialogMsg.LoginRequest, true);
+          return;
         }
         console.log(user);
         this.inputData.adminUserId = user[0].userId;

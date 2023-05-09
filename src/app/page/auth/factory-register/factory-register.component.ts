@@ -159,6 +159,8 @@ export class FactoryRegisterComponent implements OnInit {
       .position().global().centerHorizontally().centerVertically()
   });
 
+  authExpiredDiv = false;
+
   constructor(
     private builder: FormBuilder,
     private apiService: ApiSerchService,
@@ -179,6 +181,12 @@ export class FactoryRegisterComponent implements OnInit {
     const authUser = this.cognito.initAuthenticated();
     if (authUser !== null) {
       this.apiService.getUser(authUser).subscribe(user => {
+        if(!user) {
+          // ユーザー情報が取得できない場合
+          this.authExpiredDiv = true;
+          this.openMsgDialog(messageDialogMsg.LoginRequest, true);
+          return;
+        }
         console.log(user);
         this.user = user[0];
         this.initForm();
@@ -510,10 +518,11 @@ export class FactoryRegisterComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (locationDiv) {
+        if(this.authExpiredDiv) {
+          this.apiAuth.authenticationExpired();
+        }
         this.location.back();
-        // this.router.navigate(["/main_menu"]);
       }
-      console.log(result);
       // ローディング解除
       this.overlayRef.detach();
       return;

@@ -39,6 +39,7 @@ export class UserRegisterComponent implements OnInit {
   // ユーザー情報
   user: user = initUserInfo;
 
+  authExpiredDiv = false;
 
   /** フォームコントロール */
   name = new FormControl('', [
@@ -133,6 +134,8 @@ export class UserRegisterComponent implements OnInit {
     this.overlayRef.attach(new ComponentPortal(MatProgressSpinner));
     const user = this.cognito.initAuthenticated();
     if (user == null) {
+      // ユーザー情報が取得できない場合
+      this.authExpiredDiv = true;
       this.openMsgDialog(messageDialogMsg.LoginRequest, true);
       // ローディング解除
       this.overlayRef.detach();
@@ -351,8 +354,9 @@ export class UserRegisterComponent implements OnInit {
       if (locationDiv) {
         // ローディング解除
         this.overlayRef.detach();
-        this.apiAuth.authenticationExpired();
-        // this.location.back();
+        if(this.authExpiredDiv) {
+          this.apiAuth.authenticationExpired();
+        }
         this.router.navigate(["/main_menu"])
       }
       console.log(result);
