@@ -24,6 +24,8 @@ export class HeaderMenuComponent implements OnInit {
 
   temporaryUserDiv = false;
 
+  openMsg = false;
+
   login = {
     userName: '',
     passwd: '',
@@ -196,9 +198,6 @@ export class HeaderMenuComponent implements OnInit {
     console.log("マイページ")
     this.router.navigate(["my-menu-component"]);
   }
-
-
-
 
 
 /**

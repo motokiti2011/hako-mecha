@@ -4,7 +4,7 @@
     <app-side-menu [acceseUser]="user"></app-side-menu>
   </div>
 
-
+  <div *ngIf="!loading">
   <div class="main">
 
     <div class="container">
@@ -150,7 +150,9 @@
       </div>
 
     </div>
-
+  </div>
+  <div *ngIf="loading" class="loading">
+    <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
   </div>
 
 </div>

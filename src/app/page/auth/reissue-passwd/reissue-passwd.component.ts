@@ -112,7 +112,7 @@ export class ReissuePasswdComponent implements OnInit {
   async confirmPassword(verificationCode: string, newPassword: string): Promise<any> {
     try {
       await this.cognito.confirmPassword(this.userName, verificationCode, newPassword);
-      this.openMsgDialog(messageDialogMsg.SendForgotPassword, false);
+      this.openMsgDialog(messageDialogMsg.Changed, true);
       this.confirmationDiv = true;
     } catch (e) {
       if (e === null) {

@@ -6,6 +6,9 @@ import { messageDialogData } from 'src/app/entity/messageDialogData';
 import { messageDialogMsg } from 'src/app/entity/msg';
 import { MatDialog } from '@angular/material/dialog';
 import { CognitoService } from '../cognito.service';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { Overlay } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'app-sign-up',
@@ -34,11 +37,18 @@ export class SignUpComponent implements OnInit {
     area: ''
   }
 
+  overlayRef = this.overlay.create({
+    hasBackdrop: true,
+    positionStrategy: this.overlay
+      .position().global().centerHorizontally().centerVertically()
+  });
+
   constructor(
     private location: Location,
     private cognito: CognitoService,
     private router: Router,
     public modal: MatDialog,
+    private overlay: Overlay,
   ) { }
 
   ngOnInit(): void {
@@ -48,7 +58,7 @@ export class SignUpComponent implements OnInit {
    * 戻るボタン押下イベント
    * @return void
    */
-   goBack():void {
+  goBack(): void {
     this.location.back();
   }
 
@@ -63,6 +73,9 @@ export class SignUpComponent implements OnInit {
    * @param userId
    */
   onSignup(email: string, password: string, userId: string) {
+    // ローディング開始
+    this.overlayRef.attach(new ComponentPortal(MatProgressSpinner));
+    this.loading = true;
     this.cognito.signUp(userId, password, email)
       .then((result) => {
         this.confirmationDiv = true;
@@ -71,6 +84,8 @@ export class SignUpComponent implements OnInit {
         this.userInfo.userName = '';
         this.userInfo.mailAdress = email;
         console.log(result);
+        this.overlayRef.detach();
+        this.loading = false;
       }).catch((err) => {
         // this.dispMsg = errorMsg[0].value;
         // if (err == errorMsg[1].message) {
@@ -86,17 +101,32 @@ export class SignUpComponent implements OnInit {
    * @param confirmationCode
    */
   onConfirmation(confirmationEmail: string, confirmationCode: string) {
-    console.log(confirmationEmail);
+    // ローディング開始
+    this.overlayRef.attach(new ComponentPortal(MatProgressSpinner));
+    this.loading = true;
     this.cognito.confirmation(confirmationEmail, confirmationCode)
       .then((result) => {
         this.dispMsg = '';
         console.log(result);
+        this.overlayRef.detach();
+        this.loading = false;
         if (result) {
           this.openMsgDialog(messageDialogMsg.Resister, true);
         } else {
           this.openMsgDialog(messageDialogMsg.AnResister, false);
         }
       });
+  }
+
+  /**
+   * 確認コード入力画面に切り替える場合
+   */
+  onConfirmSwitch() {
+    if (this.confirmationDiv) {
+      this.confirmationDiv = false;
+    } else {
+      this.confirmationDiv = true;
+    }
   }
 
 
@@ -106,7 +136,7 @@ export class SignUpComponent implements OnInit {
    * @param msg
    * @param locationDiv
    */
-  private openMsgDialog(msg:string, locationDiv: boolean) {
+  private openMsgDialog(msg: string, locationDiv: boolean) {
     // ダイアログ表示（ログインしてください）し前画面へ戻る
     const dialogData: messageDialogData = {
       massage: msg,
@@ -120,15 +150,12 @@ export class SignUpComponent implements OnInit {
       data: dialogData
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(locationDiv) {
+      if (locationDiv) {
         this.router.navigate(["/main_menu"]);
       }
       console.log(result);
       return;
     });
-}
-
-
-
+  }
 
 }

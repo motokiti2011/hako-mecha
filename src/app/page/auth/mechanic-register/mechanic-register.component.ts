@@ -22,6 +22,9 @@ import { MessageDialogComponent } from 'src/app/page/modal/message-dialog/messag
 import { messageDialogData } from 'src/app/entity/messageDialogData';
 import { messageDialogMsg } from 'src/app/entity/msg';
 import { ApiAuthService } from '../../service/api-auth.service';
+import { Overlay } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-mechanic-register',
@@ -102,6 +105,16 @@ export class MechanicRegisterComponent implements OnInit {
 
   public form!: FormGroup;  // テンプレートで使用するフォームを宣言
 
+  loading = false;
+
+  overlayRef = this.overlay.create({
+    hasBackdrop: true,
+    positionStrategy: this.overlay
+      .position().global().centerHorizontally().centerVertically()
+  });
+
+  authExpiredDiv = false;
+
   constructor(
     private location: Location,
     private apiService: ApiSerchService,
@@ -112,18 +125,28 @@ export class MechanicRegisterComponent implements OnInit {
     private s3: UploadService,
     public modal: MatDialog,
     private apiAuth: ApiAuthService,
+    private overlay: Overlay,
   ) { }
 
   ngOnInit(): void {
+    // ローディング開始
+    this.overlayRef.attach(new ComponentPortal(MatProgressSpinner));
+    this.loading = true;
     const authUser = this.cognito.initAuthenticated();
     if (authUser !== null) {
       this.apiService.getUser(authUser).subscribe(user => {
+        if(!user) {
+          // ユーザー情報が取得できない場合
+          this.authExpiredDiv = true;
+          this.openMsgDialog(messageDialogMsg.LoginRequest, true);
+        }
         console.log(user);
         this.inputData.adminUserId = user[0].userId;
         this.user = user[0];
         this.initForm();
       });
     } else {
+      this.authExpiredDiv = true;
       this.openMsgDialog(messageDialogMsg.LoginRequest, true);
     }
   }
@@ -187,6 +210,8 @@ export class MechanicRegisterComponent implements OnInit {
       name: [''],
       options: this.builder.array([])
     });
+    this.loading = false;
+    this.overlayRef.detach();
   }
 
   // 追加ボタンがおされたときに追加したいフォームを定義しています。returnでFormGroupを返しています。
@@ -231,7 +256,7 @@ export class MechanicRegisterComponent implements OnInit {
         // 返却値　無理に閉じたらundifind
         console.log('画像モーダル結果:' + result)
         if (result != undefined && result != null) {
-          if(result.length != 0) {
+          if (result.length != 0) {
             this.imageFile = result;
           }
         }
@@ -264,13 +289,16 @@ export class MechanicRegisterComponent implements OnInit {
    * メカニック登録
    */
   private mechanicResister() {
+    // ローディング開始
+    this.overlayRef.attach(new ComponentPortal(MatProgressSpinner));
+    this.loading = true;
     this.setQualification();
     this.inputCheck();
-    console.log(this.inputData);
-    console.log(this.mechanicInfo);
     this.apiUniqueService.postMechanic(this.mechanicInfo, this.officeDiv).subscribe(result => {
       if (result != 200) {
         this.openMsgDialog(messageDialogMsg.AnResister, false)
+        this.loading = false;
+        this.overlayRef.detach();
       } else {
         this.openMsgDialog(messageDialogMsg.Resister, true)
       }
@@ -333,27 +361,30 @@ export class MechanicRegisterComponent implements OnInit {
    * @param locationDiv
    */
   private openMsgDialog(msg: string, locationDiv: boolean) {
-      // ダイアログ表示（ログインしてください）し前画面へ戻る
-      const dialogData: messageDialogData = {
-        massage: msg,
-        closeFlg: false,
-        closeTime: 0,
-        btnDispDiv: true
-      }
-      const dialogRef = this.modal.open(MessageDialogComponent, {
-        width: '300px',
-        height: '150px',
-        data: dialogData
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        console.log(result);
-        if(locationDiv) {
-          // this.location.back();
+    // ダイアログ表示（ログインしてください）し前画面へ戻る
+    const dialogData: messageDialogData = {
+      massage: msg,
+      closeFlg: false,
+      closeTime: 0,
+      btnDispDiv: true
+    }
+    const dialogRef = this.modal.open(MessageDialogComponent, {
+      width: '300px',
+      height: '150px',
+      data: dialogData
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if (locationDiv) {
+        this.loading = false;
+        this.overlayRef.detach();
+        if(this.authExpiredDiv) {
           this.apiAuth.authenticationExpired();
-          this.router.navigate(["/main_menu"]);
         }
-        return;
-      });
+        this.router.navigate(["/main_menu"]);
+      }
+      return;
+    });
   }
 
 

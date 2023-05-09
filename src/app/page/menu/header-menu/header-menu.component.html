@@ -1,34 +1,42 @@
 <div class="head-display">
-  <div class="menu" (click)="hakomecha()">Hako-mecha</div>
+  <div class="menu" (click)="hakomecha()">HAKO-MECHA</div>
 
   <div class="btn-list">
-
     <div *ngIf="!authUserDiv; else elseContent">
-    <!-- ログイン前 -->
-
-      <input type="button" class="btn-border" on-click="onSinup()" value="新規登録">
-
-      <input type="button" class="btn-border" on-click="onLogin()" value="ログイン" >
-
+      <!-- ログイン前 -->
+      <table>
+        <tr>
+          <td>
+            <input type="button" class="btn-border" on-click="onSinup()" value="新規登録">
+          </td>
+          <td>
+            <input type="button" class="btn-border" on-click="onLogin()" value="ログイン">
+          </td>
+      </table>
     </div>
 
-    <ng-template #elseContent>
     <!-- ログイン後 -->
-      <div *ngIf="temporaryUserDiv; else elseContent">
-        <input type="button" class="btn-border" on-click="onUserResister()" value="ユーザー登録{{loginUser.userName}}" >
-        <p>ユーザー登録が未完了です。登録をしてください。</p>
-      </div>
-      <ng-template #elseContent>
-        <input type="button" class="btn-border" on-click="onMypage()" value="マイページ" >
-      </ng-template>
+    <ng-template #elseContent>
 
-      <input type="button" class="btn-border" on-click="onLogout()" value="ログアウト">
-
+      <table>
+        <tr>
+          <td *ngIf="temporaryUserDiv">
+            <input type="button" class="btn-border" on-click="onUserResister()" value="ユーザー登録{{loginUser.userName}}">
+          </td>
+          <td *ngIf="!temporaryUserDiv">
+            <input type="button" class="btn-border" on-click="onMypage()" value="マイページ">
+          </td>
+          <td>
+            <input type="button" class="btn-border" on-click="onLogout()" value="ログアウト">
+          </td>
+          <td>
+            <input type="button" class="btn-border" on-click="onClickHelp()" value="ヘルプ">
+          </td>
+      </table>
     </ng-template>
-
-
-    <input type="button" class="btn-border" on-click="onClickHelp()" value="ヘルプ">
-
   </div>
 
+</div>
+<div *ngIf="temporaryUserDiv" class="head_msg">
+  <p>ユーザー登録が完了していません。ユーザー登録ボタンを押してください。</p>
 </div>

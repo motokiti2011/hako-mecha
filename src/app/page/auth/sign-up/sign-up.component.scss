@@ -11,8 +11,25 @@
   margin: 0px 0px 20px -5px;
 }
 
+.conf_infomsg {
+  margin: 0px 0px 20px 185px;
+}
+
 .btn {
   margin: 10px 0px 10px -5px;
   width: 103%;
   text-align: center
+}
+
+.link {
+  cursor: pointer;
+  color: blue;
+  margin-top: 20px;
+}
+
+.loading {
+  height: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

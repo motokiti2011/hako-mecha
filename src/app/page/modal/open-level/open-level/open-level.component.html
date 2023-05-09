@@ -1,35 +1,30 @@
-
 <div id="modal-hedder">
   <div id="modal-title">{{title}}</div>
 </div>
 
 <div class="mat-dialog-actions">
   <div class="btn-area">
-    <input type="button" class="btn" on-click="nextAction(1)" value="全体に公開" 
-    (mouseenter)="onOpenenter()"
-    (mouseleave)="onOpenleave()" >
+    <input type="button" class="btn" on-click="nextAction(1)" value="全体に公開" (mouseenter)="onOpenenter()"
+      (mouseleave)="onOpenleave()">
     <div *ngIf="openFlg">
       <div class="open-exp">誰もが無条件にメッセージ可能となります。</div>
     </div>
   </div>
-  
+
   <div class="btn-area">
-    <input type="button" class="btn" on-click="nextAction(2)" value="一部に公開"
-      (mouseenter)="onPartiallyenter()"
-      (mouseleave)="onPartiallyleave()" >
+    <input type="button" class="btn" on-click="nextAction(2)" value="一部に公開" (mouseenter)="onPartiallyenter()"
+      (mouseleave)="onPartiallyleave()">
     <div *ngIf="partiallyFlg">
       <div class="partially-exp">許可済ユーザー、購入者のみ<br>メッセージ可能となります。</div>
     </div>
   </div>
 
   <div class="btn-area">
-    <input type="button" class="btn" on-click="nextAction(3)" value="非公開"
-      (mouseenter)="onPrivateenter()"
-      (mouseleave)="onprivateleave()" >
+    <input type="button" class="btn" on-click="nextAction(3)" value="非公開" (mouseenter)="onPrivateenter()"
+      (mouseleave)="onprivateleave()">
     <div *ngIf="privateFlg">
       <div class="exp">購入者のみメッセージ可能となります。</div>
     </div>
   </div>
 
-</div>  
-
+</div>

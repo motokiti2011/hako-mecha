@@ -108,9 +108,9 @@ export class MyMenuComponent implements OnInit {
     let adless = '';
     let tel = '';
     let introduction = '';
-    if (user.postCode) {
+    if (user.postCode && user.postCode != '-' ) {
       post = user.postCode;
-    }
+    } 
     if (user.areaNo1) {
       adless = this.formService.setAreaName(user.areaNo1)
         + user.areaNo2 + user.adress;

@@ -1,7 +1,7 @@
 .head-display {
   display: flex;
   justify-content: space-between;
-  width: 1000px;
+  width: 1200px;
   margin: 0 auto;
 }
 
@@ -30,4 +30,10 @@
   margin-top: 10px;
   margin-left: 30px;
   font-size: 40px;
+}
+
+.head_msg {
+  display: flex;
+  justify-content: end;
+  width: 1200px;
 }
