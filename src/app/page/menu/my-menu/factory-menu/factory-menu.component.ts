@@ -203,13 +203,14 @@ export class FactoryMenuComponent implements OnInit {
             this.loading = false;
           }
         } else {
-          this.apiAuth.authenticationExpired();
           // ローディング解除
           this.overlayRef.detach();
-          // this.openMsgDialog(messageDialogMsg.LoginRequest, true);
+          this.openMsgDialog(messageDialogMsg.ProblemOperation, true);
         }
       });
-
+    } else {
+      this.apiAuth.authenticationExpired();
+      this.openMsgDialog(messageDialogMsg.LoginRequest, true);
     }
   }
 

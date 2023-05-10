@@ -92,6 +92,7 @@ export class MyMenuComponent implements OnInit {
         }
       });
     } else {
+      this.apiAuth.authenticationExpired();
       this.openMsgDialog(messageDialogMsg.LoginRequest, true);
     }
 
@@ -110,7 +111,7 @@ export class MyMenuComponent implements OnInit {
     let introduction = '';
     if (user.postCode && user.postCode != '-' ) {
       post = user.postCode;
-    } 
+    }
     if (user.areaNo1) {
       adless = this.formService.setAreaName(user.areaNo1)
         + user.areaNo2 + user.adress;

@@ -277,10 +277,9 @@ export class EditUserInfoComponent implements OnInit {
         this.imageFile[0].url = this.user.profileImageUrl;
       } else {
         this.apiAuth.authenticationExpired();
-        this.apiAuth.authenticationExpired();
         // ローディング解除
         this.overlayRef.detach();
-        // this.openMsgDialog(messageDialogMsg.LoginRequest, true);
+         this.openMsgDialog(messageDialogMsg.LoginRequest, true);
       }
       // ローディング解除
       this.overlayRef.detach();

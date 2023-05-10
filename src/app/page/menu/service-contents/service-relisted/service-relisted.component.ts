@@ -378,6 +378,9 @@ export class ServiceRelistedComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if(locationDiv) {
+        // ローディング解除
+        this.overlayRef.detach();
+        this.loading = false;
         this.location.back();
         // this.router.navigate(["/main_menu"]);
       }

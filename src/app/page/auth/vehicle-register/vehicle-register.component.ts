@@ -193,6 +193,8 @@ export class VehicleRegisterComponent implements OnInit {
 
   loading = false;
 
+  authExpiredDiv = false;
+
   constructor(
     private apiService: ApiSerchService,
     private apiGsiService: ApiGsiSerchService,
@@ -214,12 +216,18 @@ export class VehicleRegisterComponent implements OnInit {
     const authUser = this.cognito.initAuthenticated();
     if (authUser !== null) {
       this.apiService.getUser(authUser).subscribe(user => {
-        console.log(user);
-        this.user = user[0];
-        this.user.userId = authUser;
-        this.getVehicleList();
+        if(user.length > 0) {
+          console.log(user);
+          this.user = user[0];
+          this.user.userId = authUser;
+          this.getVehicleList();
+        } else {
+          this.authExpiredDiv = true;
+          this.openMsgDialog(messageDialogMsg.LoginRequest, true, '/main-menu');
+        }
       });
     } else {
+      this.authExpiredDiv = true;
       this.openMsgDialog(messageDialogMsg.LoginRequest, true, '/main-menu');
     }
 
@@ -370,7 +378,9 @@ export class VehicleRegisterComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (locationDiv) {
-        this.apiAuth.authenticationExpired();
+        if(this.authExpiredDiv) {
+          this.apiAuth.authenticationExpired();
+        }
         // ローディング解除
         this.loading = false;
         this.overlayRef.detach();

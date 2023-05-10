@@ -122,6 +122,14 @@ export class ServiceTransactionComponent implements OnInit {
       // this.setAcsessUser();
       this.acsessUser.userId = user;
       this.service.getSendName(user).subscribe(user => {
+        if(user.length === 0) {
+          this.apiAuth.authenticationExpired();
+          // ローディング解除
+          this.overlayRef.detach();
+          this.loading = false;
+          this.openMsgDialog(messageDialogMsg.LoginRequest, true);
+          return;
+        }
         this.acsessUser.userName = user[0].userName;
         this.acsessUser.mechanicId = user[0].mechanicId;
         this.acsessUser.officeId = user[0].officeId;
@@ -153,27 +161,11 @@ export class ServiceTransactionComponent implements OnInit {
         });
       });
     } else {
-      // ダイアログ表示（ログインしてください）し前画面へ戻る
-      const dialogData: messageDialogData = {
-        massage: messageDialogMsg.LoginRequest,
-        closeFlg: false,
-        closeTime: 0,
-        btnDispDiv: true
-      }
-      const dialogRef = this.modal.open(MessageDialogComponent, {
-        width: '300px',
-        height: '150px',
-        data: dialogData
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        console.log(result);
-        this.onReturn();
-        this.apiAuth.authenticationExpired();
-        // ローディング解除
-        this.overlayRef.detach();
-        this.loading = false;
-        return;
-      });
+      this.apiAuth.authenticationExpired();
+      // ローディング解除
+      this.overlayRef.detach();
+      this.loading = false;
+      this.openMsgDialog(messageDialogMsg.LoginRequest, true);
     }
   }
 
@@ -330,6 +322,38 @@ export class ServiceTransactionComponent implements OnInit {
       }
     );
   }
+
+
+
+  /**
+   * メッセージモーダルを展開する
+   * @param mgs
+   * @param locationDiv
+   */
+  private openMsgDialog(msg: string, locationDiv: boolean) {
+    // ダイアログ表示（ログインしてください）し前画面へ戻る
+    const dialogData: messageDialogData = {
+      massage: msg,
+      closeFlg: false,
+      closeTime: 0,
+      btnDispDiv: true
+    }
+    const dialogRef = this.modal.open(MessageDialogComponent, {
+      width: '300px',
+      height: '150px',
+      data: dialogData
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if (locationDiv) {
+        this.loading = false;
+        this.overlayRef.detach();
+        this.router.navigate(["/main_menu"]);
+      }
+      return;
+    });
+  }
+
 
 
 }

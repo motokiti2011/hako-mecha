@@ -947,6 +947,9 @@ export class ServiceCreateComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (locationDiv) {
+        // ローディング解除
+        this.overlayRef.detach();
+        this.loading = false;
         this.router.navigate(["/main_menu"]);
       }
       console.log(result);

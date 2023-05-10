@@ -116,6 +116,7 @@ export class MyListComponent implements OnInit {
       this.apiAuth.authenticationExpired();
       // ローディング解除
       this.overlayRef.detach();
+      // 親コンポーネントにて戻るためコメントアウト
       // this.openMsgDialog(messageDialogMsg.LoginRequest, true);
       return;
     }

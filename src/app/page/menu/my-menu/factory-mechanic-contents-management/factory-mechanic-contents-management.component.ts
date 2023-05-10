@@ -66,10 +66,9 @@ export class FactoryMechanicContentsManagementComponent implements OnInit {
           this.user = res[0];
           this.getMcFcItemList();
         } else {
-          this.apiAuth.authenticationExpired();
           // ローディング解除
           this.overlayRef.detach();
-          // this.openMsgDialog(messageDialogMsg.LoginRequest, true);
+          this.openMsgDialog(messageDialogMsg.ProblemOperation, true);
         }
       });
     });
@@ -131,7 +130,6 @@ export class FactoryMechanicContentsManagementComponent implements OnInit {
    * @param locationDiv
    */
   private openMsgDialog(msg:string, locationDiv: boolean) {
-    // ダイアログ表示（ログインしてください）し前画面へ戻る
     const dialogData: messageDialogData = {
       massage: msg,
       closeFlg: false,

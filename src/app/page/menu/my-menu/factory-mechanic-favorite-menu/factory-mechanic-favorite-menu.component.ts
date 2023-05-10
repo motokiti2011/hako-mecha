@@ -45,6 +45,7 @@ export class FactoryMechanicFavoriteMenuComponent implements OnInit {
     // ログイン検証
     const authUser = this.cognito.initAuthenticated();
     if (authUser == null) {
+      this.apiAuth.authenticationExpired();
       this.openMsgDialog(messageDialogMsg.LoginRequest, true);
       return;
     }
@@ -59,7 +60,7 @@ export class FactoryMechanicFavoriteMenuComponent implements OnInit {
         this.apiAuth.authenticationExpired();
         // ローディング解除
         this.overlayRef.detach();
-        // this.openMsgDialog(messageDialogMsg.LoginRequest, true);
+        this.openMsgDialog(messageDialogMsg.LoginRequest, true);
       }
     });
   }

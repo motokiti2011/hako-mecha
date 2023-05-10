@@ -108,8 +108,10 @@ export class ServiceAdmininfoRelistedComponent implements OnInit {
         });
       } else {
         // ローディング解除
-        this.openMsgDialog(messageDialogMsg.LoginRequest, true);
+        this.overlayRef.detach();
+        this.loading = false;
         this.apiAuth.authenticationExpired();
+        this.openMsgDialog(messageDialogMsg.LoginRequest, true);
       }
     });
   }

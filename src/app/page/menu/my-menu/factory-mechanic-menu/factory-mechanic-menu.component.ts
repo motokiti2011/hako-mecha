@@ -98,6 +98,12 @@ export class FactoryMechanicMenuComponent implements OnInit {
     const authUser = this.cognito.initAuthenticated();
     if (authUser !== null) {
       this.apiService.getUser(authUser).subscribe(user => {
+        if(user.length == 0) {
+          this.apiAuth.authenticationExpired();
+          this.openMsgDialog(messageDialogMsg.LoginRequest, true);
+          return;
+        }
+
         console.log(user);
         this.user = user[0];
         if (this.user.officeId != '0' && this.user.officeId != null) {
@@ -110,10 +116,9 @@ export class FactoryMechanicMenuComponent implements OnInit {
       });
     } else {
       this.apiAuth.authenticationExpired();
-      // this.openMsgDialog(messageDialogMsg.LoginRequest, true);
       // ローディング解除
       this.overlayRef.detach();
-      // this.openMsgDialog(messageDialogMsg.LoginRequest, true);
+      this.openMsgDialog(messageDialogMsg.LoginRequest, true);
     }
   }
 

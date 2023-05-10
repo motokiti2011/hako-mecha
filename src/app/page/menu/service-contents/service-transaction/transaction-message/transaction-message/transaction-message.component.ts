@@ -108,6 +108,12 @@ export class TransactionMessageComponent implements OnInit {
           });
         });
       });
+    } else {
+      // ローディング開始
+      this.loading = false;
+      this.apiAuth.authenticationExpired();
+      // ユーザーが取得できない場合処理を停止(親compornentで戻る)
+      return;
     }
   }
 

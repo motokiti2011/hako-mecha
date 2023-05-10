@@ -149,13 +149,14 @@ export class MechanicMenuComponent implements OnInit {
           this.apiAuth.authenticationExpired();
           // ローディング解除
           this.overlayRef.detach();
-          // this.openMsgDialog(messageDialogMsg.LoginRequest, true);
+          this.openMsgDialog(messageDialogMsg.LoginRequest, true);
         }
       });
     } else {
+      this.apiAuth.authenticationExpired();
       // ローディング解除
       this.overlayRef.detach();
-      // this.openMsgDialog(messageDialogMsg.LoginRequest, true);
+      this.openMsgDialog(messageDialogMsg.LoginRequest, true);
 
     }
   }
