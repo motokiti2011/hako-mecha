@@ -13,13 +13,15 @@
     <ng-template #elseContent>
       <div class="head-disp">
         <p>{{displayContentsList.length}}件がヒット</p>
-        <ng-component *ngIf="displayContentsList.length > 0">
+
+        <div *ngIf="displayContentsList.length > 0">
           <p class="margin">{{begin+1}}～{{begin+maxLength}}件を表示</p>
           <select class="displayList" [(ngModel)]="selected" (change)="onDisplayList()">
             <option *ngFor="let item of displayData" [value]="item.value" [disabled]="item.disabled"
               [selected]="item.value === selected">{{item.label}}</option>
           </select>
-        </ng-component>
+        </div>
+
       </div>
 
       <div *ngIf="displayContentsList.length > 0; else EmptyContent">

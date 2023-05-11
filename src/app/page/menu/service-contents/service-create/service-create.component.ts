@@ -507,6 +507,9 @@ export class ServiceCreateComponent implements OnInit {
    * 確定処理
    */
   getResult() {
+    // ローディング開始
+    this.overlayRef.attach(new ComponentPortal(MatProgressSpinner));
+    this.loading = true;
     if (this.img.length != 0) {
       this.fileUp();
     } else {
@@ -610,6 +613,9 @@ export class ServiceCreateComponent implements OnInit {
     if (this.inputData.targetService !== '0') {
       // サービス商品として更新を行う
       this.service.postSalesService(this.inputData).subscribe(result => {
+        // ローディング解除
+        this.overlayRef.detach();
+        this.loading = false;
         // 登録結果からメッセージを表示する
         if (result === 200) {
           this.openMsgDialog(messageDialogMsg.Resister, false);
@@ -618,6 +624,9 @@ export class ServiceCreateComponent implements OnInit {
         }
       });
     } else {
+      // ローディング解除
+      this.overlayRef.detach();
+      this.loading = false;
       // 伝票情報の更新を行う
       this.service.postSlip(this.inputData).subscribe(result => {
         // 登録結果からメッセージを表示する
@@ -641,6 +650,7 @@ export class ServiceCreateComponent implements OnInit {
     // this.inputData.area1 = '0';
     // this.inputData.category = '0';
     this.inputData.explanation = '';
+    this.explanation.setValue('');
     this.inputData.preferredDate = 0;
     this.inputData.preferredTime = 0;
 
@@ -813,11 +823,17 @@ export class ServiceCreateComponent implements OnInit {
             this.postSlip();
           }
         }).catch((err) => {
+          // ローディング解除
+          this.overlayRef.detach();
+          this.loading = false;
           console.log(err);
         });
       });
     } else {
-      console.log('不動！');
+      // ローディング解除
+      this.overlayRef.detach();
+      this.loading = false;
+      // console.log('不動');
     }
   }
 

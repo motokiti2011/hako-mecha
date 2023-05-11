@@ -19,21 +19,22 @@
       </div>
     </div>
 
-    <div class="row ">
-      <div *ngIf="areaCityData.length">
+    <!-- <div class="row "> -->
+
+    <div *ngIf="areaCityData.length">
+      <div>
+        <div class="title">地域詳細（市町村）</div>
         <div>
-          <div class="title">地域詳細（市町村）</div>
-          <div>
-            <select class="select_box" name="area" [(ngModel)]="citySelect" (change)="onAreaCity()">
-              <option value="">未選択</option>
-              <option *ngFor="let city of areaCityData" [value]="city.city"
-                [selected]="city.city === citySelect">
-                {{city.city}}</option>
-            </select>
-          </div>
+          <select class="select_box" name="area" [(ngModel)]="citySelect" (change)="onAreaCity()">
+            <option value="">未選択</option>
+            <option *ngFor="let city of areaCityData" [value]="city.city" [selected]="city.city === citySelect">
+              {{city.city}}</option>
+          </select>
         </div>
       </div>
     </div>
+
+    <!-- </div> -->
   </div>
 
   <div class="row">
