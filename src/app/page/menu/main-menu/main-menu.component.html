@@ -1,16 +1,21 @@
 <div class="container">
 
-  <div class="select_menu">
-    <div class="menu_item item" (click)="serviceSerchConditions()">サービスを探す</div>
-
-    <div class="menu_item item" (click)="serviceExhibit()">サービスを依頼・出品する</div>
-
-
-    <div *ngIf="temporaryUserDiv" class="menu_item item" (click)="serviceDealings()">取引中の情報</div>
-
-
+  <div>
+    <p>ユーザーメニュー</p>
+    <div class="select_menu">
+      <div class="menu_item item" (click)="serviceSerchConditions()">サービスを探す</div>
+      <div class="menu_item item" (click)="serviceExhibit('0')">お車の作業依頼する</div>
+      <div *ngIf="temporaryUserDiv" class="menu_item item" (click)="serviceDealings()">取引中の情報</div>
+    </div>
   </div>
 
+  <div>
+    <p>メカニック・工場メニュー</p>
+    <div class="select_menu">
+      <div *ngIf="mechanicDiv" class="menu_item item" (click)="serviceExhibit('1')">メカニックとしてサービスを出品する</div>
+      <div *ngIf="officeDiv" class="menu_item item" (click)="serviceExhibit('2')">工場としてサービスを出品する</div>
+    </div>
+  </div>
 </div>
 
 <hr class="line" noshade="">

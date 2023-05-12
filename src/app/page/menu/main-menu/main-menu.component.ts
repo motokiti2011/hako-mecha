@@ -37,6 +37,12 @@ export class MainMenuComponent implements OnInit {
   // 認証有無フラグ
   authUserDiv = false;
 
+  // メカニック区分
+  mechanicDiv = false;
+
+  // 工場区分
+  officeDiv = false;
+
   login = {
     userName: '',
     passwd: '',
@@ -50,7 +56,6 @@ export class MainMenuComponent implements OnInit {
     positionStrategy: this.overlay
       .position().global().centerHorizontally().centerVertically()
   });
-
 
   ngOnInit(): void {
     this.authenticated();
@@ -69,9 +74,9 @@ export class MainMenuComponent implements OnInit {
   /**
    * サービスを出品する
    */
-  serviceExhibit() {
+  serviceExhibit(select: string) {
     this.router.navigate(["service_create"],
-      { queryParams: { serviceType: '1' } });
+      { queryParams: { serviceType: select } });
   }
 
   /**
@@ -119,7 +124,7 @@ export class MainMenuComponent implements OnInit {
     this.router.navigate(["sign-up-component"]);
   }
 
-  
+
 
   onmenu() {
     console.log('マイメニュー画面区分値チェック')
@@ -159,16 +164,23 @@ export class MainMenuComponent implements OnInit {
     this.apiService.getUser(userid).subscribe(data => {
       console.log(data[0]);
       if (data[0]) {
-        this.loginUser.userId = data[0].userId;
-        this.loginUser.userName = data[0].userName;
+        const user = data[0];
+        // this.loginUser.userId = data[0].userId;
+        // this.loginUser.userName = data[0].userName;
 
         this.authUserService.login(this.loginUser);
-        if (data[0].userName == undefined
-          || data[0].userName == '') {
+        if (user.userName !== undefined && user.userName !== '') {
           // 仮登録ユーザーのためユーザー登録メッセージを表示
           this.temporaryUserDiv = true;
         } else {
           this.temporaryUserDiv = false;
+        }
+        
+        if (user.mechanicId !== undefined && user.mechanicId !== '' && user.mechanicId !== null) {
+          this.mechanicDiv = true;
+        }
+        if (user.officeId !== undefined && user.officeId !== '' && user.officeId !== null) {
+          this.officeDiv = true;
         }
       } else {
         this.loginUser.userName = 'ユーザー情報未設定'
