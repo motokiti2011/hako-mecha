@@ -9,7 +9,7 @@
     </div>
   </div>
 
-  <div>
+  <div *ngIf="mechanicDiv || officeDiv">
     <p>メカニック・工場メニュー</p>
     <div class="select_menu">
       <div *ngIf="mechanicDiv" class="menu_item item" (click)="serviceExhibit('1')">メカニックとしてサービスを出品する</div>

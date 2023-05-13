@@ -170,12 +170,12 @@ export class MainMenuComponent implements OnInit {
 
         this.authUserService.login(this.loginUser);
         if (user.userName !== undefined && user.userName !== '') {
-          // 仮登録ユーザーのためユーザー登録メッセージを表示
           this.temporaryUserDiv = true;
         } else {
+          // 仮登録ユーザーのためユーザー登録メッセージを表示
           this.temporaryUserDiv = false;
         }
-        
+
         if (user.mechanicId !== undefined && user.mechanicId !== '' && user.mechanicId !== null) {
           this.mechanicDiv = true;
         }
