@@ -94,7 +94,7 @@ export class ServiceAdmininfoRelistedComponent implements OnInit {
         this.apiservice.getUser(authUser).subscribe(user => {
           if(user.length > 0) {
             console.log(user);
-            this.user = user[0];
+            this.user = user;
             // ローディング解除
             this.overlayRef.detach();
             this.loading = false;

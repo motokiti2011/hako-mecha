@@ -196,7 +196,7 @@ export class FavoriteComponent implements OnInit {
    * @param content
    */
   contentsDetail(content: serviceContents) {
-    this.router.navigate(["service-detail-component"], { queryParams: { serviceId: content.id } });
+    this.router.navigate(["servicedetail"], { queryParams: { serviceId: content.id } });
   }
 
   /**

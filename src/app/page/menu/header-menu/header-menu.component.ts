@@ -136,7 +136,7 @@ export class HeaderMenuComponent implements OnInit {
           if (this.login.newResister) {
             // 新規登録画面に遷移
             console.log("newResister");
-            this.router.navigate(["sign-up-component"])
+            this.router.navigate(["signup"])
             return;
           }
           if (this.login.userName) {
@@ -181,7 +181,7 @@ export class HeaderMenuComponent implements OnInit {
    * 新規登録ボタン押下時
    */
   onSinup() {
-    this.router.navigate(["sign-up-component"]);
+    this.router.navigate(["signup"]);
   }
 
   /**

@@ -1,8 +1,7 @@
 <!-- <p>過去取引確認画面</p> -->
 <div class="main-content">
   <aside>
-    <app-side-menu
-    ></app-side-menu>
+    <app-side-menu [acceseUser]="userInfo"></app-side-menu>
   </aside>
   <div *ngIf="loading; else mainContent" class="loading">
     <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>

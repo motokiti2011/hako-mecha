@@ -12,7 +12,7 @@ import { ApiUniqueService } from '../../service/api-unique.service';
 import { CognitoService } from '../../auth/cognito.service';
 import { user } from 'src/app/entity/user';
 import { ApiAuthService } from '../../service/api-auth.service';
-
+import { ApiSerchService } from '../../service/api-serch.service';
 /**
  * 過去取引コンポーネント
  */
@@ -31,6 +31,7 @@ export class PastTransactionsComponent implements OnInit {
     private cognito: CognitoService,
     private overlay: Overlay,
     private apiAuth: ApiAuthService,
+    private apiSerch: ApiSerchService,
   ) { }
 
   /** 表示情報 */
@@ -69,6 +70,7 @@ export class PastTransactionsComponent implements OnInit {
       if (authUser !== null) {
         // ログイン状態の場合
         accessUser = authUser
+        this.setUserInfo(accessUser);
       }
       // 非同期で表示データ取得とアクセス者の管理対象判定を行う
       forkJoin(
@@ -100,6 +102,18 @@ export class PastTransactionsComponent implements OnInit {
     }
     this.dispInfo = list;
 
+  }
+
+  /**
+   * アクセス者情報取得
+   * @param accessUser 
+   */
+  private setUserInfo(accessUser: string) {
+    this.apiSerch.getUser(accessUser).subscribe(user => {
+      if(user) {
+        this.userInfo = user[0];
+      }
+    })
   }
 
 

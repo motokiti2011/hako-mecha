@@ -1,65 +1,36 @@
 
 <div class="container">
-  <div class="row">
-    <!-- <p>トップに戻る</p> -->
 
+  <div class="row">
     <div class="menu_item item" (click)="onTopBytton()">トップに戻る</div>
   </div>
 
   <div class="row">
-    <!-- <p>作業を頼む</p> -->
-    <div class="menu_item item" (click)="onWorkRequest()">作業を頼む</div>
-  </div>
-
-  <div *ngIf="mechaDiv" class="row">
-    <!-- <p>サービスを出品する</p> -->
-    <div class="menu_item item" (click)="onWorkExhibit()">サービスを出品する</div>
-  </div>
-
-  <div class="row">
-    <!-- <p>サービスを探す</p> -->
     <div class="menu_item item" (click)="onWorkSerch()">サービスを探す</div>
   </div>
 
-  <div *ngIf="mechaDiv" class="row">
-    <!-- <p>作業依頼を探す</p> -->
-    <div class="menu_item item" (click)="onWorkRequestSerch()">作業依頼を探す</div>
-  </div>
-
   <div class="row">
-    <!-- <p>プロフィールを編集</p> -->
-    <div class="menu_item item" (click)="onProfileEdit()">プロフィールを編集</div>
-  </div>
-
-  <div *ngIf!="mechaDiv" class="row">
-    <!-- <p>メカニック登録を行う</p> -->
-    <div class="menu_item item" (click)="onMechaResister()">メカニック登録を行う</div>
+    <p>ユーザーメニュー</p>
+    <div class="menu_item item" (click)="onWorkRequest()">作業を依頼する</div>
   </div>
 
   <div *ngIf="mechaDiv" class="row">
-    <!-- <p>メカニックプロフィールを編集</p> -->
-    <div class="menu_item item" (click)="onMechaProfileEdit()">メカニックプロフィールを編集</div>
+    <p>メカニックメニュー</p>
+    <div class="menu_item item" (click)="onWorkExhibit('1')">サービスを出品する</div>
   </div>
 
   <div *ngIf="factoryDiv" class="row">
-    <!-- <p>工場プロフィールを編集</p> -->
-    <div class="menu_item item" (click)="onFactoryProfileEdit()">工場プロフィールを編集</div>
+    <p>工場メニュー</p>
+    <div class="menu_item item" (click)="onWorkExhibit('2')">サービスを出品する</div>
+  </div>
+
+  <div class="row">
+    <div class="menu_item item" (click)="onProfileEdit()">プロフィールを編集</div>
+  </div>
+
+  <div *ngIf="mechaDiv" class="row">
+    <div class="menu_item item" (click)="onMechaProfileEdit()">工場・メカニックメニューへ</div>
   </div>
 
 </div>
 
-
-<!-- <div class="side-menu">
-
-<p>たのむ</p>
-<details>
-  <summary>さがす</summary>
-  <p>洗車</p>
-  <p>コーティング</p>
-  <p>カスタマイズ</p>
-  <p>部品・用品取り付け</p>
-  <p>点検・整備</p>
-  <p>手続き</p>
-</details>
-<p>やりとり</p>
-</div> -->

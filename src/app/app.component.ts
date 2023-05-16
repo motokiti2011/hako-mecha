@@ -49,6 +49,7 @@ export class AppComponent implements OnInit {
     }
     if(hoge2[0] != '/main_menu') {
       this.main.ngOnInit();
+      this.head.ngOnInit();
     }
   }
 

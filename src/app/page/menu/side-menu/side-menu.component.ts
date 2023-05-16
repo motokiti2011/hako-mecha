@@ -67,23 +67,16 @@ export class SideMenuComponent implements OnInit {
   /**
    * 作業を出品
    */
-  onWorkExhibit() {
+  onWorkExhibit(serviceType: string) {
     this.router.navigate(["service_create"],
-    { queryParams:{ serviceType : '1'}});
+    { queryParams:{ serviceType : serviceType}});
   }
 
   /**
    * 作業を探す
    */
   onWorkSerch() {
-    this.router.navigate(["service_serchConditions_component"])
-  }
-
-  /**
-   * 作業依頼を探す
-   */
-  onWorkRequestSerch() {
-    this.router.navigate(["service_serchConditions_component"])
+    this.router.navigate(["serchconditions"])
   }
 
   /**
@@ -91,7 +84,6 @@ export class SideMenuComponent implements OnInit {
    */
   onProfileEdit() {
     this.router.navigate(["my-menu-component"]);
-    // this.router.navigate(["/edit-user-menu"]);
   }
 
   /**

@@ -198,7 +198,7 @@ export class ServiceListSideMenuComponent implements OnInit {
    */
   onContentsDetail(slipNo: string) {
     console.log(slipNo);
-    this.router.navigate(["service-detail-component"], { queryParams: { serviceId: slipNo } });
+    this.router.navigate(["servicedetail"], { queryParams: { serviceId: slipNo } });
   }
 
   /**

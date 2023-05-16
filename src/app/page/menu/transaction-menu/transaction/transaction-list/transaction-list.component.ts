@@ -199,7 +199,7 @@ export class TransactionListComponent implements OnInit {
    * @param content
    */
   contentsDetail(slipId: string) {
-    this.router.navigate(["service-detail-component"], { queryParams: { serviceId: slipId } });
+    this.router.navigate(["servicedetail"], { queryParams: { serviceId: slipId } });
   }
 
   /**

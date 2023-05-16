@@ -262,7 +262,7 @@ export class ServiceListComponent implements OnInit {
       });
     }
 
-    this.router.navigate(["service-detail-component"],
+    this.router.navigate(["servicedetail"],
       {
         queryParams: {
           serviceId: content.id,

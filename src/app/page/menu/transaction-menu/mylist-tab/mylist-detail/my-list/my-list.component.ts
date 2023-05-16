@@ -214,7 +214,7 @@ export class MyListComponent implements OnInit {
    * @param content
    */
   contentsDetail(content: dispUserMyList) {
-    this.router.navigate(["service-detail-component"], { queryParams: { serviceId: content.slipNo, searchTargetService: content.serviceType } });
+    this.router.navigate(["servicedetail"], { queryParams: { serviceId: content.slipNo, searchTargetService: content.serviceType } });
   }
 
   /**

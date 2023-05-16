@@ -10,6 +10,9 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 
+/**
+ * 新規登録画面
+ */
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',

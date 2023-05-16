@@ -81,7 +81,7 @@ export class FactoryMechanicContentsManagementComponent implements OnInit {
    */
   onItemSelect(item: mcfcItem): void {
 
-    this.router.navigate(["service-detail-component"],
+    this.router.navigate(["servicedetail"],
       { queryParams: {
         serviceId: item.serviceId,
         searchTargetService: item.serviceType

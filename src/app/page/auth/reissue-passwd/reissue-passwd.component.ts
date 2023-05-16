@@ -9,7 +9,9 @@ import { messageDialogData } from 'src/app/entity/messageDialogData';
 import { messageDialogMsg } from 'src/app/entity/msg';
 import { MessageDialogComponent } from '../../modal/message-dialog/message-dialog.component';
 
-
+/**
+ * パスワード再発行画面
+ */
 @Component({
   selector: 'app-reissue-passwd',
   templateUrl: './reissue-passwd.component.html',
