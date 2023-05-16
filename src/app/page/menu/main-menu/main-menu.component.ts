@@ -90,7 +90,7 @@ export class MainMenuComponent implements OnInit {
    * サービス検索条件
    */
   serviceSerchConditions() {
-    this.router.navigate(["service_serchConditions_component"])
+    this.router.navigate(["serchconditions"])
   }
 
 
@@ -121,7 +121,7 @@ export class MainMenuComponent implements OnInit {
    * 新規登録ボタン押下時
    */
   onSinup() {
-    this.router.navigate(["sign-up-component"]);
+    this.router.navigate(["signup"]);
   }
 
 
@@ -220,7 +220,7 @@ export class MainMenuComponent implements OnInit {
           if (this.login.newResister) {
             // 新規登録画面に遷移
             console.log("newResister");
-            this.router.navigate(["sign-up-component"])
+            this.router.navigate(["signup"])
             return;
           }
           if (this.login.userName) {

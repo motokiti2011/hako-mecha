@@ -1,6 +1,6 @@
 <div class="container">
 
-  <div>
+  <div class="menu">
     <p>ユーザーメニュー</p>
     <div class="select_menu">
       <div class="menu_item item" (click)="serviceSerchConditions()">サービスを探す</div>
@@ -9,9 +9,9 @@
     </div>
   </div>
 
-  <div *ngIf="mechanicDiv || officeDiv">
+  <div *ngIf="mechanicDiv || officeDiv" class="menu">
     <p>メカニック・工場メニュー</p>
-    <div class="select_menu">
+    <div class="select_mc_menu">
       <div *ngIf="mechanicDiv" class="menu_item item" (click)="serviceExhibit('1')">メカニックとしてサービスを出品する</div>
       <div *ngIf="officeDiv" class="menu_item item" (click)="serviceExhibit('2')">工場としてサービスを出品する</div>
     </div>
