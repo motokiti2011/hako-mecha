@@ -109,12 +109,14 @@ export class UserRegisterComponent implements OnInit {
   /** イメージ */
   imageFile: imgFile[] = []
 
+
   overlayRef = this.overlay.create({
     hasBackdrop: true,
     positionStrategy: this.overlay
       .position().global().centerHorizontally().centerVertically()
   });
 
+  loading = false;
 
   constructor(
     private location: Location,
@@ -132,6 +134,7 @@ export class UserRegisterComponent implements OnInit {
   ngOnInit(): void {
     // ローディング開始
     this.overlayRef.attach(new ComponentPortal(MatProgressSpinner));
+    this.loading = true;
     const user = this.cognito.initAuthenticated();
     if (user == null) {
       // ユーザー情報が取得できない場合
@@ -139,6 +142,7 @@ export class UserRegisterComponent implements OnInit {
       this.openMsgDialog(messageDialogMsg.LoginRequest, true);
       // ローディング解除
       this.overlayRef.detach();
+      this.loading = false;
       return;
     }
     console.log(user);
@@ -148,6 +152,7 @@ export class UserRegisterComponent implements OnInit {
       this.mail.setValue(data[0].mailAdress);
       // ローディング解除
       this.overlayRef.detach();
+      this.loading = false;
     });
   }
 
@@ -228,6 +233,7 @@ export class UserRegisterComponent implements OnInit {
    */
   onResister() {
     this.overlayRef.attach(new ComponentPortal(MatProgressSpinner));
+    this.loading = true;
     if (this.imageFile != null && this.imageFile.length > 0) {
       this.setImageUrl();
     } else {
@@ -354,6 +360,7 @@ export class UserRegisterComponent implements OnInit {
       if (locationDiv) {
         // ローディング解除
         this.overlayRef.detach();
+        this.loading = false;
         if(this.authExpiredDiv) {
           this.apiAuth.authenticationExpired();
         }
@@ -362,6 +369,7 @@ export class UserRegisterComponent implements OnInit {
       console.log(result);
       // ローディング解除
       this.overlayRef.detach();
+      this.loading = false;
       return;
     });
   }

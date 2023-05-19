@@ -70,9 +70,10 @@ export class SingleImageModalComponent implements OnInit {
     reader.onload = () => {
       const imgFileData: imgFile = {file:file, url: reader.result }
       this.img.push(imgFileData);
+      // TODO
+      // this.img.push(file);
+      console.log(this.img)
     };
-    // TODO
-    this.img.push(file);
   }
 
 
@@ -88,6 +89,7 @@ export class SingleImageModalComponent implements OnInit {
       }
     });
     this.img = hoge;
+    console.log(this.img)
   }
 
 
