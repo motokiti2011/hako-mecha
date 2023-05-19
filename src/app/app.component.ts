@@ -40,14 +40,14 @@ export class AppComponent implements OnInit {
     console.log(routeAny._routerState.url);
     const hoge: string = routeAny._routerState.url;
     const hoge2: string[] = hoge.split('?')
-    if (hoge2[0] != '/transaction_menu'
-    && hoge2[0] != '/factory-mechanic-menu'
-    && hoge2[0] != '/service-transaction') {
+    if (hoge2[0] !== '/transaction_menu'
+    && hoge2[0] !== '/factory-mechanic-menu'
+    && hoge2[0] !== '/service-transaction') {
       this.heightDiv = true;
     } else {
       this.heightDiv = false;
     }
-    if(hoge2[0] != '/main_menu') {
+    if(hoge2[0] === '/main_menu') {
       this.main.ngOnInit();
       this.head.ngOnInit();
     }
