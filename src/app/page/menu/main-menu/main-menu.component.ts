@@ -34,14 +34,16 @@ export class MainMenuComponent implements OnInit {
 
   loginUser: loginUser = { userId: '', userName: 'ログイン', mechanicId: null, officeId: null };
 
-  // 認証有無フラグ
+  /** 認証有無フラグ  */
   authUserDiv = false;
-
-  // メカニック区分
+  /** メカニック区分 */
   mechanicDiv = false;
 
-  // 工場区分
+  /** 工場区分 */
   officeDiv = false;
+
+  /** メニューローディング区分 */
+  menuLoadingDiv = false;
 
   login = {
     userName: '',
@@ -160,6 +162,7 @@ export class MainMenuComponent implements OnInit {
   private setAuthUser(userid: string) {
     // // ローディング開始
     // this.overlayRef.attach(new ComponentPortal(MatProgressSpinner));
+    this.menuLoadingDiv = true;
     // 認証済の場合表示するユーザー情報を取得
     this.apiService.getUser(userid).subscribe(data => {
       console.log(data[0]);
@@ -185,7 +188,8 @@ export class MainMenuComponent implements OnInit {
       } else {
         this.loginUser.userName = 'ユーザー情報未設定'
       }
-      // // ローディング解除
+      // 処理完了にてローディング解除
+      this.menuLoadingDiv = false;
       // this.overlayRef.detach();
       // this.onmenu();
     });

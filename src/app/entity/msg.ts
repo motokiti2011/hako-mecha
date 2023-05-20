@@ -26,4 +26,5 @@ export const messageDialogMsg = {
   SendForgotPassword: 'このメールアドレスに確認コードを送信しました。',
   ProblemOperationRedirect: '問題が発生しました。内容を確認の上もう一度操作してください。',
   ChengePassWd: 'パスワードを変更しました。',
+  UserResisterReq: 'ユーザー登録が必要です。'
 } as const;

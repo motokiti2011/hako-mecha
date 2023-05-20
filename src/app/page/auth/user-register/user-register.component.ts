@@ -256,6 +256,10 @@ export class UserRegisterComponent implements OnInit {
       }
     }).catch((err) => {
       console.log(err);
+      this.openMsgDialog(messageDialogMsg.AnResister, false)
+      // ローディング解除
+      this.overlayRef.detach();
+      this.loading = false;
     });
   }
 
@@ -276,7 +280,6 @@ export class UserRegisterComponent implements OnInit {
       this.user.areaNo1 = this.areaSelect;
       this.user.areaNo2 = this.inputData.areaNo2;
       this.user.adress = this.inputData.adress;
-      this.user.profileImageUrl = ''; // 仮
       this.user.postCode = this.form.setPostCode(this.postCode1.value, this.postCode2.value);
       this.user.introduction = this.inputData.introduction;
 
@@ -361,7 +364,7 @@ export class UserRegisterComponent implements OnInit {
         // ローディング解除
         this.overlayRef.detach();
         this.loading = false;
-        if(this.authExpiredDiv) {
+        if (this.authExpiredDiv) {
           this.apiAuth.authenticationExpired();
         }
         this.router.navigate(["/main_menu"])

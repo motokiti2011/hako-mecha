@@ -94,7 +94,10 @@ export class SignUpComponent implements OnInit {
         // if (err == errorMsg[1].message) {
         //   this.dispMsg = errorMsg[1].value;
         // }
+        this.openMsgDialog(messageDialogMsg.AnResister, false);
         console.log(err);
+        this.overlayRef.detach();
+        this.loading = false;
       });
   }
 

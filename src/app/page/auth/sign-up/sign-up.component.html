@@ -1,71 +1,7 @@
 <div class="container">
 
-  <div class="confirmation" *ngIf="!confirmationDiv">
-
-    <div class="row">
-      <div class="col-3"></div>
-      <div class="title">{{title}}
-      </div>
-      <div class="col-3"></div>
-    </div>
-
-    <div class="row">
-      <div class="col-3"></div>
-      <div class="col-3">
-        <div *ngIf="!confirmationDiv">
-          <div class="infomsg">登録する情報を入力してください</div>
-        </div>
-      </div>
-      <div class="col-3"></div>
-    </div>
-
-    <form>
-      <div class="form-row">
-        <div class="col-3"></div>
-        <div class="col-4">
-          <label>メールアドレス</label>
-          <input type="email" class="form-control" placeholder="メールアドレス" id="email" name="email" #email>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="col-3"></div>
-        <div class="col-4">
-          <label>ユーザー名</label>
-          <input type="text" class="form-control" placeholder="ユーザー名" id="userid" name="userid" #userid>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="col-3"></div>
-        <div class="col-4">
-          <label>パスワード: </label>
-          <input type="password" class="form-control" placeholder="パスワード" id="password" name="password" #password>
-        </div>
-      </div>
-    </form>
-
-    <div class="row">
-      <div class="col-3"></div>
-      <div class="col-4">
-        <p class="error">{{dispMsg}}</p>
-        <button class="btn btn-primary" type="submit"
-          (click)="onSignup(email.value, password.value,userid.value)">送信</button>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-3"></div>
-      <div class="col-4">
-        <div class="link" (click)="onConfirmSwitch()">すでに確認コードをお持ちの方はこちら</div>
-      </div>
-    </div>
-
-  </div>
-
-
-  <div class="confirmation">
-    <div class="container" *ngIf="confirmationDiv">
+  <div *ngIf="!loading">
+    <div class="confirmation" *ngIf="!confirmationDiv">
 
       <div class="row">
         <div class="col-3"></div>
@@ -75,62 +11,130 @@
       </div>
 
       <div class="row">
-        <div class="col-1"></div>
-        <div class="conf_infomsg">登録した「ユーザー名」と登録メールアドレスに届いた「登録コード」を入力してください</div>
-      </div>
-
-      <div class="row">
         <div class="col-3"></div>
-        <div class="col-4">
-          <label>ユーザー名</label>
+        <div class="col-3">
+          <div *ngIf="!confirmationDiv">
+            <div class="infomsg">登録する情報を入力してください</div>
+          </div>
         </div>
-      </div>
-
-      <div class="row">
         <div class="col-3"></div>
-        <div class="col-4">
-          <input type="name" class="form-control" placeholder="ユーザー名" id="name" name="name" #name>
+      </div>
+
+      <form>
+        <div class="form-row">
+          <div class="col-3"></div>
+          <div class="col-4">
+            <label>メールアドレス</label>
+            <input type="email" class="form-control" placeholder="メールアドレス" id="email" name="email" #email>
+          </div>
         </div>
-      </div>
 
-
-      <div class="row">
-        <div class="col-3"></div>
-        <div class="col-4">
-          <label>確定コード</label>
+        <div class="form-row">
+          <div class="col-3"></div>
+          <div class="col-4">
+            <label>ユーザー名</label>
+            <input type="text" class="form-control" placeholder="ユーザー名" id="userid" name="userid" #userid>
+          </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-3"></div>
-        <div class="col-4">
-          <input type="text" class="form-control" placeholder="確認コード" id="confirmationCode" name="confirmationCode"
-            #confirmationCode>
+        <div class="form-row">
+          <div class="col-3"></div>
+          <div class="col-4">
+            <label>パスワード: </label>
+            <input type="password" class="form-control" placeholder="パスワード" id="password" name="password" #password>
+          </div>
         </div>
-      </div>
-
-      <div class="row">
-        <div class="col-1"></div>
-        <p class="error">{{dispMsg}}</p>
-      </div>
+      </form>
 
       <div class="row">
         <div class="col-3"></div>
         <div class="col-4">
           <p class="error">{{dispMsg}}</p>
           <button class="btn btn-primary" type="submit"
-            (click)="onConfirmation(name.value, confirmationCode.value)">送信</button>
+            (click)="onSignup(email.value, password.value,userid.value)">送信</button>
         </div>
       </div>
 
       <div class="row">
         <div class="col-3"></div>
         <div class="col-4">
-          <div class="link" (click)="onConfirmSwitch()">確認コードをお持ちでない方はこちら</div>
+          <div class="link" (click)="onConfirmSwitch()">すでに確認コードをお持ちの方はこちら</div>
         </div>
       </div>
-
-
     </div>
+
+
+    <div class="confirmation">
+      <div class="container" *ngIf="confirmationDiv">
+
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="title">{{title}}
+          </div>
+          <div class="col-3"></div>
+        </div>
+
+        <div class="row">
+          <div class="col-1"></div>
+          <div class="conf_infomsg">登録した「ユーザー名」と登録メールアドレスに届いた「登録コード」を入力してください</div>
+        </div>
+
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-4">
+            <label>ユーザー名</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-4">
+            <input type="name" class="form-control" placeholder="ユーザー名" id="name" name="name" #name>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-4">
+            <label>確定コード</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-4">
+            <input type="text" class="form-control" placeholder="確認コード" id="confirmationCode" name="confirmationCode"
+              #confirmationCode>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-1"></div>
+          <p class="error">{{dispMsg}}</p>
+        </div>
+
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-4">
+            <p class="error">{{dispMsg}}</p>
+            <button class="btn btn-primary" type="submit"
+              (click)="onConfirmation(name.value, confirmationCode.value)">送信</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-4">
+            <div class="link" (click)="onConfirmSwitch()">確認コードをお持ちでない方はこちら</div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  <div *ngIf="loading" class="loading">
+    <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
   </div>
 </div>

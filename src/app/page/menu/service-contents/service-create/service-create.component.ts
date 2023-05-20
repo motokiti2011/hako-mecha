@@ -209,6 +209,9 @@ export class ServiceCreateComponent implements OnInit {
           return;
         } else {
           this.userInfo = user[0];
+          if(!this.userInfo.userName || this.userInfo.userName === null) {
+            this.openMsgDialog(messageDialogMsg.UserResisterReq, true);
+          }
           this.inputData.userId = this.userInfo.userId;
           this.inputData.userName = this.userInfo.userName;
           // ローディング解除
