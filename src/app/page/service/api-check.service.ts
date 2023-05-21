@@ -125,5 +125,59 @@ export class ApiCheckService {
     );
   }
 
+  /**
+   * 取引依頼中ユーザーかを判定を行う
+   * @param slipNo
+   * @param requestUserId
+   * @param serviceType
+   * @returns
+   */
+  public checkTransactionReq(slipNo: string, requestUserId: string, serviceType: string): Observable<any> {
+    // リクエストボディ生成
+    const body = {
+      "OperationType": "CHECKTRANSACTIONREQ",
+      "Keys": {
+        "slipNo": slipNo,
+        "requestUserId": requestUserId,
+        "serviceType": serviceType
+      }
+    };
+    return this.http.post<boolean>(this.apiEndPoint + '/checktransactionreq', body).pipe(
+      timeout(2500), // タイムアウト処理
+      retry(3), // リトライ処
+      // 取得できた場合ユーザー情報を返却
+      map((res: boolean) => res),
+      // エラー時HTTPステータスコードを戻す
+      catchError((err: HttpErrorResponse) => of(undefined))
+    );
+  }
+
+/**
+  * 取引中ユーザーかを判定を行う
+  * @param slipNo
+  * @param requestUserId
+  * @param serviceType
+  * @returns
+  */
+  public checkTransaction(slipNo: string, userId: string, serviceType: string): Observable<any> {
+    // リクエストボディ生成
+    const body = {
+      "OperationType": "CHECKTRANSACTION",
+      "Keys": {
+        "slipNo": slipNo,
+        "userId": userId,
+        "serviceType": serviceType
+      }
+    };
+    return this.http.post<boolean>(this.apiEndPoint + '/checktransaction', body).pipe(
+      timeout(2500), // タイムアウト処理
+      retry(3), // リトライ処
+      // 取得できた場合ユーザー情報を返却
+      map((res: boolean) => res),
+      // エラー時HTTPステータスコードを戻す
+      catchError((err: HttpErrorResponse) => of(undefined))
+    );
+  }
+
 
 }

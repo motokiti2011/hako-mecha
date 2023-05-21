@@ -134,4 +134,29 @@ export class ServiceTransactionService {
   }
 
 
+  /**
+   * 取引依頼中ユーザーかを判定する
+   * @param slipNo 
+   * @param requestUserId 
+   * @param serviceType
+   * @returns 
+   */
+  public transactionReqUserCheck(slipNo:string, requestUserId: string, serviceType: string): Observable<boolean> {
+    return this.apCheckService.checkTransactionReq(slipNo, requestUserId, serviceType);
+  }
+
+
+  /**
+   * 取引中ユーザーかを判定する
+   * @param slipNo 
+   * @param userId 
+   * @param serviceType
+   * @returns 
+   */
+  public transactionUserCheck(slipNo:string, userId: string, serviceType: string): Observable<boolean> {
+    return this.apCheckService.checkTransaction(slipNo, userId, serviceType);
+  }
+
+
+
 }

@@ -122,7 +122,7 @@ export class ServiceTransactionComponent implements OnInit {
       // this.setAcsessUser();
       this.acsessUser.userId = user;
       this.service.getSendName(user).subscribe(user => {
-        if(user.length === 0) {
+        if (user.length === 0) {
           this.apiAuth.authenticationExpired();
           // ローディング解除
           this.overlayRef.detach();
@@ -199,12 +199,13 @@ export class ServiceTransactionComponent implements OnInit {
   }
 
   /**
-   * 取引者かを確認する
+   * 取引依頼中ユーザーかを確認する
    */
   private transactionReqUserCheck() {
-    this.transactionTarget = false;
+    this.service.transactionUserCheck(this.dispSlipId, this.acsessUser.userId, this.serviceType).subscribe(res => {
+      this.transactionTarget = res;
+    });
   }
-
 
 
   /**
