@@ -179,10 +179,10 @@ export class MainMenuComponent implements OnInit {
           this.temporaryUserDiv = false;
         }
 
-        if (user.mechanicId !== undefined && user.mechanicId !== '' && user.mechanicId !== null) {
+        if (user.mechanicId && user.mechanicId !== '0') {
           this.mechanicDiv = true;
         }
-        if (user.officeId !== undefined && user.officeId !== '' && user.officeId !== null) {
+        if (user.officeId && user.officeId !== '0') {
           this.officeDiv = true;
         }
       } else {

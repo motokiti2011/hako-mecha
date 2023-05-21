@@ -59,7 +59,7 @@ export class SingleImageModalComponent implements OnInit {
   }
 
   /**
-   * ドラッグインプット
+   * ドラッグインプット(参照もこちら)
    * @param event 
    */
   onChangeDragAreaInput(event: any) {

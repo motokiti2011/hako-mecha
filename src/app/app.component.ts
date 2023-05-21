@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HeaderMenuComponent } from './page/menu/header-menu/header-menu.component';
 import { MainMenuComponent } from './page/menu/main-menu/main-menu.component';
@@ -9,12 +9,14 @@ import { MainMenuComponent } from './page/menu/main-menu/main-menu.component';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+
+  /** タイトル */
   title = 'haco-mecha';
-
   heightDiv = false;
-
   /** 枠は準備するが非表示 */
   advertiementDiv = false;
+
+
 
   /** 子コンポーネントを読み込む */
   @ViewChild(HeaderMenuComponent) head!: HeaderMenuComponent;
@@ -41,15 +43,25 @@ export class AppComponent implements OnInit {
     const hoge: string = routeAny._routerState.url;
     const hoge2: string[] = hoge.split('?')
     if (hoge2[0] !== '/transaction_menu'
-    && hoge2[0] !== '/factory-mechanic-menu'
-    && hoge2[0] !== '/service-transaction') {
+      && hoge2[0] !== '/factory-mechanic-menu'
+      && hoge2[0] !== '/service-transaction') {
       this.heightDiv = true;
     } else {
       this.heightDiv = false;
     }
-    if(hoge2[0] === '/main_menu') {
+    if (hoge2[0] === '/main_menu') {
       this.main.ngOnInit();
       this.head.ngOnInit();
+    }
+  }
+
+  /**
+   * 認証状況変化に応じた初期化処理を実施する
+   * @param authCheck 
+   */
+  onAuthCheck(authCheck: boolean) {
+    if(authCheck) {
+      this.main.ngOnInit();
     }
   }
 

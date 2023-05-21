@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Overlay } from '@angular/cdk/overlay';
@@ -19,6 +19,9 @@ import { ApiAuthService } from '../../service/api-auth.service';
   styleUrls: ['./header-menu.component.scss']
 })
 export class HeaderMenuComponent implements OnInit {
+
+  /** カテゴリー操作時のイベント */
+  @Output() authCheck = new EventEmitter<boolean>();
 
   loginUser: loginUser = { userId: '', userName: 'ログイン', mechanicId: null, officeId: null };
 
@@ -69,12 +72,12 @@ export class HeaderMenuComponent implements OnInit {
    */
   private authenticated() {
     const authUser = this.cognito.initAuthenticated();
-
     if (authUser !== null) {
       // ログイン状態の場合
       this.authUserDiv = true;
-      const log = this.cognito.getCurrentUserIdToken();
-      console.log(log);
+      // TODO　トークン情報→コメントアウト中
+      // const log = this.cognito.getCurrentUserIdToken();
+      // console.log(log);
       // 認証済の場合表示するユーザー情報を取得
       this.setAuthUser(authUser);
     } else {
@@ -87,11 +90,11 @@ export class HeaderMenuComponent implements OnInit {
    * @param authUser
    */
   private setAuthUser(userid: string) {
-
     // 認証済の場合表示するユーザー情報を取得
     this.apiService.getUser(userid).subscribe(data => {
-      console.log(data[0]);
+      // console.log(data[0]);
       if (data[0]) {
+        this.authCheck.emit(false);
         this.loginUser.userId = data[0].userId;
         this.loginUser.userName = data[0].userName;
 
@@ -105,6 +108,10 @@ export class HeaderMenuComponent implements OnInit {
           this.temporaryUserDiv = false;
         }
       } else {
+        // 認証切れの場合
+        this.authUserDiv = false;
+        this.authCheck.emit(true);
+        this.authUserService.logout();
         this.loginUser.userName = 'ユーザー情報未設定'
       }
     });
@@ -172,6 +179,7 @@ export class HeaderMenuComponent implements OnInit {
     // this.cognito.logout();
     this.authUserService.logout;
     this.loginUser.userName = 'ログイン';
+    this.authCheck.emit(true);
     // ログアウトメッセージを表示
     this.openMsgDialog(messageDialogMsg.Logout, true);
     // this.authenticated();
@@ -200,11 +208,11 @@ export class HeaderMenuComponent implements OnInit {
   }
 
 
-/**
- * メッセージダイアログ展開
- * @param msg
- * @param locationDiv
- */
+  /**
+   * メッセージダイアログ展開
+   * @param msg
+   * @param locationDiv
+   */
   private openMsgDialog(msg: string, locationDiv: boolean) {
     // ダイアログ表示
     const dialogData: messageDialogData = {

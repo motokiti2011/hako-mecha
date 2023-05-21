@@ -57,7 +57,7 @@ export class ImageModalComponent implements OnInit {
   }
 
   /**
-   * 
+   * ドラッグインプット(参照もこちら)
    * @param event 
    */
   onChangeDragAreaInput(event: any) {
@@ -68,9 +68,10 @@ export class ImageModalComponent implements OnInit {
     reader.onload = () => {
       const imgFileData: imgFile = {file:file, url: reader.result }
       this.img.push(imgFileData);
+      // TODO
+      // this.img.push(file);
+      console.log(this.img)
     };
-    // TODO
-    this.img.push(file);
   }
 
 

@@ -2,7 +2,9 @@
 <body  [ngClass]="heightDiv? 'defaltHeight':'tab_contentsHeight'">
   <div class="content">
     <header>
-      <app-header-menu></app-header-menu>
+      <app-header-menu
+      (authCheck)="onAuthCheck($event)"
+      ></app-header-menu>
     </header>
     <main>
       <div class="main_disp">
