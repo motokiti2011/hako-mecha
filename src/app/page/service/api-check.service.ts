@@ -156,17 +156,17 @@ export class ApiCheckService {
   * 取引中ユーザーかを判定を行う
   * @param slipNo
   * @param requestUserId
-  * @param serviceType
+  * @param slipServiceType
   * @returns
   */
-  public checkTransaction(slipNo: string, userId: string, serviceType: string): Observable<any> {
+  public checkTransaction(slipNo: string, userId: string, slipServiceType: string): Observable<any> {
     // リクエストボディ生成
     const body = {
       "OperationType": "CHECKTRANSACTION",
       "Keys": {
         "slipNo": slipNo,
         "userId": userId,
-        "serviceType": serviceType
+        "slipServiceType": slipServiceType
       }
     };
     return this.http.post<boolean>(this.apiEndPoint + '/checktransaction', body).pipe(
