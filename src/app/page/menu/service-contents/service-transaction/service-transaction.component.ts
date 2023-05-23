@@ -202,7 +202,17 @@ export class ServiceTransactionComponent implements OnInit {
    * 取引依頼中ユーザーかを確認する
    */
   private transactionReqUserCheck() {
+    // TODO 引数のServiceTypeはこのままで大丈夫かは後日検討要
     this.service.transactionReqUserCheck(this.dispSlipId, this.acsessUser.userId, this.serviceType).subscribe(res => {
+      this.transactionTarget = res;
+    });
+  }
+
+  /**
+   * 取引中ユーザーかを確認する
+   */
+  private transactionUserCheck() {
+    this.service.transactionUserCheck(this.dispSlipId, this.acsessUser.userId, this.serviceType).subscribe(res => {
       this.transactionTarget = res;
     });
   }
