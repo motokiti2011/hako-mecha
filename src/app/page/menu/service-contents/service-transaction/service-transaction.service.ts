@@ -13,6 +13,7 @@ import { ApiSlipProsessService } from 'src/app/page/service/api-slip-prosess.ser
 import { slipMegPrmUser } from 'src/app/entity/slipMegPrmUser';
 import { user } from 'src/app/entity/user';
 import { serviceTransactionRequest } from 'src/app/entity/serviceTransactionRequest';
+import { ServiceQuotas } from 'aws-sdk';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class ServiceTransactionService {
   constructor(
     private apiService: ApiSerchService,
     private apGsiService: ApiGsiSerchService,
-    private apCheckService: ApiCheckService,
+    private apiCheckService: ApiCheckService,
     private apiUniqeService: ApiUniqueService,
     private apiSlipService: ApiSlipProsessService,
   ) { }
@@ -69,8 +70,16 @@ export class ServiceTransactionService {
    * @param serviceType
    */
   public slipAuthCheck(slipId: string, adminId: string, serviceType: string): Observable<slipManegement[]> {
-    return this.apCheckService.checkAdminUserSlip(slipId, adminId, serviceType);
+    return this.apiCheckService.checkAdminUserSlip(slipId, adminId, serviceType);
   }
+
+  /**
+   * アクセスユーザーと伝票の関係性をチェックする
+   */
+  public accessUserAdminCheck(slipNo: string, accessUserId: string, serviceType: string):Observable<boolean> {
+    return this.apiCheckService.checkAccessUserSlip(slipNo, accessUserId, serviceType)
+  }
+
 
   /**
    * メッセージ許可済ユーザー情報かを判定する
@@ -79,7 +88,7 @@ export class ServiceTransactionService {
    * @returns
    */
   public isSlipUserPermission(slipNo: string, userId: string): Observable<boolean> {
-    return this.apCheckService.checkSlipPrm(slipNo, userId);
+    return this.apiCheckService.checkSlipPrm(slipNo, userId);
   }
 
   /**
@@ -104,15 +113,14 @@ export class ServiceTransactionService {
 
   /**
    * 取引開始依頼を行う
-   * @param slip
-   * @param userId
+   * @param slipNo
    * @param serviceType
+   * @param userId
+   * @param serviceUserType
    * @returns
    */
-  public transactionReq(slip: slipDetailInfo,
-    userId: string, name: string, serviceType: string ): Observable<any> {
-      return this.apiSlipService.sendTransactionReq(
-        slip.slipNo, userId, name, serviceType);
+  public transactionReq(slipNo: string, serviceType: string, userId: string, serviceUserType: string): Observable<any> {
+      return this.apiSlipService.sendTransactionReq(slipNo, serviceType, userId, serviceUserType);
   }
 
   /**
@@ -142,7 +150,7 @@ export class ServiceTransactionService {
    * @returns 
    */
   public transactionReqUserCheck(slipNo:string, requestUserId: string, serviceType: string): Observable<boolean> {
-    return this.apCheckService.checkTransactionReq(slipNo, requestUserId, serviceType);
+    return this.apiCheckService.checkTransactionReq(slipNo, requestUserId, serviceType);
   }
 
 
@@ -154,7 +162,7 @@ export class ServiceTransactionService {
    * @returns 
    */
   public transactionUserCheck(slipNo:string, userId: string, serviceType: string): Observable<boolean> {
-    return this.apCheckService.checkTransaction(slipNo, userId, serviceType);
+    return this.apiCheckService.checkTransaction(slipNo, userId, serviceType);
   }
 
 

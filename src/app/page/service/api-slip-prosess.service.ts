@@ -23,20 +23,15 @@ export class ApiSlipProsessService {
    * @param user
    * @returns
    */
-  public sendTransactionReq(slipNo: string, id: string, name:string,  serviceType: string): Observable<any> {
+  public sendTransactionReq(slipNo: string, serviceType: string, userId: string, serviceUserType: string): Observable<any> {
     // リクエストボディ生成
     const body = {
       "OperationType": "TRANSACTIONREQUEST",
       "Keys": {
         "slipNo" : slipNo,
-        "requestId" : id,
-        "requestUserName": name,
-        "serviceUserType" : serviceType,
-        "requestType" : '0',
-        "files" : '',
-        "requestStatus" : '0',
-        "confirmDiv" : '0',
-        "deadline" : '',
+        "serviceType" : serviceType,        
+        "requestUserId" : userId,
+        "serviceUserType" : serviceUserType,
       }
     };
     return this.http.post<serviceTransactionRequest>(this.apiEndPoint + '/sendtransactionrequest', body).pipe(

@@ -12,9 +12,13 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { MessageDialogComponent } from 'src/app/page/modal/message-dialog/message-dialog.component';
+import { TransactionRequestModalComponent } from 'src/app/page/modal/transaction-request-modal/transaction-request-modal.component';
 import { CognitoService } from 'src/app/page/auth/cognito.service';
 import { messageDialogMsg } from 'src/app/entity/msg';
 import { ApiAuthService } from 'src/app/page/service/api-auth.service';
+import { processStatus } from 'src/app/entity/processStatus';
+import { slipRelation } from 'src/app/entity/slipRelation';
+import { user } from 'src/app/entity/user';
 
 @Component({
   selector: 'app-service-detail',
@@ -36,7 +40,6 @@ export class ServiceDetailComponent implements OnInit {
   serviceTitle: string = '';
   /** 日付 */
   dispYMD: string = '';
-  // dispYMD:Date = new Date();
   /** 希望時間 */
   dispTime: string = '';
   /** 価格 */
@@ -49,8 +52,6 @@ export class ServiceDetailComponent implements OnInit {
   dispTargetVehicle: string = '';
   /** 説明 */
   dispExplanation: string = ''
-  /** 表示伝票情報 */
-  dispContents: salesServiceInfo = defaulsalesService;
   /** 入札方式 */
   bidMethod: string = '';
   /** 再出品区分 */
@@ -59,8 +60,17 @@ export class ServiceDetailComponent implements OnInit {
   serviceTypeName: string = '';
   /** サービス管理者情報 */
   serviceAdminInfo: { id: string, name: string | null } = { id: '', name: '' }
+
+  /** ログイン有無 */
+  isLogin = false;
   /** 管理者区分 */
   adminDiv = false;
+  /** アクセスユーザー情報 */
+  acceseUserInfo?: user;
+  /** アクセスユーザーID */
+  acceseUserId: string = '';
+  /** 表示伝票情報 */
+  dispContents: salesServiceInfo = defaulsalesService;
 
   overlayRef = this.overlay.create({
     hasBackdrop: true,
@@ -101,42 +111,13 @@ export class ServiceDetailComponent implements OnInit {
       // サービスIDから伝票情報を取得し表示する
       this.service.getService(serviceId, serviceType).subscribe(data => {
         this.dispContents = data;
-        this.serviceType = data.targetService;
-        // 表示内容に取得した伝票情報を設定
-        this.serviceTitle = this.dispContents.title;
-        // 表示サービスの管理者設定
-        this.serviceAdminUserSetting();
-        // 希望日を設定
-        if (this.dispContents.preferredDate != undefined) {
-          this.dispYMD = this.service.setDispYMDSt(this.dispContents.preferredDate);
-          // console.log('日付フォーマット:'+formatDate(date, "yy/MM/dd", this.locale));
-          // this.dispYMD = formatDate(date, "yy/MM/dd", this.locale)
-          // this.dispYMD = date;
+        if (this.dispContents.processStatus == processStatus.EXHIBITING) {
+          // 出品中伝票の表示を行う
+          this.exhibitingDisp();
+        } else {
+          // その他は取引中表示を行う
+          this.transactionDisp()
         }
-        // 希望時間
-        this.dispTime = this.dispContents.preferredTime;
-        // 入札方式
-        this.bidMethod = this.dispContents.bidMethod;
-        // 表示価格
-        this.dispPrice = this.dispContents.price;
-        // 地域
-        this.dispArea = this.service.setDispArea(this.dispContents.areaNo1, this.dispContents.areaNo2);
-        // 作業場所
-        this.dispWorkArea = this.service.setDispWorkArea(this.dispContents.workAreaInfo, this.dispContents.targetService);
-        // 対象車両
-        this.dispTargetVehicle = this.dispContents.targetVehicleName;
-        if (this.dispContents.targetVehicleName || this.dispContents.targetVehicleName == '') {
-          this.dispTargetVehicle = '車両情報登録なし'
-        }
-        // 説明
-        this.dispExplanation = this.dispContents.explanation;
-        // 画像
-        this.images = this.service.setImages(this.dispContents.thumbnailUrl, this.dispContents.imageUrlList)
-        if (this.dispContents.processStatus == '3') {
-          this.relistedDiv = true;
-        }
-        this.getLoginUser();
-
       });
     });
   }
@@ -145,17 +126,9 @@ export class ServiceDetailComponent implements OnInit {
   /**
    * 認証状況確認
    */
-  private getLoginUser() {
+  private getLoginUser(): string | null {
     // ログイン状態確認
-    const authUser = this.cognito.initAuthenticated();
-    if (authUser != null) {
-      this.user = authUser;
-      this.adminCheck(this.user);
-    } else {
-      // ローディング解除
-      this.overlayRef.detach();
-      this.loading = false;
-    }
+    return this.cognito.initAuthenticated();
   }
 
 
@@ -173,6 +146,30 @@ export class ServiceDetailComponent implements OnInit {
         }
       });
   }
+
+  /**
+   * 取引を依頼するボタン押下イベント
+   */
+  onTransactionRequest() {
+    // 取引依頼ダイアログを開く
+    TransactionRequestModalComponent
+    // ダイアログ表示（ログインしてください）し前画面へ戻る
+    const dialogData: user = this.acceseUserInfo as user;
+    // 確認ダイアログを表示
+    const dialogRef = this.dialog.open(TransactionRequestModalComponent, {
+      width: '300px',
+      height: '150px',
+      data: dialogData
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if (result) {
+        this.sendTransactionReq(result)
+      }
+      return;
+    });
+  }
+
 
   /**
    * お気に入りに追加ボタン押下時の処理
@@ -198,19 +195,6 @@ export class ServiceDetailComponent implements OnInit {
     });
   }
 
-  /**
-   * 取引状況確認ボタン押下時の処理
-   */
-  onTransactionStatus() {
-    this.router.navigate(["service-transaction"],
-      {
-        queryParams: {
-          slipNo: this.dispContents.slipNo,
-          serviceType: this.serviceType,
-          status: true
-        }
-      });
-  }
 
   /**
    * 再出品ボタン押下イベント
@@ -267,6 +251,102 @@ export class ServiceDetailComponent implements OnInit {
   /******** 以下内部処理 **********/
 
   /**
+   * 出品中状態の表示設定を行う
+   */
+  private exhibitingDisp() {
+    this.defaltDispSetting();
+    const user = this.getLoginUser();
+    this.isLogin = true;
+    if (user) {
+      // 管理者チェックを行う
+      this.adminCheck(user)
+      this.acceseUserId = user;
+    }
+
+  }
+
+  /**
+   * 取引中伝票の表示設定を行う
+   */
+  private transactionDisp() {
+    const user = this.getLoginUser();
+    if (user) {
+      this.setAccessUserSetting(user);
+      // アクセス者判定
+      this.service.transactionCheck(this.dispContents.slipNo, this.dispContents.targetService, user).subscribe(result => {
+        if (result === slipRelation.OTHERS) {
+          this.openMsgDialog(messageDialogMsg.NotAuthorized, true);
+          return;
+        }
+        if (result === slipRelation.ADMIN) {
+          // 管理者表示設定
+          this.transactionAdminDispSetting();
+        } else if (result === slipRelation.TRADER) {
+          // 取引者表示設定
+          this.transactionTraderDispSetting();
+        } else {
+          this.openMsgDialog(messageDialogMsg.NotAuthorized, true);
+        }
+      });
+    } else {
+      this.openMsgDialog(messageDialogMsg.NotAuthorized, true);
+    }
+  }
+
+
+
+  /**
+   * 取引中管理者表示設定
+   */
+  private transactionAdminDispSetting() {
+
+  }
+
+  /**
+   * 取引中取引者表示設定
+   */
+  private transactionTraderDispSetting() {
+
+  }
+
+
+  /**
+   * 標準の表示設定を行う
+   */
+  private defaltDispSetting() {
+    this.serviceType = this.dispContents.targetService;
+    // 表示内容に取得した伝票情報を設定
+    this.serviceTitle = this.dispContents.title;
+    // 表示サービスの管理者設定
+    this.serviceAdminUserSetting();
+    // 希望日を設定
+    if (this.dispContents.preferredDate != undefined) {
+      this.dispYMD = this.service.setDispYMDSt(this.dispContents.preferredDate);
+    }
+    // 希望時間
+    this.dispTime = this.dispContents.preferredTime;
+    // 入札方式
+    this.bidMethod = this.dispContents.bidMethod;
+    // 表示価格
+    this.dispPrice = this.dispContents.price;
+    // 地域
+    this.dispArea = this.service.setDispArea(this.dispContents.areaNo1, this.dispContents.areaNo2);
+    // 作業場所
+    this.dispWorkArea = this.service.setDispWorkArea(this.dispContents.workAreaInfo, this.dispContents.targetService);
+    // 対象車両
+    this.dispTargetVehicle = this.dispContents.targetVehicleName;
+    if (this.dispContents.targetVehicleName || this.dispContents.targetVehicleName == '') {
+      this.dispTargetVehicle = '車両情報登録なし'
+    }
+    // 説明
+    this.dispExplanation = this.dispContents.explanation;
+    // 画像
+    this.images = this.service.setImages(this.dispContents.thumbnailUrl, this.dispContents.imageUrlList)
+  }
+
+
+
+  /**
    * サービス管理者情報を設定する
    */
   private serviceAdminUserSetting() {
@@ -288,8 +368,7 @@ export class ServiceDetailComponent implements OnInit {
       this.serviceAdminInfo.name = '';
       console.log(this.serviceAdminInfo);
     }
-    // // ローディング解除
-    // this.overlayRef.detach();
+
   }
 
 
@@ -310,13 +389,7 @@ export class ServiceDetailComponent implements OnInit {
    * @param userId
    */
   private adminCheck(userId: string) {
-    let adminId = this.dispContents.slipAdminUserId;
-    if (this.dispContents.targetService == '1' && this.dispContents.slipAdminMechanicId) {
-      adminId = this.dispContents.slipAdminMechanicId;
-    } else if (this.dispContents.targetService == '2' && this.dispContents.slipAdminOfficeId) {
-      adminId = this.dispContents.slipAdminOfficeId;
-    }
-    this.service.acsessUserAdminCheck(adminId, this.dispContents.targetService, userId).subscribe(result => {
+    this.service.accessUserAdminCheck(this.dispContents.slipNo, userId, this.dispContents.targetService).subscribe(result => {
       this.adminDiv = result;
       // ローディング解除
       this.overlayRef.detach();
@@ -324,6 +397,62 @@ export class ServiceDetailComponent implements OnInit {
     });
   }
 
+  /**
+   * アクセスユーザー情報を設定
+   * @param userId 
+   */
+  private setAccessUserSetting(userId: string) {
+    this.service.getAccessUser(userId).subscribe(res => {
+      this.acceseUserInfo = res;
+    });
+  }
+
+
+
+  /**
+   * メッセージモーダルを展開する
+   * @param mgs
+   * @param locationDiv
+   */
+  private openMsgDialog(msg: string, locationDiv: boolean) {
+    // ダイアログ表示（ログインしてください）し前画面へ戻る
+    const dialogData: messageDialogData = {
+      massage: msg,
+      closeFlg: false,
+      closeTime: 0,
+      btnDispDiv: true
+    }
+    const dialogRef = this.dialog.open(MessageDialogComponent, {
+      width: '300px',
+      height: '150px',
+      data: dialogData
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if (locationDiv) {
+        this.loading = false;
+        this.overlayRef.detach();
+        this.location.back();
+      }
+      return;
+    });
+  }
+
+  /**
+   * 取引依頼を送信する
+   * @param userSetviceType
+   */
+  private sendTransactionReq(userSetviceType: string) {
+    const user = this.acceseUserInfo as user;
+    this.service.transactionReq(this.dispContents.slipNo, this.serviceType, this.acceseUserId, userSetviceType).subscribe(
+      result => {
+        console.log(result)
+        // TODO
+        // メッセージダイアログ処理実装が必要
+
+
+      });
+  }
 
 }
 

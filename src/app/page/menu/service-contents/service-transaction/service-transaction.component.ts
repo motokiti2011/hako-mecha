@@ -18,6 +18,9 @@ import { Overlay } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { messageDialogMsg } from 'src/app/entity/msg';
 import { ApiAuthService } from 'src/app/page/service/api-auth.service';
+import { TransactionRequestModalComponent } from 'src/app/page/modal/transaction-request-modal/transaction-request-modal.component';
+import { user } from 'src/app/entity/user';
+
 
 @Component({
   selector: 'app-service-transaction',
@@ -62,6 +65,9 @@ export class ServiceTransactionComponent implements OnInit {
   /** 取引対象 */
   transactionTarget = false;
 
+  // アクセスユーザー情報
+  userInfo?: user;
+
   overlayRef = this.overlay.create({
     hasBackdrop: true,
     positionStrategy: this.overlay
@@ -90,18 +96,19 @@ export class ServiceTransactionComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.dispSlipId = params['slipNo'];
       this.serviceType = params['serviceType'];
-      console.log('serviceTypeX:' + this.serviceType);
+      // 伝票取得
       this.service.getService(this.dispSlipId, this.serviceType).subscribe(data => {
+
         this.slip = data;
         this.dispTitle = this.slip.title;
         this.dispYmd = String(this.slip.completionDate);
         if (this.slip.bidMethod == '1' || this.slip.bidMethod == '41') {
-
           this.dispPrice = Number(this.slip.price);
         }
         this.dispArea = this.service.areaNameSetting(this.slip.areaNo1) + this.slip.areaNo2;
         this.dispExplanation = this.slip.explanation;
         this.serviceType = this.slip.targetService;
+        this.transactionDispSetting();
         this.initChatArea(this.slip);
       });
     });
@@ -117,11 +124,9 @@ export class ServiceTransactionComponent implements OnInit {
    */
   private initChatArea(slip: slipDetailInfo) {
     // 認証ユーザー情報取得
-    const user = this.cognito.initAuthenticated();
-    if (user !== null) {
-      // this.setAcsessUser();
-      this.acsessUser.userId = user;
-      this.service.getSendName(user).subscribe(user => {
+    const acceseUser = this.cognito.initAuthenticated();
+    if (acceseUser !== null) {
+      this.service.getSendName(acceseUser).subscribe(user => {
         if (user.length === 0) {
           this.apiAuth.authenticationExpired();
           // ローディング解除
@@ -130,37 +135,27 @@ export class ServiceTransactionComponent implements OnInit {
           this.openMsgDialog(messageDialogMsg.LoginRequest, true);
           return;
         }
-        this.acsessUser.userName = user[0].userName;
-        this.acsessUser.mechanicId = user[0].mechanicId;
-        this.acsessUser.officeId = user[0].officeId;
-        // 管理者判定
-        this.slipAdminCheckId = this.acsessUser.userId;
-        if (this.serviceType == '1') {
-          this.slipAdminCheckId = this.acsessUser.officeId;
-        } else if (this.serviceType == '2') {
-          this.slipAdminCheckId = this.acsessUser.mechanicId;
-        }
-        this.service.slipAuthCheck(this.dispSlipId, this.slipAdminCheckId, this.serviceType).subscribe(result => {
-          // 取得できない場合
-          if (result.length === 0) {
+        this.userInfo = user[0];
+        // アクセス者の管理者チェック
+        this.service.accessUserAdminCheck(this.slip.slipNo, acceseUser, this.serviceType).subscribe(res => {
+          // 管理者区分に設定
+          this.adminUserDiv = res;
+          if (!res) {
             // 閲覧者設定を行う
-            this.browseSetting(slip, user);
+            this.browseSetting(slip, acceseUser);
           } else {
-            // 管理者区分ON
-            this.adminUserDiv = true;
             // 取引依頼情報取得
             this.service.getTranReq(slip.slipNo).subscribe(re => {
               this.tranReq = re;
               // ローディング解除
               this.overlayRef.detach();
               this.loading = false;
-              // // メッセージメニュー画面の初期化
-              // this.child.onShow(this.dispSlipId, this.acsessUser.userId);
             });
           }
-        });
+        })
       });
     } else {
+      // 認証切れ
       this.apiAuth.authenticationExpired();
       // ローディング解除
       this.overlayRef.detach();
@@ -173,28 +168,20 @@ export class ServiceTransactionComponent implements OnInit {
    * 閲覧者設定
    */
   private browseSetting(slip: slipDetailInfo, userId: string) {
+    // メッセージ公開レベルに応じた設定を行う
     if (slip.messageOpenLebel == '2') {
       // 一部公開の場合許可済みユーザーかを確認
       this.service.isSlipUserPermission(slip.slipNo, userId).subscribe(re => {
-        if (re) {
-          // 許可済みユーザーの場合チャット許可する
-        } else {
+        if (!re) {
           // 未許可の場合　一時許可ボタンを表示
           this.openDiv = true;
-          // チャット未許可表示を行う
         }
         this.transactionReqUserCheck();
-        // ローディング解除
-        this.overlayRef.detach();
-        this.loading = false;
       });
     } else if (slip.messageOpenLebel == '3') {
       // 非公開の場合　非公開表示をする
       this.privateDiv = true;
       this.transactionReqUserCheck();
-      // ローディング解除
-      this.overlayRef.detach();
-      this.loading = false;
     }
   }
 
@@ -205,6 +192,9 @@ export class ServiceTransactionComponent implements OnInit {
     // TODO 引数のServiceTypeはこのままで大丈夫かは後日検討要
     this.service.transactionReqUserCheck(this.dispSlipId, this.acsessUser.userId, this.serviceType).subscribe(res => {
       this.transactionTarget = res;
+      // ローディング解除
+      this.overlayRef.detach();
+      this.loading = false;
     });
   }
 
@@ -298,11 +288,22 @@ export class ServiceTransactionComponent implements OnInit {
    * 取引依頼するボタン押下イベント
    */
   onTransactionRequest() {
-    console.log(this.slip);
-    this.service.transactionReq(this.slip, this.acsessUser.userId, this.acsessUser.userName, this.serviceType).subscribe(
-      result => {
-        console.log(result)
-      });
+    // 取引依頼ダイアログを開く
+    // ダイアログ表示（ログインしてください）し前画面へ戻る
+    const dialogData: user = this.userInfo as user;
+    // 確認ダイアログを表示
+    const dialogRef = this.modal.open(TransactionRequestModalComponent, {
+      width: '300px',
+      height: '150px',
+      data: dialogData
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if (result) {
+        this.sendTransactionReq(result)
+      }
+      return;
+    });
   }
 
   /**
@@ -335,6 +336,29 @@ export class ServiceTransactionComponent implements OnInit {
   }
 
 
+  /************************ 以下内部処理 **************************************/
+
+  /**
+   * 取引表示設定
+   */
+  private transactionDispSetting() {
+
+  }
+
+  /**
+   * 取引依頼を送信する
+   * @param userSetviceType
+   */
+  private sendTransactionReq(userSetviceType: string) {
+    this.service.transactionReq(this.slip.slipNo, this.serviceType, this.acsessUser.userId, userSetviceType).subscribe(
+      result => {
+        console.log(result)
+        // TODO
+        // メッセージダイアログ処理実装が必要
+
+
+      });
+  }
 
   /**
    * メッセージモーダルを展開する

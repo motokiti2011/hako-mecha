@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, pipe, map } from 'rxjs';
 import { salesServiceInfo } from 'src/app/entity/salesServiceInfo';
 import { userFavorite } from 'src/app/entity/userFavorite';
 import { ApiSerchService } from 'src/app/page/service/api-serch.service';
 import { ApiUniqueService } from 'src/app/page/service/api-unique.service';
 import { ApiCheckService } from 'src/app/page/service/api-check.service';
+import { ApiSlipProsessService } from 'src/app/page/service/api-slip-prosess.service';
 import { image } from 'src/app/entity/image';
 import { prefecturesCoordinateData } from 'src/app/entity/prefectures';
 import {
   find as _find,
 } from 'lodash';
 import { userWorkArea, mechanicWorkArea } from '../service-create/service-create-option';
+import { slipRelation } from 'src/app/entity/slipRelation';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +22,8 @@ export class ServiceDetailService {
   constructor(
     private apiService: ApiSerchService,
     private apiUniqueService: ApiUniqueService,
-    private apiCheckService: ApiCheckService
+    private apiCheckService: ApiCheckService,
+    private apiSlipService: ApiSlipProsessService,
   ) { }
 
   /**
@@ -93,7 +96,7 @@ export class ServiceDetailService {
       price: service.price, // 価格
       whet: '', // 期間
       serviceType: service.targetService, // サービスタイプ
-      endDate:service.completionDate, // 終了日
+      endDate: service.completionDate, // 終了日
       imageUrl: service.thumbnailUrl, // 画像url
       created: '',// 作成日時
       updated: '',      // 更新日時
@@ -105,16 +108,16 @@ export class ServiceDetailService {
    * サービス情報の日付データから画面表示用に加工する。
    * @param ymd
    */
-  public setDispYMD(ymd:string):Date {
+  public setDispYMD(ymd: string): Date {
     // 年月日を取得
     console.log(ymd);
     const ymdst = String(ymd);
-    const year = ymdst.slice(0,4)
-    const month = ymdst.slice(5,6)
-    const day = ymdst.slice(7,9)
-    console.log('year:'+year)
-    console.log('month:'+month)
-    console.log('day:'+day)
+    const year = ymdst.slice(0, 4)
+    const month = ymdst.slice(5, 6)
+    const day = ymdst.slice(7, 9)
+    console.log('year:' + year)
+    console.log('month:' + month)
+    console.log('day:' + day)
     return new Date(Number(year), Number(month) - 1, Number(day), 0, 0, 0, 0); // 2022年5月5日6時35分20.333秒を設定
 
 
@@ -130,12 +133,12 @@ export class ServiceDetailService {
     console.log(ymd);
 
     const ymdst = String(ymd);
-    const stYear = ymdst.slice(0,4)
-    const stMonth = ymdst.slice(5,6)
-    const stDay = ymdst.slice(6,9)
-    console.log('year:'+stYear)
-    console.log('month:'+stMonth)
-    console.log('day:'+stDay)
+    const stYear = ymdst.slice(0, 4)
+    const stMonth = ymdst.slice(5, 6)
+    const stDay = ymdst.slice(6, 9)
+    console.log('year:' + stYear)
+    console.log('month:' + stMonth)
+    console.log('day:' + stDay)
     // 月、日付は先頭0の場合があるので一旦数値型に戻す
     const month = Number(stMonth);
     const day = Number(stDay);
@@ -151,9 +154,9 @@ export class ServiceDetailService {
    * @param areaNo1
    * @param areaNo2
    */
-  public setDispArea(areaNo1:string, areaNo2: string | null): string {
+  public setDispArea(areaNo1: string, areaNo2: string | null): string {
     const area1Data = _find(prefecturesCoordinateData, data => data.code == areaNo1);
-    if(area1Data) {
+    if (area1Data) {
 
       return area1Data.prefectures + ' ' + areaNo2;
     }
@@ -167,14 +170,14 @@ export class ServiceDetailService {
    */
   public setDispWorkArea(workAreaInfo: string, serviceType: string): string {
     let result = '';
-    if(serviceType == '0') {
+    if (serviceType == '0') {
       const workArea = _find(userWorkArea, data => data.id == workAreaInfo);
-      if(workArea) {
+      if (workArea) {
         result = workArea.viewDisp;
       }
     } else {
       const workArea = _find(mechanicWorkArea, data => data.id == workAreaInfo);
-      if(workArea) {
+      if (workArea) {
         result = workArea.viewDisp;
       }
     }
@@ -187,10 +190,79 @@ export class ServiceDetailService {
    * アクセスユーザーが伝票管理者かをチェックする
    * @param accessId 
    */
-  public acsessUserAdminCheck(adminId: string, serviceType: string, accessId: string): Observable<any>  {
+  public acsessUserAdminCheck(adminId: string, serviceType: string, accessId: string): Observable<any> {
     return this.apiCheckService.checkAcceseAdmin(adminId, serviceType, accessId);
   }
 
+  /**
+   * アクセスユーザーと伝票の関係性をチェックする
+   */
+  public accessUserAdminCheck(slipNo: string, accessUserId: string, serviceType: string): Observable<boolean> {
+    return this.apiCheckService.checkAccessUserSlip(slipNo, accessUserId, serviceType)
+  }
+
+  /**
+   * 取引依頼中ユーザーかを判定する
+   * @param slipNo 
+   * @param requestUserId 
+   * @param serviceType
+   * @returns 
+   */
+  public transactionReqUserCheck(slipNo: string, requestUserId: string, serviceType: string): Observable<boolean> {
+    return this.apiCheckService.checkTransactionReq(slipNo, requestUserId, serviceType);
+  }
+
+  /**
+   * 取引中伝票情報に対してのアクセスチェックを行う
+   * @param slipNo 
+   * @param serviceType 
+   * @param userId 
+   */
+  public transactionCheck(slipNo: string, serviceType: string, userId: string): Observable<string> {
+    // 管理者チェック
+    return this.accessUserAdminCheck(slipNo, userId, serviceType).pipe(
+      map((res: boolean) => {
+        if (res) {
+          // 伝票関係　管理者
+          return slipRelation.ADMIN;
+        } else {
+          this.transactionReqUserCheck(slipNo, serviceType, userId).pipe(
+            map((res: boolean) => {
+              if (res) {
+                // 伝票関係　管理者
+                return slipRelation.TRADER;
+              }
+              // いずれも該当なしの場合、関係なし
+              return slipRelation.OTHERS;
+            })
+          )
+        }
+        // いずれも該当なしの場合、関係なし
+        return slipRelation.OTHERS;
+      })
+    )
+  }
+
+  /**
+   * 取引開始依頼を行う
+   * @param slipNo
+   * @param serviceType
+   * @param userId
+   * @param serviceUserType
+   * @returns
+   */
+  public transactionReq(slipNo: string, serviceType: string, userId: string, serviceUserType: string): Observable<any> {
+    return this.apiSlipService.sendTransactionReq(slipNo, serviceType, userId, serviceUserType);
+  }
+
+
+  /**
+   * アクセス者情報取得
+   * @param userId
+   */
+  public getAccessUser(userId: string): Observable<any> {
+    return this.apiService.getUser(userId);
+  }
 
 
 }

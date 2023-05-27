@@ -125,6 +125,31 @@ export class ApiCheckService {
     );
   }
 
+
+  /**
+   * 伝票へのアクセス者が管理者か閲覧者かをチェックする 
+   */
+  public checkAccessUserSlip(slipNo: string, userId: string, serviceType: string) : Observable<any> {
+    // リクエストボディ生成
+    const body = {
+      "OperationType": "CHECKACCESSUSERSLIP",
+      "Keys": {
+        "slipNo": slipNo,
+        "userId": userId,
+        "serviceType": serviceType
+      }
+    };
+    return this.http.post<boolean>(this.apiEndPoint + '/checkaccessuserslip', body).pipe(
+      timeout(2500), // タイムアウト処理
+      retry(3), // リトライ処
+      // 取得できた場合ユーザー情報を返却
+      map((res: boolean) => res),
+      // エラー時HTTPステータスコードを戻す
+      catchError((err: HttpErrorResponse) => of(undefined))
+    );
+  }
+
+
   /**
    * 取引依頼中ユーザーかを判定を行う
    * @param slipNo
@@ -152,13 +177,13 @@ export class ApiCheckService {
     );
   }
 
-/**
-  * 取引中ユーザーかを判定を行う
-  * @param slipNo
-  * @param requestUserId
-  * @param slipServiceType
-  * @returns
-  */
+  /**
+    * 取引中ユーザーかを判定を行う
+    * @param slipNo
+    * @param requestUserId
+    * @param slipServiceType
+    * @returns
+    */
   public checkTransaction(slipNo: string, userId: string, slipServiceType: string): Observable<any> {
     // リクエストボディ生成
     const body = {

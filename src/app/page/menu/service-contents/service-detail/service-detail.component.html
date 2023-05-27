@@ -3,46 +3,66 @@
     <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
   </div>
   <ng-template #elseContent>
+
+
     <div class="sid_menu">
       <div class="container">
-        <div *ngIf="user">
+        <div *ngIf="isLogin else GestContents">
+          <div *ngIf="dispContents.processStatus == '0'">
+            <div class="row button_item">
+              <button type="button" class="btn btn-outline-primary" (click)="goBack()">一覧に戻る</button>
+            </div>
+
+            <div class="row button_item">
+              <button type="button" class="btn btn-outline-primary" (click)="onFavorite()">お気に入りに追加</button>
+            </div>
+
+            <div class="row button_item">
+              <button type="button" class="btn btn-outline-primary" (click)="onTransaction()">取引状況を確認する</button>
+            </div>
+
+            <div *ngIf="!adminDiv" class="row button_item">
+              <button type="button" class="btn btn-outline-primary" (click)="onServiceEdit()">サービスを編集する</button>
+            </div>
+
+            <div *ngIf="!adminDiv" class="row button_item">
+              <button type="button" class="btn btn-outline-primary" (click)="onTransactionRequest()">取引を依頼する</button>
+            </div>
+          </div>
+
+          <div *ngIf="dispContents.processStatus == '1'">
+            <div class="row button_item">
+              <button type="button" class="btn btn-outline-primary" (click)="onTransaction()">取引状況を確認する</button>
+            </div>
+
+            <div class="row button_item">
+              <button type="button" class="btn btn-outline-primary" (click)="goBack()">一覧に戻る</button>
+            </div>
+          </div>
+
+          <div *ngIf="dispContents.processStatus == '3'">
+            <div class="row button_item">
+              <button type="button" class="btn btn-outline-primary" (click)="onTransaction()">取引状況を確認する</button>
+            </div>
+            <div class="row button_item">
+              <button type="button" class="btn btn-outline-primary" (click)="onRelisted()">再出品</button>
+            </div>
+          </div>
+        </div>
+        <ng-template #GestContents>
           <div class="row button_item">
-            <button type="button" class="btn btn-outline-primary" (click)="onTransaction()">取引する</button>
+            <button type="button" class="btn btn-outline-primary" (click)="goBack()">一覧に戻る</button>
           </div>
 
           <div class="row button_item">
-            <button type="button" class="btn btn-outline-primary" (click)="onFavorite()">お気に入りに追加</button>
+            <ng-template #loginRequest>
+              <p>取引情報は<br>ログイン後に確認できます。</p>
+            </ng-template>
           </div>
-        </div>
-
-        <div class="row button_item">
-          <button type="button" class="btn btn-outline-primary" (click)="goBack()">一覧に戻る</button>
-        </div>
-
-        <div class="row button_item">
-          <div *ngIf="user; else loginRequest">
-            <button type="button" class="btn btn-outline-primary" (click)="onTransactionStatus()">取引状況を確認する</button>
-          </div>
-          <ng-template #loginRequest>
-            <p>取引情報は<br>ログイン後に確認できます。</p>
-          </ng-template>
-
-        </div>
-
-        <div *ngIf="adminDiv">
-          <div class="row button_item">
-            <button type="button" class="btn btn-outline-primary" (click)="onServiceEdit()">サービスを編集する</button>
-          </div>
-        </div>
-
-        <div *ngIf="relistedDiv">
-          <div class="row button_item">
-            <button type="button" class="btn btn-outline-primary" (click)="onRelisted()">再出品</button>
-          </div>
-        </div>
-
+        </ng-template>
       </div>
     </div>
+
 
     <div class="main">
       <div class="contents-area">
@@ -68,8 +88,9 @@
 
       </div>
 
-      <div class="detail_area">
 
+
+      <div class="detail_area">
         <div class="service_info">
           <div *ngIf="user; else NoneUser">
             <p>この{{serviceTypeName}}の管理者</p>
@@ -112,6 +133,11 @@
           <div>　{{dispTargetVehicle}}</div>
         </div>
       </div>
+
+
+
+
+
     </div>
   </ng-template>
 </div>
