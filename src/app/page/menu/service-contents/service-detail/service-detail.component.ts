@@ -30,8 +30,7 @@ export class ServiceDetailComponent implements OnInit {
 
   /** 画像 */
   images: image[] = [];
-  /** ユーザー情報 */
-  user: string = '';
+
   /** サービスタイプ */
   serviceType = '';
   /** サービスID */
@@ -65,10 +64,14 @@ export class ServiceDetailComponent implements OnInit {
   isLogin = false;
   /** 管理者区分 */
   adminDiv = false;
+  /** 取引依頼済区分 */
+  tranReqDiv = false;
   /** アクセスユーザー情報 */
   acceseUserInfo?: user;
   /** アクセスユーザーID */
   acceseUserId: string = '';
+  /** ユーザー名 */
+  userName: string = '';
   /** 表示伝票情報 */
   dispContents: salesServiceInfo = defaulsalesService;
 
@@ -110,6 +113,10 @@ export class ServiceDetailComponent implements OnInit {
       this.setServiceTypeName();
       // サービスIDから伝票情報を取得し表示する
       this.service.getService(serviceId, serviceType).subscribe(data => {
+        if (!data) {
+          this.openMsgDialog(messageDialogMsg.AnSerchAgainOperation, true);
+          return;
+        }
         this.dispContents = data;
         if (this.dispContents.processStatus == processStatus.EXHIBITING) {
           // 出品中伝票の表示を行う
@@ -155,10 +162,11 @@ export class ServiceDetailComponent implements OnInit {
     TransactionRequestModalComponent
     // ダイアログ表示（ログインしてください）し前画面へ戻る
     const dialogData: user = this.acceseUserInfo as user;
+    console.log(dialogData + ':取引モーダルデータ')
     // 確認ダイアログを表示
     const dialogRef = this.dialog.open(TransactionRequestModalComponent, {
-      width: '300px',
-      height: '150px',
+      width: '400px',
+      height: '350px',
       data: dialogData
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -175,7 +183,7 @@ export class ServiceDetailComponent implements OnInit {
    * お気に入りに追加ボタン押下時の処理
    */
   onFavorite() {
-    this.service.addFavorite(this.dispContents, this.user).subscribe(result => {
+    this.service.addFavorite(this.dispContents, this.acceseUserId).subscribe(result => {
       let modalData: messageDialogData = {
         massage: '',
         closeFlg: true,
@@ -223,7 +231,6 @@ export class ServiceDetailComponent implements OnInit {
   }
 
 
-
   /**
    * 管理者情報ページに遷移する
    * @param id
@@ -256,13 +263,14 @@ export class ServiceDetailComponent implements OnInit {
   private exhibitingDisp() {
     this.defaltDispSetting();
     const user = this.getLoginUser();
-    this.isLogin = true;
     if (user) {
       // 管理者チェックを行う
       this.adminCheck(user)
       this.acceseUserId = user;
+      this.isLogin = true;
+      this.setAccessUserSetting(user);
+      this.sentTransactionReq();
     }
-
   }
 
   /**
@@ -272,6 +280,7 @@ export class ServiceDetailComponent implements OnInit {
     const user = this.getLoginUser();
     if (user) {
       this.setAccessUserSetting(user);
+      this.sentTransactionReq();
       // アクセス者判定
       this.service.transactionCheck(this.dispContents.slipNo, this.dispContents.targetService, user).subscribe(result => {
         if (result === slipRelation.OTHERS) {
@@ -307,6 +316,18 @@ export class ServiceDetailComponent implements OnInit {
    */
   private transactionTraderDispSetting() {
 
+  }
+
+  /**
+   * 送信済の取引申込情報取得
+   */
+  private sentTransactionReq() {
+    this.service.sentTranReqCheck(this.dispContents.slipNo, this.acceseUserId).subscribe(res => {
+      if (res) {
+        this.tranReqDiv = true;
+        console.log(res);
+      }
+    })
   }
 
 
@@ -403,7 +424,10 @@ export class ServiceDetailComponent implements OnInit {
    */
   private setAccessUserSetting(userId: string) {
     this.service.getAccessUser(userId).subscribe(res => {
-      this.acceseUserInfo = res;
+      this.acceseUserInfo = res[0];
+      if (this.acceseUserInfo) {
+        this.userName = this.acceseUserInfo.userName;
+      }
     });
   }
 
@@ -443,14 +467,22 @@ export class ServiceDetailComponent implements OnInit {
    * @param userSetviceType
    */
   private sendTransactionReq(userSetviceType: string) {
-    const user = this.acceseUserInfo as user;
+    // ローディング開始
+    this.overlayRef.attach(new ComponentPortal(MatProgressSpinner));
+    this.loading = true;
     this.service.transactionReq(this.dispContents.slipNo, this.serviceType, this.acceseUserId, userSetviceType).subscribe(
       result => {
         console.log(result)
+        if (result == 200) {
+          this.openMsgDialog(messageDialogMsg.Sender, false);
+          this.sentTransactionReq();
+        } else {
+          this.openMsgDialog(messageDialogMsg.ProblemOperation, false);
+        }
         // TODO
         // メッセージダイアログ処理実装が必要
-
-
+        this.loading = false;
+        this.overlayRef.detach();
       });
   }
 

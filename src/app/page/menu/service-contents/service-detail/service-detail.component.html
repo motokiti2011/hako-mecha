@@ -21,13 +21,18 @@
               <button type="button" class="btn btn-outline-primary" (click)="onTransaction()">取引状況を確認する</button>
             </div>
 
-            <div *ngIf="!adminDiv" class="row button_item">
+            <div *ngIf="adminDiv" class="row button_item">
               <button type="button" class="btn btn-outline-primary" (click)="onServiceEdit()">サービスを編集する</button>
             </div>
 
-            <div *ngIf="!adminDiv" class="row button_item">
+            <div *ngIf="!tranReqDiv && !adminDiv" class="row button_item">
               <button type="button" class="btn btn-outline-primary" (click)="onTransactionRequest()">取引を依頼する</button>
             </div>
+            <div *ngIf="tranReqDiv && !adminDiv" class="row button_item">
+              <p>取引依頼中です。</p>
+            </div>
+
+
           </div>
 
           <div *ngIf="dispContents.processStatus == '1'">
@@ -91,8 +96,8 @@
 
 
       <div class="detail_area">
-        <div class="service_info">
-          <div *ngIf="user; else NoneUser">
+        <div *ngIf="!adminDiv" class="service_info">
+          <div *ngIf="isLogin; else NoneUser">
             <p>この{{serviceTypeName}}の管理者</p>
             <div class="service_admin" (click)="onServiceAdmin(serviceAdminInfo.id)">　{{serviceAdminInfo.name}}</div>
           </div>
@@ -100,8 +105,11 @@
             <p>この{{serviceTypeName}}の管理者</p>
             <div class="service_admin_none">　{{serviceAdminInfo.name}}</div>
           </ng-template>
-
         </div>
+        <div *ngIf="adminDiv" class="service_info">
+          <p>{{userName}}が管理者のサービスです。</p>
+        </div>
+
 
         <div class="ymd">
           <p>ご希望日時</p>

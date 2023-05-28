@@ -13,6 +13,8 @@ import {
 } from 'lodash';
 import { userWorkArea, mechanicWorkArea } from '../service-create/service-create-option';
 import { slipRelation } from 'src/app/entity/slipRelation';
+import { serviceTransactionRequest } from 'src/app/entity/serviceTransactionRequest';
+
 
 @Injectable({
   providedIn: 'root'
@@ -262,6 +264,16 @@ export class ServiceDetailService {
    */
   public getAccessUser(userId: string): Observable<any> {
     return this.apiService.getUser(userId);
+  }
+
+  /**
+ * 取引依頼済かを確認する
+ * @param slipNo 
+ * @param userId 
+ * @returns 
+ */
+  public sentTranReqCheck(slipNo: string, userId: string): Observable<serviceTransactionRequest> {
+    return this.apiCheckService.sentTranReqCheck(slipNo, userId);
   }
 
 

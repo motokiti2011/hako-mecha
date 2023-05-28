@@ -75,12 +75,13 @@ export class TransactionRequestModalComponent implements OnInit {
     // 確認ダイアログを表示
     const dialogRef = this.modal.open(MessageSelectDaialogComponent, {
       width: '300px',
-      height: '150px',
+      height: '200px',
       data: dialogData
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
       if (result) {
+        
         this._dialogRef.close(selected);
       }
       return;

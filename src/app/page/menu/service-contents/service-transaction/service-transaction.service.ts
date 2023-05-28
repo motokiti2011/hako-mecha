@@ -15,6 +15,7 @@ import { user } from 'src/app/entity/user';
 import { serviceTransactionRequest } from 'src/app/entity/serviceTransactionRequest';
 import { ServiceQuotas } from 'aws-sdk';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -163,6 +164,16 @@ export class ServiceTransactionService {
    */
   public transactionUserCheck(slipNo:string, userId: string, serviceType: string): Observable<boolean> {
     return this.apiCheckService.checkTransaction(slipNo, userId, serviceType);
+  }
+
+  /**
+   * 取引依頼済かを確認する
+   * @param slipNo 
+   * @param userId 
+   * @returns 
+   */
+  public sentTranReqCheck(slipNo: string, userId: string):Observable<serviceTransactionRequest> {
+    return this.apiCheckService.sentTranReqCheck(slipNo, userId);
   }
 
 

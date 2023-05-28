@@ -7,7 +7,7 @@ import { user } from 'src/app/entity/user';
 import { browsingHistory } from 'src/app/entity/browsingHistory';
 import { userFavorite } from 'src/app/entity/userFavorite';
 import { slipDetailInfo } from 'src/app/entity/slipDetailInfo';
-
+import { serviceTransactionRequest } from 'src/app/entity/serviceTransactionRequest';
 
 
 @Injectable({
@@ -129,7 +129,7 @@ export class ApiCheckService {
   /**
    * 伝票へのアクセス者が管理者か閲覧者かをチェックする 
    */
-  public checkAccessUserSlip(slipNo: string, userId: string, serviceType: string) : Observable<any> {
+  public checkAccessUserSlip(slipNo: string, userId: string, serviceType: string): Observable<any> {
     // リクエストボディ生成
     const body = {
       "OperationType": "CHECKACCESSUSERSLIP",
@@ -199,6 +199,32 @@ export class ApiCheckService {
       retry(3), // リトライ処
       // 取得できた場合ユーザー情報を返却
       map((res: boolean) => res),
+      // エラー時HTTPステータスコードを戻す
+      catchError((err: HttpErrorResponse) => of(undefined))
+    );
+  }
+
+
+  /**
+    * 取引依頼のチェック
+    * @param slipNo
+    * @param userId
+    * @returns
+    */
+  public sentTranReqCheck(slipNo: string, userId: string): Observable<any> {
+    // リクエストボディ生成
+    const body = {
+      "OperationType": "CHECKACCESSUSERSENTTRANSACTIONREQ",
+      "Keys": {
+        "slipNo": slipNo,
+        "accessUserId": userId,
+      }
+    };
+    return this.http.post<serviceTransactionRequest>(this.apiEndPoint + '/checkacceseusersenttransactionreq', body).pipe(
+      timeout(2500), // タイムアウト処理
+      retry(3), // リトライ処
+      // 取得できた場合ユーザー情報を返却
+      map((res: serviceTransactionRequest) => res),
       // エラー時HTTPステータスコードを戻す
       catchError((err: HttpErrorResponse) => of(undefined))
     );
