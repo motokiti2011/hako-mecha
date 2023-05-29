@@ -32,6 +32,12 @@
               <p>取引依頼中です。</p>
             </div>
 
+            <div *ngIf="adminDiv" class="row button_item">
+              <p>現在の取引依頼は{{tranReqList.length}}件です。</p>
+            </div>            
+            <div *ngIf="adminDiv && tranReqList.length > 0" class="row button_item">
+              <button type="button" class="btn btn-outline-primary" (click)="onRequest()">取引依頼を確認する。</button>
+            </div>
 
           </div>
 

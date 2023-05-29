@@ -323,7 +323,7 @@ export class ServiceTransactionComponent implements OnInit {
             // TODO
             return;
           } else {
-            this.service.approvalTransaction(result, this.slipAdminCheckId).subscribe(res => {
+            this.service.approvalTransaction(result, this.slipAdminCheckId, this.serviceType).subscribe(res => {
               console.log(res);
             })
           }

@@ -51,22 +51,26 @@ export class ApiSlipProsessService {
    * @param adminId
    * @returns
    */
-  public approvalTransaction(req: serviceTransactionRequest, adminId: string): Observable<any> {
+  public approvalTransaction(req: serviceTransactionRequest, adminId: string, serviceType: string): Observable<any> {
     // リクエストボディ生成
     const body = {
       "OperationType": "CONFIRMTRANSACTION",
       "Keys": {
-        "slipNo" : req.slipNo,
-        "requestId" : req.requestId,
-        "requestUserName": req.requestUserName,
-        "serviceUserType" : req.serviceUserType,
-        "requestType" : req.requestType,
-        "files" : req.files,
-        "requestStatus" : req.requestStatus,
-        "confirmDiv" : req.confirmDiv,
-        "deadline" : req.deadline,
-        "adminUser": adminId,
-        "confirmUser" : req.requestId
+        "serviceTransactionRequest" : req,
+        "userId": adminId,
+        "serviceType": serviceType,
+        // "serviceTransactionRequest" : req.slipNo,
+        // "requestId" : req.requestId,
+        // "requestUserName": req.requestUserName,
+        // "serviceUserType" : req.serviceUserType,
+        // "requestType" : req.requestType,
+        // "files" : req.files,
+        // "requestStatus" : req.requestStatus,
+        // "confirmDiv" : req.confirmDiv,
+        // "deadline" : req.deadline,
+        // "adminUser": adminId,
+        // "confirmUser" : req.requestId,
+        // "serviceType": serviceType
       }
     };
     return this.http.post<serviceTransactionRequest>(this.apiEndPoint + '/confirmtransaction', body).pipe(

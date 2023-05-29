@@ -3,6 +3,7 @@ import { Observable, pipe, map } from 'rxjs';
 import { salesServiceInfo } from 'src/app/entity/salesServiceInfo';
 import { userFavorite } from 'src/app/entity/userFavorite';
 import { ApiSerchService } from 'src/app/page/service/api-serch.service';
+import { ApiGsiSerchService } from 'src/app/page/service/api-gsi-serch.service';
 import { ApiUniqueService } from 'src/app/page/service/api-unique.service';
 import { ApiCheckService } from 'src/app/page/service/api-check.service';
 import { ApiSlipProsessService } from 'src/app/page/service/api-slip-prosess.service';
@@ -15,7 +16,6 @@ import { userWorkArea, mechanicWorkArea } from '../service-create/service-create
 import { slipRelation } from 'src/app/entity/slipRelation';
 import { serviceTransactionRequest } from 'src/app/entity/serviceTransactionRequest';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -26,6 +26,7 @@ export class ServiceDetailService {
     private apiUniqueService: ApiUniqueService,
     private apiCheckService: ApiCheckService,
     private apiSlipService: ApiSlipProsessService,
+    private apiGsiService: ApiGsiSerchService,
   ) { }
 
   /**
@@ -267,13 +268,32 @@ export class ServiceDetailService {
   }
 
   /**
- * 取引依頼済かを確認する
- * @param slipNo 
- * @param userId 
- * @returns 
- */
+   * 取引依頼済かを確認する
+   * @param slipNo 
+   * @param userId 
+   * @returns 
+   */
   public sentTranReqCheck(slipNo: string, userId: string): Observable<serviceTransactionRequest> {
     return this.apiCheckService.sentTranReqCheck(slipNo, userId);
+  }
+
+  /**
+   * 取引依頼情報を取得する
+   * @param slipNo 
+   * @param userId 
+   */
+  public getTranRequest(slipNo: string): Observable<serviceTransactionRequest[]> {
+    return this.apiGsiService.serchTransactionRequest(slipNo);
+  }
+
+  /**
+   * 取引依頼を承認
+   * @param request 
+   * @param userId 
+   * @returns 
+   */
+  public approvalRequest(request:serviceTransactionRequest, userId: string, serviceType: string): Observable<number> {
+    return this.apiSlipService.approvalTransaction(request, userId, serviceType);
   }
 
 

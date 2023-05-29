@@ -25,3 +25,10 @@ export interface serviceTransactionRequest {
   // 更新日時
   updated: string;
 }
+
+
+export const UserType = {
+  User: '0',
+  Office: '1',
+  Mechanic: '2',
+} as const;

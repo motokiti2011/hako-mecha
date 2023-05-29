@@ -1,10 +1,10 @@
-import { Component, Inject,  OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
-import { serviceTransactionRequest } from 'src/app/entity/serviceTransactionRequest';
+import { serviceTransactionRequest, UserType } from 'src/app/entity/serviceTransactionRequest';
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 import { messageDialogData } from 'src/app/entity/messageDialogData';
-
+import { messageDialogMsg } from 'src/app/entity/msg';
 
 /**
  * 取引依頼承認モーダル
@@ -16,7 +16,8 @@ import { messageDialogData } from 'src/app/entity/messageDialogData';
 })
 export class RequestApprovalModalComponent implements OnInit {
 
-
+  // 画面表示データ
+  dispItems: serviceTransactionRequest[] = [];
 
   constructor(
     public modal: MatDialog,
@@ -27,9 +28,12 @@ export class RequestApprovalModalComponent implements OnInit {
 
   ngOnInit(): void {
     // 画面表示処理
-    if(this.data.length === 0) {
-
+    if (this.data.length === 0) {
+      // データがない場合
+      this.openMsgDialog(messageDialogMsg.NoData, false, false);
+      return;
     }
+    this.dispItems = this.data;
   }
 
   /**
@@ -37,13 +41,24 @@ export class RequestApprovalModalComponent implements OnInit {
    * @param item
    */
   onSelect(item: serviceTransactionRequest) {
-
+    let msg = '';
+    // メッセージ作成
+    if (item.serviceUserType === UserType.User) {
+      msg = item.requestUserName + '様からと取引を開始しますか？';
+    } else if (item.serviceUserType === UserType.Office) {
+      msg = '工場：' + item.requestUserName + 'と取引を開始しますか？';
+    } else {
+      msg = 'メカニック：' + item.requestUserName + 'と取引を開始しますか？';
+    }
+    this.openMsgDialog(msg, false, true, item);
   }
 
   /**
    * 申込ユーザー情報選択イベント
    */
   onRequestUserSelect(item: serviceTransactionRequest) {
+    // ユーザータイプに応じた照会画面を別タブにて開く
+    console.log(item.requestUserName)
 
   }
 
@@ -57,14 +72,11 @@ export class RequestApprovalModalComponent implements OnInit {
   /******************************** 以下内部処理 **********************************/
 
   /**
-   *
+   * 承認した取引依頼を返却する。
    */
   private sendResult(item: serviceTransactionRequest) {
-
+    this._dialogRef.close(item);
   }
-
-
-
 
   /**
    * メッセージダイアログ展開
@@ -85,11 +97,11 @@ export class RequestApprovalModalComponent implements OnInit {
       data: dialogData
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(item && result) {
+      if (item && result) {
         this.sendResult(item);
         return;
       }
-      if(locationDiv) {
+      if (locationDiv) {
         // モーダルを閉じる
         this.closeModal();
         console.log(result);
@@ -97,5 +109,4 @@ export class RequestApprovalModalComponent implements OnInit {
       }
     });
   }
-
 }

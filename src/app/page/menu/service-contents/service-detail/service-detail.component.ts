@@ -19,6 +19,8 @@ import { ApiAuthService } from 'src/app/page/service/api-auth.service';
 import { processStatus } from 'src/app/entity/processStatus';
 import { slipRelation } from 'src/app/entity/slipRelation';
 import { user } from 'src/app/entity/user';
+import { serviceTransactionRequest } from 'src/app/entity/serviceTransactionRequest';
+import { TransactionApprovalModalComponent } from 'src/app/page/modal/transaction-approval-modal/transaction-approval-modal/transaction-approval-modal.component';
 
 @Component({
   selector: 'app-service-detail',
@@ -74,6 +76,8 @@ export class ServiceDetailComponent implements OnInit {
   userName: string = '';
   /** 表示伝票情報 */
   dispContents: salesServiceInfo = defaulsalesService;
+  /** 取引依頼情報 */
+  tranReqList: serviceTransactionRequest[] = [];
 
   overlayRef = this.overlay.create({
     hasBackdrop: true,
@@ -248,6 +252,15 @@ export class ServiceDetailComponent implements OnInit {
   }
 
   /**
+   * 取引依頼を確認するボタン押下イベント
+   */
+  onRequest() {
+    this.requestApproval();
+  }
+
+
+
+  /**
    * 戻るボタン押下イベント
    * @return void
    */
@@ -301,8 +314,6 @@ export class ServiceDetailComponent implements OnInit {
       this.openMsgDialog(messageDialogMsg.NotAuthorized, true);
     }
   }
-
-
 
   /**
    * 取引中管理者表示設定
@@ -412,6 +423,12 @@ export class ServiceDetailComponent implements OnInit {
   private adminCheck(userId: string) {
     this.service.accessUserAdminCheck(this.dispContents.slipNo, userId, this.dispContents.targetService).subscribe(result => {
       this.adminDiv = result;
+      if (result) {
+        // 管理者の場合取引依頼を取得
+        this.service.getTranRequest(this.dispContents.slipNo).subscribe(res => {
+          this.tranReqList = res;
+        });
+      }
       // ローディング解除
       this.overlayRef.detach();
       this.loading = false;
@@ -432,6 +449,64 @@ export class ServiceDetailComponent implements OnInit {
   }
 
 
+  /**
+   * 取引依頼を送信する
+   * @param userSetviceType
+   */
+  private sendTransactionReq(userSetviceType: string) {
+    // ローディング開始
+    this.overlayRef.attach(new ComponentPortal(MatProgressSpinner));
+    this.loading = true;
+    this.service.transactionReq(this.dispContents.slipNo, this.serviceType, this.acceseUserId, userSetviceType).subscribe(
+      result => {
+        console.log(result)
+        if (result == 200) {
+          this.openMsgDialog(messageDialogMsg.Sender, false);
+          this.sentTransactionReq();
+        } else {
+          this.openMsgDialog(messageDialogMsg.ProblemOperation, false);
+        }
+        // TODO
+        // メッセージダイアログ処理実装が必要
+        this.loading = false;
+        this.overlayRef.detach();
+      });
+  }
+
+  /**
+   * 取引依頼承認モーダルを展開する
+   */
+  private requestApproval() {
+    const dialogRef = this.dialog.open(TransactionApprovalModalComponent, {
+      width: '300px',
+      height: '150px',
+      data: this.tranReqList
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if (result) {
+        this.approvalRequest(result);
+      }
+      return;
+    });
+  }
+
+  /**
+   * 取引依頼を承認する
+   */
+  private approvalRequest(request: serviceTransactionRequest) {
+    // ローディング開始
+    this.overlayRef.attach(new ComponentPortal(MatProgressSpinner));
+    this.loading = true;
+    this.service.approvalRequest(request, this.acceseUserId, this.dispContents.targetService).subscribe(result => {
+      if (result == 200) {
+        // 取引中伝票表示処理を行う
+        this.transactionDisp();
+      } else {
+        this.openMsgDialog(messageDialogMsg.ProblemOperation, false);
+      }
+    })
+  }
 
   /**
    * メッセージモーダルを展開する
@@ -462,29 +537,9 @@ export class ServiceDetailComponent implements OnInit {
     });
   }
 
-  /**
-   * 取引依頼を送信する
-   * @param userSetviceType
-   */
-  private sendTransactionReq(userSetviceType: string) {
-    // ローディング開始
-    this.overlayRef.attach(new ComponentPortal(MatProgressSpinner));
-    this.loading = true;
-    this.service.transactionReq(this.dispContents.slipNo, this.serviceType, this.acceseUserId, userSetviceType).subscribe(
-      result => {
-        console.log(result)
-        if (result == 200) {
-          this.openMsgDialog(messageDialogMsg.Sender, false);
-          this.sentTransactionReq();
-        } else {
-          this.openMsgDialog(messageDialogMsg.ProblemOperation, false);
-        }
-        // TODO
-        // メッセージダイアログ処理実装が必要
-        this.loading = false;
-        this.overlayRef.detach();
-      });
-  }
+
+
+
 
 }
 

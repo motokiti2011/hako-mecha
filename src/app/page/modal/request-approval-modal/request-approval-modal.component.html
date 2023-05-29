@@ -1,1 +1,37 @@
-<p>request-approval-modal works!</p>
+<!-- <p>取引依頼承認モーダル</p> -->
+<!-- 関連メカニック表示エリア -->
+<div class="list_area" *ngIf="dispItems.length > 0 else ElseContents">
+  <label>取引を行う方を選択してください。</label>
+  <table>
+    <thead>
+      <tr>
+        <th id="name">取引依頼者名</th>
+        <th id="association">取引依頼者タイプ</th>
+        <th id="association">依頼者の詳細</th>
+        <th id="association"></th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of dispItems">
+        <td>item.requestUserName</td>
+        <td>
+          <div [ngSwitch]="item.serviceUserType">
+            <div *ngSwitchCase="'0'">個人</div>
+            <div *ngSwitchCase="'1'">整備工場</div>
+            <div *ngSwitchCase="'2'">メカニック</div>
+          </div>
+        </td>
+        <td>
+          <div (click)="onRequestUserSelect(item)">依頼者の情報を確認する</div>
+        </td>
+        <td>
+          <button type="submit" class="btn btn-primary" on-click="onSelect(item)">取引を開始</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #ElseContents>
+  <div class="none_msg">
+    現在、取引依頼者は0人です。
+  </div>
+</ng-template>

@@ -138,8 +138,8 @@ export class ServiceTransactionService {
    * @param req
    * @returns
    */
-  public approvalTransaction(req: serviceTransactionRequest, adminId: string): Observable<any> {
-    return this.apiSlipService.approvalTransaction(req, adminId);
+  public approvalTransaction(req: serviceTransactionRequest, adminId: string, serviceType: string): Observable<any> {
+    return this.apiSlipService.approvalTransaction(req, adminId, serviceType);
   }
 
 

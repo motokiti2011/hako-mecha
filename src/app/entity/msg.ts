@@ -28,4 +28,5 @@ export const messageDialogMsg = {
   ChengePassWd: 'パスワードを変更しました。',
   UserResisterReq: 'ユーザー登録が必要です。',
   NotAuthorized: '権限がありません。前操作へと戻ります。',
+  NoData: '表示する情報がありません。'
 } as const;
