@@ -19,7 +19,7 @@ import {
 } from 'lodash';
 
 /**
- * 関連メカニックコンポーネント
+ * 関連メカニックモーダル
  */
 @Component({
   selector: 'app-connection-mechanic-modal',

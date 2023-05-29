@@ -2,6 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ModalData, nextAction } from 'src/app/entity/nextActionButtonType';
 
+/**
+ * 公開設定モーダル
+ */
 @Component({
   selector: 'app-open-level',
   templateUrl: './open-level.component.html',

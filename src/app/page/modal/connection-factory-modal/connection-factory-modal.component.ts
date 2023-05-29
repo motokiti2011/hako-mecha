@@ -21,7 +21,7 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 /**
- * 関連工場コンポーネント
+ * 関連工場モーダル
  */
 @Component({
   selector: 'app-connection-factory-modal',

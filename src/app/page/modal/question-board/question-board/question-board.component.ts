@@ -15,7 +15,9 @@ import { messageDialogData } from 'src/app/entity/messageDialogData';
 import { messageDialogMsg } from 'src/app/entity/msg';
 import { MatDialog } from '@angular/material/dialog';
 
-
+/**
+ * 質問モーダル
+ */
 @Component({
   selector: 'app-question-board',
   templateUrl: './question-board.component.html',
@@ -45,14 +47,14 @@ export class QuestionBoardComponent implements OnInit {
   formPlaceholder = '質問はこちらに記入してください。'
   /** ボタンメッセージ */
   buttonMessage = '投稿する'
-  
+
   overlayRef = this.overlay.create({
     hasBackdrop: true,
     positionStrategy: this.overlay
     .position().global().centerHorizontally().centerVertically()
   });
   loading = false;
-  
+
 
   constructor(
     public _dialogRef: MatDialogRef<QuestionBoardComponent>,

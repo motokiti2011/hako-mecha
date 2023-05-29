@@ -2,6 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ModalData, nextAction } from 'src/app/entity/nextActionButtonType';
 
+/**
+ * 次の作業へモーダル
+ */
 @Component({
   selector: 'app-next-modal',
   templateUrl: './next-modal.component.html',
@@ -16,7 +19,7 @@ export class NextModalComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    
+
   }
 
   nextAction(selected: nextAction) {

@@ -89,6 +89,7 @@ import { ServiceEditComponent } from './page/menu/service-contents/service-edit/
 import { MessageSelectDaialogComponent } from './page/modal/message-select-daialog/message-select-daialog.component';
 import { ChangePasswdComponent } from './page/auth/change-passwd/change-passwd.component';
 import { TransactionRequestModalComponent } from './page/modal/transaction-request-modal/transaction-request-modal.component';
+import { RequestApprovalModalComponent } from './page/modal/request-approval-modal/request-approval-modal.component';
 
 const ROUTE_TABLE: Routes = [
   { path: '', redirectTo: '/main_menu', pathMatch: 'full' },
@@ -192,6 +193,7 @@ const ROUTE_TABLE: Routes = [
     MessageSelectDaialogComponent,
     ChangePasswdComponent,
     TransactionRequestModalComponent,
+    RequestApprovalModalComponent,
   ],
   entryComponents: [
     TransactionListComponent,
