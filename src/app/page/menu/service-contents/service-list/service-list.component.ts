@@ -134,7 +134,7 @@ export class ServiceListComponent implements OnInit {
       // 検索条件取得
       this.serchInfo.areaNo1 = params['areaNum'];
       this.serchInfo.category = params['category'];
-      this.searchTargetService = params['targetService'];
+      this.searchTargetService = params['serviceType'];
 
       this.serchArea1 = this.serchInfo.areaNo1;
       this.serchCategory = this.serchInfo.category;

@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <div *ngIf="targetService == '0' else serviceRequest">
+  <div *ngIf="serviceType == '0' else serviceRequest">
     <!-- ユーザー依頼表示 -->
 
     <div class="vehicle_list_area" *ngIf="registerVehicle.length > 0 else ElseContents">

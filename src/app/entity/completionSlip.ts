@@ -29,7 +29,7 @@ export interface completionSlip {
   // 入札完了日
   bidEndDate: string;
   // 対象サービス内容
-  targetService: string;
+  serviceType: string;
   // 対象車両ID
   targetVehicleId: string;
   // 対象車両名
@@ -78,7 +78,7 @@ export const initCompletionSlip: completionSlip = {
    // 入札完了日
    bidEndDate: '0',
    // 対象サービス内容
-   targetService: '0',
+   serviceType: '0',
    // 対象車両ID
    targetVehicleId: '0',
    // 対象車両名

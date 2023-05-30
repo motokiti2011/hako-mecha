@@ -111,7 +111,7 @@ export class ApiSlipProsessService {
         "bidEndDate" : serviceContents.bidEndDate,
         "explanation" : serviceContents.explanation,
         "displayDiv" : serviceContents.displayDiv,
-        "targetService" : serviceContents.targetService,
+        "serviceType" : serviceContents.serviceType,
         "targetVehicleId" : serviceContents.targetVehicleId,
         "targetVehicleName" : serviceContents.targetVehicleName,
         "targetVehicleInfo" : serviceContents.targetVehicleInfo,

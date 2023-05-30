@@ -23,7 +23,7 @@ export class ServiceSerchConditionsComponent implements OnInit {
   offsetX = ''
   offsetY = ''
 
-  targetService = '';
+  serviceType = '';
 
   /**
    * 検索条件
@@ -128,7 +128,7 @@ export class ServiceSerchConditionsComponent implements OnInit {
             this.overlayRef.detach();
             return;
           }
-          this.targetService = result;
+          this.serviceType = result;
           // ローディング解除
           this.overlayRef.detach();
           this.openSerchServiceList(result);
@@ -144,15 +144,15 @@ export class ServiceSerchConditionsComponent implements OnInit {
 
   /**
    * 対象サービスタイプを設定しサービス一覧画面に遷移する
-   * @param targetService
+   * @param serviceType
    */
-  private openSerchServiceList(targetService: string) {
+  private openSerchServiceList(serviceType: string) {
     this.router.navigate(["service_list"],
       {
         queryParams: {
           areaNum: this.serchCondition.areaNum,
           category: this.serchCondition.category,
-          targetService: targetService
+          serviceType: serviceType
         }
       });
   }

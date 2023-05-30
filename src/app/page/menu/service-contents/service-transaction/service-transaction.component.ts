@@ -107,7 +107,7 @@ export class ServiceTransactionComponent implements OnInit {
         }
         this.dispArea = this.service.areaNameSetting(this.slip.areaNo1) + this.slip.areaNo2;
         this.dispExplanation = this.slip.explanation;
-        this.serviceType = this.slip.targetService;
+        this.serviceType = this.slip.serviceType;
         this.transactionDispSetting();
         this.initChatArea(this.slip);
       });

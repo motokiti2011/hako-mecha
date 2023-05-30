@@ -99,7 +99,7 @@ export class ServiceCreateService {
       // 工程ステータス
       processStatus: '0',
       // 対象サービス内容
-      targetService: content.targetService,
+      serviceType: content.serviceType,
       // 対象車両ID
       targetVehicleId: '',
       // 対象車両名
@@ -174,7 +174,7 @@ export class ServiceCreateService {
       // 工場名
       slipAdminOfficeName:  '',
       // 管理者区分
-      adminDiv: content.targetService,
+      adminDiv: content.serviceType,
       // タイトル
       title: content.title,
       // サービス地域1
@@ -196,7 +196,7 @@ export class ServiceCreateService {
       // 工程ステータス
       processStatus: '0',
       // 対象サービス内容
-      targetService: content.targetService,
+      serviceType: content.serviceType,
       // 対象車両ID
       targetVehicleId: '',
       // 対象車両名

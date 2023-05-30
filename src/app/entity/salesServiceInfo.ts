@@ -45,7 +45,7 @@ export interface salesServiceInfo {
   // 工程ステータス
   processStatus: string;
   // 対象サービス内容
-  targetService: string;
+  serviceType: string;
   // 対象車両ID
   targetVehicleId: string;
   // 対象車両名
@@ -124,7 +124,7 @@ export const defaulsalesService: salesServiceInfo = {
   // 工程ステータス
   processStatus: '',
   // 対象サービス内容
-  targetService: '',
+  serviceType: '',
   // 対象車両ID
   targetVehicleId: '',
   // 対象車両名

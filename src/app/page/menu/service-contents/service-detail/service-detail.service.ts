@@ -98,7 +98,7 @@ export class ServiceDetailService {
       title: service.title, // タイトル
       price: service.price, // 価格
       whet: '', // 期間
-      serviceType: service.targetService, // サービスタイプ
+      serviceType: service.serviceType, // サービスタイプ
       endDate: service.completionDate, // 終了日
       imageUrl: service.thumbnailUrl, // 画像url
       created: '',// 作成日時

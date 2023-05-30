@@ -295,7 +295,7 @@ export class ServiceDetailComponent implements OnInit {
       this.setAccessUserSetting(user);
       this.sentTransactionReq();
       // アクセス者判定
-      this.service.transactionCheck(this.dispContents.slipNo, this.dispContents.targetService, user).subscribe(result => {
+      this.service.transactionCheck(this.dispContents.slipNo, this.dispContents.serviceType, user).subscribe(result => {
         if (result === slipRelation.OTHERS) {
           this.openMsgDialog(messageDialogMsg.NotAuthorized, true);
           return;
@@ -346,7 +346,7 @@ export class ServiceDetailComponent implements OnInit {
    * 標準の表示設定を行う
    */
   private defaltDispSetting() {
-    this.serviceType = this.dispContents.targetService;
+    this.serviceType = this.dispContents.serviceType;
     // 表示内容に取得した伝票情報を設定
     this.serviceTitle = this.dispContents.title;
     // 表示サービスの管理者設定
@@ -364,7 +364,7 @@ export class ServiceDetailComponent implements OnInit {
     // 地域
     this.dispArea = this.service.setDispArea(this.dispContents.areaNo1, this.dispContents.areaNo2);
     // 作業場所
-    this.dispWorkArea = this.service.setDispWorkArea(this.dispContents.workAreaInfo, this.dispContents.targetService);
+    this.dispWorkArea = this.service.setDispWorkArea(this.dispContents.workAreaInfo, this.dispContents.serviceType);
     // 対象車両
     this.dispTargetVehicle = this.dispContents.targetVehicleName;
     if (this.dispContents.targetVehicleName || this.dispContents.targetVehicleName == '') {
@@ -421,7 +421,7 @@ export class ServiceDetailComponent implements OnInit {
    * @param userId
    */
   private adminCheck(userId: string) {
-    this.service.accessUserAdminCheck(this.dispContents.slipNo, userId, this.dispContents.targetService).subscribe(result => {
+    this.service.accessUserAdminCheck(this.dispContents.slipNo, userId, this.dispContents.serviceType).subscribe(result => {
       this.adminDiv = result;
       if (result) {
         // 管理者の場合取引依頼を取得
@@ -498,7 +498,7 @@ export class ServiceDetailComponent implements OnInit {
     // ローディング開始
     this.overlayRef.attach(new ComponentPortal(MatProgressSpinner));
     this.loading = true;
-    this.service.approvalRequest(request, this.acceseUserId, this.dispContents.targetService).subscribe(result => {
+    this.service.approvalRequest(request, this.acceseUserId, this.dispContents.serviceType).subscribe(result => {
       if (result == 200) {
         // 取引中伝票表示処理を行う
         this.transactionDisp();

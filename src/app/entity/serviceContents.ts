@@ -55,7 +55,7 @@ export interface serviceContents {
   // 論理削除フラグ
   logicalDeleteFlag: number;
   // 対象サービス内容
-  targetService: string;
+  serviceType: string;
 }
 
 export const initServiceContent:serviceContents = {
@@ -85,5 +85,5 @@ export const initServiceContent:serviceContents = {
   thumbnailUrl:'',
   imageUrlList:null,
   logicalDeleteFlag: 0,
-  targetService: '0'
+  serviceType: '0'
 }

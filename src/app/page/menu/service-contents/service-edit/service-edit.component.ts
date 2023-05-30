@@ -554,9 +554,9 @@ export class ServiceEditComponent implements OnInit {
    */
   onVehicleSelect() {
     let acsessId = '';
-    if (this.inputData.targetService == '0') {
+    if (this.inputData.serviceType == '0') {
       acsessId = this.inputData.userId;
-    } else if (this.inputData.targetService == '1') {
+    } else if (this.inputData.serviceType == '1') {
       acsessId = this.inputData.mechanicId as string;
     } else {
       acsessId = this.inputData.officeId as string;
@@ -569,7 +569,7 @@ export class ServiceEditComponent implements OnInit {
 
     const modalData: vehicleModalInput = {
       targetVehicle: this.userVehicle,
-      targetService: this.inputData.targetService,
+      serviceType: this.inputData.serviceType,
       acsessId: acsessId,
       settingVehicleInfo: settingVehicle,
       unspecifiedDiv: this.unspecifiedDiv
@@ -616,7 +616,7 @@ export class ServiceEditComponent implements OnInit {
     console.log(this.inputData);
 
     // 工場、メカニックとして依頼する場合
-    if (this.inputData.targetService !== '0') {
+    if (this.inputData.serviceType !== '0') {
       const salesServiceData = this.setSalesService();
       // サービス商品として更新を行う
       this.apiService.postSalesServiceInfo(salesServiceData).subscribe(result => {
@@ -673,7 +673,7 @@ export class ServiceEditComponent implements OnInit {
       explanation: this.inputData.explanation,
       displayDiv: this.beforData.displayDiv,
       processStatus: this.beforData.processStatus,
-      targetService: this.beforData.targetService,
+      serviceType: this.beforData.serviceType,
       targetVehicleId: vehicleId,
       targetVehicleDiv: this.inputData.vehicleDiv,
       targetVehicleName: vheicleName,
@@ -730,7 +730,7 @@ export class ServiceEditComponent implements OnInit {
       explanation: this.inputData.explanation,
       displayDiv: this.beforData.displayDiv,
       processStatus: this.beforData.processStatus,
-      targetService: this.beforData.targetService,
+      serviceType: this.beforData.serviceType,
       targetVehicleId: vehicleId,
       targetVehicleDiv: this.inputData.vehicleDiv,
       targetVehicleName: vheicleName,
@@ -833,7 +833,7 @@ export class ServiceEditComponent implements OnInit {
 
       // データ設定
       this.inputData.workArea = slip.workAreaInfo;
-      this.inputData.targetService = '0';
+      this.inputData.serviceType = '0';
       this.adminSelectDiv = false;
       this.adminUserName = slip.slipAdminUserName;
 
@@ -912,7 +912,7 @@ export class ServiceEditComponent implements OnInit {
       // データ設定
       this.inputData.workArea = slip.workAreaInfo;
       this.inputData.mechanicId = slip.slipAdminMechanicId;
-      this.inputData.targetService = '2';
+      this.inputData.serviceType = '2';
 
       this.inputData.title = slip.title;
       this.title.setValue(slip.title);
@@ -981,7 +981,7 @@ export class ServiceEditComponent implements OnInit {
       this.inputData.workArea = slip.workAreaInfo;
       this.inputData.mechanicId = slip.slipAdminMechanicId;
       this.inputData.officeId = slip.slipAdminOfficeId;
-      this.inputData.targetService = '1';
+      this.inputData.serviceType = '1';
       this.adminSelectDiv = true;
 
       this.inputData.title = slip.title;

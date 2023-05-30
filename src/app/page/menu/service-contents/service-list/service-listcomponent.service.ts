@@ -77,7 +77,7 @@ export class ServiceListcomponentService {
         msgLv: slip.messageOpenLebel,
         thumbnailUrl: slip.thumbnailUrl,
         imageUrlList: null,
-        targetService: '0'
+        serviceType: '0'
       }
       resultData.push(result);
     });
@@ -128,7 +128,7 @@ export class ServiceListcomponentService {
         msgLv: service.messageOpenLebel,
         thumbnailUrl: service.thumbnailUrl,
         imageUrlList: null,
-        targetService: service.targetService
+        serviceType: service.serviceType
       }
       resultData.push(result)
     });
@@ -474,7 +474,7 @@ export class ServiceListcomponentService {
       whet: this.getWhet(contents),
       endDate: contents.preferredDate,
       imageUrl: contents.thumbnailUrl,
-      serviceType: contents.targetService,
+      serviceType: contents.serviceType,
       created: '',
       updated: '',
     }
@@ -519,7 +519,7 @@ export class ServiceListcomponentService {
       whet: this.getWhet(contents),
       endDate: String(contents.preferredDate),
       imageUrl: contents.thumbnailUrl,
-      serviceType: contents.targetService,
+      serviceType: contents.serviceType,
       created: '',
       updated: '',
     }

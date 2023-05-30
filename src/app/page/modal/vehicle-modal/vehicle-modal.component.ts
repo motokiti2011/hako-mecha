@@ -28,7 +28,7 @@ export class VehicleModalComponent implements OnInit {
   /** 選択車両 */
   selectVehicle?: userVehicle;
   /** 対象サービス分類 */
-  targetService: string = '';
+  serviceType: string = '';
   /** 結果データ */
   resultData: slipVehicle = initSlipVehicle;
   /** ユーザー情報 */
@@ -66,11 +66,11 @@ export class VehicleModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.targetService = this.data.targetService;
+    this.serviceType = this.data.serviceType;
     console.log(this.data);
 
     // ユーザー依頼の場合
-    if (this.data.targetService == '0') {
+    if (this.data.serviceType == '0') {
       this.acsessId = this.data.acsessId;
       if (this.data.targetVehicle.length != 0) {
         // 初期表示に登録車両情報を表示
@@ -111,7 +111,7 @@ export class VehicleModalComponent implements OnInit {
       this.setVehicleResultData(this.selectVehicle);
       const data = {
         resultData: this.resultData,
-        targetService: this.targetService,
+        serviceType: this.serviceType,
         unspecifiedDiv: this.unspecifiedDiv
       }
       this._dialogRef.close(this.resultData);
@@ -126,7 +126,7 @@ export class VehicleModalComponent implements OnInit {
 
     const data = {
       resultData: this.resultData,
-      targetService: this.targetService,
+      serviceType: this.serviceType,
       unspecifiedDiv: this.unspecifiedDiv
     }
     this._dialogRef.close(data);
@@ -226,7 +226,7 @@ export class VehicleModalComponent implements OnInit {
       domesticData = domesticVehicleMakerData;
       abroadData = abroadVehicleMakerData;
       // 工場、メカニック依頼時
-      if (this.data.targetService != '0') {
+      if (this.data.serviceType != '0') {
         domesticData.push({ id: '000', name: '指定なし' });
         abroadData.push({ id: '000', name: '指定なし' });
       }
@@ -238,7 +238,7 @@ export class VehicleModalComponent implements OnInit {
       domesticData = domesticBikeMakerData;
       abroadData = abroadBikeMakerData;
       // 工場、メカニック依頼時
-      if (this.data.targetService != '0') {
+      if (this.data.serviceType != '0') {
         domesticData.push({ id: '000', name: '指定なし' });
         abroadData.push({ id: '000', name: '指定なし' });
       }
@@ -295,7 +295,7 @@ export class VehicleModalComponent implements OnInit {
 /** モーダルインプットデータ */
 export interface vehicleModalInput {
   targetVehicle: userVehicle[],
-  targetService: string,
+  serviceType: string,
   acsessId: string | null,
   settingVehicleInfo: slipVehicle | null,
   unspecifiedDiv: boolean

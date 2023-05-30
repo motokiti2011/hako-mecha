@@ -550,9 +550,9 @@ export class ServiceCreateComponent implements OnInit {
    */
   onVehicleSelect() {
     let acsessId = '';
-    if (this.inputData.targetService == '0') {
+    if (this.inputData.serviceType == '0') {
       acsessId = this.inputData.userId;
-    } else if (this.inputData.targetService == '1') {
+    } else if (this.inputData.serviceType == '1') {
       acsessId = this.inputData.mechanicId as string;
     } else {
       acsessId = this.inputData.officeId as string;
@@ -565,7 +565,7 @@ export class ServiceCreateComponent implements OnInit {
 
     const modalData: vehicleModalInput = {
       targetVehicle: this.userVehicle,
-      targetService: this.inputData.targetService,
+      serviceType: this.inputData.serviceType,
       acsessId: acsessId,
       settingVehicleInfo: settingVehicle,
       unspecifiedDiv: this.unspecifiedDiv
@@ -613,7 +613,7 @@ export class ServiceCreateComponent implements OnInit {
     console.log(this.inputData);
 
     // 工場、メカニックとして依頼する場合
-    if (this.inputData.targetService !== '0') {
+    if (this.inputData.serviceType !== '0') {
       // サービス商品として更新を行う
       this.service.postSalesService(this.inputData).subscribe(result => {
         // ローディング解除
@@ -692,7 +692,7 @@ export class ServiceCreateComponent implements OnInit {
     this.msgLvSelect = this.msgLvData[0].id;
     // データ設定
     this.inputData.workArea = this.workAreaSelect;
-    this.inputData.targetService = '0';
+    this.inputData.serviceType = '0';
     this.adminSelectDiv = false;
     this.adminUserName = this.userInfo.userName;
     this.inputData.area1 = this.userInfo.areaNo1;
@@ -736,7 +736,7 @@ export class ServiceCreateComponent implements OnInit {
     // データ設定
     this.inputData.workArea = this.workAreaSelect;
     this.inputData.mechanicId = this.userInfo.mechanicId;
-    this.inputData.targetService = '2';
+    this.inputData.serviceType = '2';
     this.inputData.area1 = this.userInfo.areaNo1;
     this.areaSelect = this.userInfo.areaNo1;
     if (this.areaSelect != '') {
@@ -773,7 +773,7 @@ export class ServiceCreateComponent implements OnInit {
     this.inputData.workArea = this.workAreaSelect;
     this.inputData.mechanicId = this.userInfo.mechanicId;
     this.inputData.officeId = this.userInfo.officeId;
-    this.inputData.targetService = '1';
+    this.inputData.serviceType = '1';
     this.adminSelectDiv = true;
     // 入札方式
     this.inputData.bidMethod = '41';
