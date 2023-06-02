@@ -3,15 +3,26 @@
   <thead>
     <tr>
       <th>申込ユーザー名</th>
-      <th>ファイル</th>
+      <th>依頼者のタイプ</th>
       <th>依頼状況</th>
-
   </thead>
   <tbody>
     <tr *ngFor="let item of dispData">
       <td><div (click)="approvalUser(item)" >{{item.requestUserName}}</div></td>
-      <td>{{item.files}}</td>
-      <td>{{item.requestStatus}}</td>
+      <td>
+        <div [ngSwitch]="item.serviceUserType">
+          <div *ngSwitchCase="'0'">個人</div>
+          <div *ngSwitchCase="'1'">整備工場</div>
+          <div *ngSwitchCase="'2'">メカニック</div>
+        </div>
+      </td>
+      <td>
+        <div [ngSwitch]="item.requestStatus">
+          <div *ngSwitchCase="'0'">申請中</div>
+          <div *ngSwitchCase="'1'">取引確定</div>
+          <div *ngSwitchCase="'3'">申請棄却分　TODO</div>
+        </div>
+      </td>
     </tr>
   </tbody>
 </table>

@@ -282,7 +282,7 @@ export class ServiceDetailComponent implements OnInit {
       this.acceseUserId = user;
       this.isLogin = true;
       this.setAccessUserSetting(user);
-      this.sentTransactionReq();
+
     }
   }
 
@@ -330,7 +330,7 @@ export class ServiceDetailComponent implements OnInit {
   }
 
   /**
-   * 送信済の取引申込情報取得
+   * アクセス者が取引依頼を出しているかをチェック
    */
   private sentTransactionReq() {
     this.service.sentTranReqCheck(this.dispContents.slipNo, this.acceseUserId).subscribe(res => {
@@ -428,6 +428,9 @@ export class ServiceDetailComponent implements OnInit {
         this.service.getTranRequest(this.dispContents.slipNo).subscribe(res => {
           this.tranReqList = res;
         });
+      } else if(!result && this.dispContents.processStatus == processStatus.EXHIBITING) {
+        // 出品中で管理者以外の場合取引依頼チェック
+        this.sentTransactionReq();
       }
       // ローディング解除
       this.overlayRef.detach();
@@ -478,8 +481,8 @@ export class ServiceDetailComponent implements OnInit {
    */
   private requestApproval() {
     const dialogRef = this.dialog.open(TransactionApprovalModalComponent, {
-      width: '300px',
-      height: '150px',
+      width: '650px',
+      height: '450px',
       data: this.tranReqList
     });
     dialogRef.afterClosed().subscribe(result => {

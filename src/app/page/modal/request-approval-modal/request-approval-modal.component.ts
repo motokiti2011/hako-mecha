@@ -92,7 +92,7 @@ export class RequestApprovalModalComponent implements OnInit {
       btnDispDiv: btnType
     }
     const dialogRef = this.modal.open(MessageDialogComponent, {
-      width: '300px',
+      width: '350px',
       height: '150px',
       data: dialogData
     });
