@@ -437,7 +437,39 @@ export class ServiceDetailComponent implements OnInit {
         this.builderDiv = false;
       }
     }
+    // 取引中の場合、完了予定日チェックを行う
+    if(this.dispContents.processStatus == processStatus.SURINGTRADING) {
+      this.completionDateCheck();
+    }
+
   }
+
+  /**
+   * 完了予定日のチェックを行う
+   */
+  private completionDateCheck() {
+    let compDateBtnMsg = '';
+    let compDateBtnDiv = false;
+
+
+
+    if(this.dispContents.completionDate == 0) {
+      // 未設定の場合は設定必須
+      compDateBtnMsg = '完了予定日を設定する。';
+      compDateBtnDiv = true;
+    } else if(this.dispContents.completionDate ) {
+      // 完了予定日を過ぎている場合
+    } else if(this.dispContents.completionDate) {
+      // 完了予定日当日の場合
+    } else {
+      // いづれも該当しない場合
+
+    }
+
+
+  }
+
+
 
 
   /**
@@ -475,7 +507,7 @@ export class ServiceDetailComponent implements OnInit {
 
   /**
    * アクセスユーザー情報を設定
-   * @param userId 
+   * @param userId
    */
   private setAccessUserSetting(userId: string) {
     this.service.getAccessUser(userId).subscribe(res => {
