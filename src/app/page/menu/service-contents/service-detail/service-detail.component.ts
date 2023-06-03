@@ -21,6 +21,7 @@ import { slipRelation } from 'src/app/entity/slipRelation';
 import { user } from 'src/app/entity/user';
 import { serviceTransactionRequest } from 'src/app/entity/serviceTransactionRequest';
 import { TransactionApprovalModalComponent } from 'src/app/page/modal/transaction-approval-modal/transaction-approval-modal/transaction-approval-modal.component';
+import { ServiceType } from 'src/app/entity/serviceType';
 
 @Component({
   selector: 'app-service-detail',
@@ -78,6 +79,9 @@ export class ServiceDetailComponent implements OnInit {
   dispContents: salesServiceInfo = defaulsalesService;
   /** 取引依頼情報 */
   tranReqList: serviceTransactionRequest[] = [];
+
+  /** 施工区分 */
+  builderDiv = false;
 
   overlayRef = this.overlay.create({
     hasBackdrop: true,
@@ -319,14 +323,26 @@ export class ServiceDetailComponent implements OnInit {
    * 取引中管理者表示設定
    */
   private transactionAdminDispSetting() {
-
+    // データ表示設定
+    this.defaltDispSetting();
+    // 施工者判定
+    this.builderCheck();
+    // ローディング解除
+    this.overlayRef.detach();
+    this.loading = false;
   }
 
   /**
    * 取引中取引者表示設定
    */
   private transactionTraderDispSetting() {
-
+    // データ表示設定
+    this.defaltDispSetting();
+    // 施工者判定
+    this.builderCheck();
+    // ローディング解除
+    this.overlayRef.detach();
+    this.loading = false;
   }
 
   /**
@@ -382,15 +398,15 @@ export class ServiceDetailComponent implements OnInit {
    * サービス管理者情報を設定する
    */
   private serviceAdminUserSetting() {
-    if (this.serviceType == '0') {
+    if (this.serviceType == ServiceType.USER_REQUEST) {
       this.serviceAdminInfo.id = this.dispContents.slipAdminUserId;
       this.serviceAdminInfo.name = this.dispContents.slipAdminUserName;
       console.log(this.serviceAdminInfo);
-    } else if (this.serviceType == '1' && this.dispContents.slipAdminOfficeId) {
+    } else if (this.serviceType == ServiceType.OFFICE_SERVICE && this.dispContents.slipAdminOfficeId) {
       this.serviceAdminInfo.id = this.dispContents.slipAdminOfficeId;
       this.serviceAdminInfo.name = this.dispContents.slipAdminOfficeName;
       console.log(this.serviceAdminInfo);
-    } else if (this.serviceType == '2' && this.dispContents.slipAdminMechanicId) {
+    } else if (this.serviceType == ServiceType.MECHANIC_SERVICE && this.dispContents.slipAdminMechanicId) {
       this.serviceAdminInfo.id = this.dispContents.slipAdminMechanicId;
       this.serviceAdminInfo.name = this.dispContents.slipAdminMechanicName;
       console.log(this.serviceAdminInfo);
@@ -400,7 +416,27 @@ export class ServiceDetailComponent implements OnInit {
       this.serviceAdminInfo.name = '';
       console.log(this.serviceAdminInfo);
     }
+  }
 
+  /**
+   * 施工者判定を行う
+   */
+  private builderCheck() {
+    if (this.serviceType == ServiceType.USER_REQUEST) {
+      // ユーザー依頼の場合施工者は受注者
+      if (this.adminDiv) {
+        this.builderDiv = false;
+      } else {
+        this.builderDiv = true;
+      }
+    } else {
+      // その他依頼の場合、管理者が施工者
+      if (this.adminDiv) {
+        this.builderDiv = true;
+      } else {
+        this.builderDiv = false;
+      }
+    }
   }
 
 
@@ -413,7 +449,6 @@ export class ServiceDetailComponent implements OnInit {
     } else {
       this.serviceTypeName = 'サービス';
     }
-
   }
 
   /**
@@ -428,7 +463,7 @@ export class ServiceDetailComponent implements OnInit {
         this.service.getTranRequest(this.dispContents.slipNo).subscribe(res => {
           this.tranReqList = res;
         });
-      } else if(!result && this.dispContents.processStatus == processStatus.EXHIBITING) {
+      } else if (!result && this.dispContents.processStatus == processStatus.EXHIBITING) {
         // 出品中で管理者以外の場合取引依頼チェック
         this.sentTransactionReq();
       }
@@ -503,10 +538,13 @@ export class ServiceDetailComponent implements OnInit {
     this.loading = true;
     this.service.approvalRequest(request, this.acceseUserId, this.dispContents.serviceType).subscribe(result => {
       if (result == 200) {
+        this.openMsgDialog(messageDialogMsg.TransactionStart, false);
         // 取引中伝票表示処理を行う
         this.transactionDisp();
       } else {
         this.openMsgDialog(messageDialogMsg.ProblemOperation, false);
+        this.loading = false;
+        this.overlayRef.detach();
       }
     })
   }
