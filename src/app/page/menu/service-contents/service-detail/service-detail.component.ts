@@ -1,8 +1,10 @@
 import { Component, OnInit, LOCALE_ID, Inject } from '@angular/core';
+import { Observable, map } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { ServiceDetailService } from './service-detail.service';
 import { salesServiceInfo, defaulsalesService } from 'src/app/entity/salesServiceInfo';
 import { messageDialogData } from 'src/app/entity/messageDialogData';
@@ -22,6 +24,9 @@ import { user } from 'src/app/entity/user';
 import { serviceTransactionRequest } from 'src/app/entity/serviceTransactionRequest';
 import { TransactionApprovalModalComponent } from 'src/app/page/modal/transaction-approval-modal/transaction-approval-modal/transaction-approval-modal.component';
 import { ServiceType } from 'src/app/entity/serviceType';
+import { MessageSelectDaialogComponent } from 'src/app/page/modal/message-select-daialog/message-select-daialog.component';
+
+
 
 @Component({
   selector: 'app-service-detail',
@@ -82,6 +87,12 @@ export class ServiceDetailComponent implements OnInit {
 
   /** 施工区分 */
   builderDiv = false;
+  /** 完了予定ボタンメッセージ */
+  compDateBtnMsg = '';
+  /** 取引完了ボタン区分 */
+  tranCompBtnDiv = false;
+  /** 表示日付 */
+  dispDate = new Date()
 
   overlayRef = this.overlay.create({
     hasBackdrop: true,
@@ -102,7 +113,6 @@ export class ServiceDetailComponent implements OnInit {
     private config: NgbCarouselConfig,
     private overlay: Overlay,
     private cognito: CognitoService,
-    private apiAuth: ApiAuthService,
     @Inject(LOCALE_ID) private locale: string
   ) {
     config.interval = 0;
@@ -262,7 +272,39 @@ export class ServiceDetailComponent implements OnInit {
     this.requestApproval();
   }
 
-
+  /** 完了予定日の設定ボタン押下イベント */
+  onCompDateSetting(event: MatDatepickerInputEvent<any>) {
+    let errorMsg = '';
+    const str = String(event.value);
+    // 入力チェック
+    errorMsg = this.service.checkInputDate(str)
+    if (errorMsg != '') {
+      // 入力値不正
+      return;
+    } else {
+      // 問題なければ更新確認ダイアログ表示
+      const msg = '完了日を更新しますがよろしいですか？';
+      this.selectMsgDialog(msg).subscribe(result => {
+        if(!result) {
+          // TODO
+          this.dispDate = this.service.dateFormat(this.dispContents.completionDate);
+          return;
+        }
+        // 日付更新処理
+        this.service.compDateSetting(this.dispContents, event.value, this.acceseUserId).subscribe(res => {
+          if (res) {
+            this.openMsgDialog(messageDialogMsg.CompletionDateSetting, false);
+            // 更新成功時に再度画面表示設定実施
+            this.dispContents = res;
+            this.dispDate = this.service.dateFormat(this.dispContents.completionDate);
+            this.transactionDisp();
+          } else {
+            this.openMsgDialog(messageDialogMsg.ProblemOperation, false);
+          }
+        });
+      });
+    }
+  }
 
   /**
    * 戻るボタン押下イベント
@@ -296,6 +338,8 @@ export class ServiceDetailComponent implements OnInit {
   private transactionDisp() {
     const user = this.getLoginUser();
     if (user) {
+      this.isLogin = true;
+      this.acceseUserId = user;
       this.setAccessUserSetting(user);
       this.sentTransactionReq();
       // アクセス者判定
@@ -304,7 +348,12 @@ export class ServiceDetailComponent implements OnInit {
           this.openMsgDialog(messageDialogMsg.NotAuthorized, true);
           return;
         }
+        // 取引完了ボタン表示
+        this.tranCompBtnDiv = true;
+
         if (result === slipRelation.ADMIN) {
+          // 管理者区分
+          this.adminDiv = true;
           // 管理者表示設定
           this.transactionAdminDispSetting();
         } else if (result === slipRelation.TRADER) {
@@ -438,38 +487,13 @@ export class ServiceDetailComponent implements OnInit {
       }
     }
     // 取引中の場合、完了予定日チェックを行う
-    if(this.dispContents.processStatus == processStatus.SURINGTRADING) {
-      this.completionDateCheck();
+    if (this.dispContents.processStatus == processStatus.SURINGTRADING) {
+      this.compDateBtnMsg = this.service.completionDateCheck(this.dispContents.completionDate);
+      if(this.dispContents.completionDate != 0) {
+        this.dispDate = this.service.dateFormat(this.dispContents.completionDate);
+      }
     }
-
   }
-
-  /**
-   * 完了予定日のチェックを行う
-   */
-  private completionDateCheck() {
-    let compDateBtnMsg = '';
-    let compDateBtnDiv = false;
-
-
-
-    if(this.dispContents.completionDate == 0) {
-      // 未設定の場合は設定必須
-      compDateBtnMsg = '完了予定日を設定する。';
-      compDateBtnDiv = true;
-    } else if(this.dispContents.completionDate ) {
-      // 完了予定日を過ぎている場合
-    } else if(this.dispContents.completionDate) {
-      // 完了予定日当日の場合
-    } else {
-      // いづれも該当しない場合
-
-    }
-
-
-  }
-
-
 
 
   /**
@@ -608,6 +632,33 @@ export class ServiceDetailComponent implements OnInit {
       }
       return;
     });
+  }
+
+  /**
+   * 確認メッセージモーダルを展開する
+   * @param mgs
+   */
+  private selectMsgDialog(msg: string): Observable<boolean> {
+    // 選択ダイアログ表示
+    const dialogData: messageDialogData = {
+      massage: msg,
+      closeFlg: false,
+      closeTime: 0,
+      btnDispDiv: true
+    }
+    // 確認ダイアログを表示
+    const dialogRef = this.dialog.open(MessageSelectDaialogComponent, {
+      width: '300px',
+      height: '200px',
+      data: dialogData
+    });
+    return dialogRef.afterClosed().pipe(map((res) => {
+      if (res) {
+        return res;
+      }
+      return false;
+    })
+    );
   }
 
 

@@ -50,8 +50,24 @@
               <button type="button" class="btn btn-outline-primary" (click)="goBack()">一覧に戻る</button>
             </div>
 
-            <div *ngIf="builderDiv && dispContents.completionDate == '0'" class="row button_item">
-              <button type="button" class="btn btn-outline-primary" (click)="onTransaction()">{{completionDateMsg}}</button>
+            <div *ngIf="tranCompBtnDiv" class="row button_item">
+              <button type="button" class="btn btn-outline-primary" (click)="onTransaction()">取引を終了する</button>
+            </div>
+
+            <div *ngIf="builderDiv" class="row button_item">
+              <label>{{compDateBtnMsg}}</label>
+              <mat-form-field class="example-form-field">
+                <mat-label>現在の完了予定日</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="dispDate"
+                  (dateChange)="onCompDateSetting($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker startView="year" [startAt]="dispDate"></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div *ngIf="!builderDiv" class="row button_item">
+              <label>現在の完了予定日</label>
+              <div>{{dispDate}}</div>
             </div>
 
           </div>
@@ -64,8 +80,12 @@
               <button type="button" class="btn btn-outline-primary" (click)="onRelisted()">再出品</button>
             </div>
           </div>
+
         </div>
         <ng-template #GestContents>
+
+          <p>hoge3</p>
+
           <div class="row button_item">
             <button type="button" class="btn btn-outline-primary" (click)="goBack()">一覧に戻る</button>
           </div>

@@ -59,18 +59,6 @@ export class ApiSlipProsessService {
         "serviceTransactionRequest" : req,
         "userId": adminId,
         "serviceType": serviceType,
-        // "serviceTransactionRequest" : req.slipNo,
-        // "requestId" : req.requestId,
-        // "requestUserName": req.requestUserName,
-        // "serviceUserType" : req.serviceUserType,
-        // "requestType" : req.requestType,
-        // "files" : req.files,
-        // "requestStatus" : req.requestStatus,
-        // "confirmDiv" : req.confirmDiv,
-        // "deadline" : req.deadline,
-        // "adminUser": adminId,
-        // "confirmUser" : req.requestId,
-        // "serviceType": serviceType
       }
     };
     return this.http.post<serviceTransactionRequest>(this.apiEndPoint + '/confirmtransaction', body).pipe(
@@ -132,6 +120,35 @@ export class ApiSlipProsessService {
       retry(3), // リトライ処理
       // 取得できた場合ユーザー情報を返却
       map((res: any) => res),
+      // エラー時HTTPステータスコードを戻す
+      catchError((err: HttpErrorResponse) => of(undefined))
+    );
+  }
+
+  /**
+   * 完了予定日を更新する
+   * @param slipNo 
+   * @param serviceType 
+   * @param compDateNum 
+   * @param acceseUserId 
+   * @returns 
+   */
+  public compDateSetting(slipNo: string, serviceType: string, compDateNum: number, acceseUserId: string): Observable<any> {
+    // リクエストボディ生成
+    const body = {
+      "OperationType": "SCHEDULEDCOMPSETTING",
+      "Keys": {
+        "slipNo" : slipNo,
+        "serviceType": serviceType,
+        "compDate": compDateNum,
+        "acceseUserId": acceseUserId,
+      }
+    };
+    return this.http.post<salesServiceInfo>(this.apiEndPoint + '/scheduledcompletionsetting', body).pipe(
+      timeout(2500), // タイムアウト処理
+      retry(3), // リトライ処理
+      // 取得できた場合ユーザー情報を返却
+      map((res: salesServiceInfo) => res),
       // エラー時HTTPステータスコードを戻す
       catchError((err: HttpErrorResponse) => of(undefined))
     );

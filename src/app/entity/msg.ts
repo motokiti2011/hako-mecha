@@ -30,5 +30,6 @@ export const messageDialogMsg = {
   NotAuthorized: '権限がありません。前操作へと戻ります。',
   NoData: '表示する情報がありません。',
   TransactionStart: '取引開始しました。',
+  CompletionDateSetting: '完了予定日が設定されました。',
 
 } as const;

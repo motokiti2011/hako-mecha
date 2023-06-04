@@ -15,6 +15,8 @@ import {
 import { userWorkArea, mechanicWorkArea } from '../service-create/service-create-option';
 import { slipRelation } from 'src/app/entity/slipRelation';
 import { serviceTransactionRequest } from 'src/app/entity/serviceTransactionRequest';
+import { monthMap } from 'src/app/entity/month';
+
 
 @Injectable({
   providedIn: 'root'
@@ -296,5 +298,88 @@ export class ServiceDetailService {
     return this.apiSlipService.approvalTransaction(request, userId, serviceType);
   }
 
+  /**
+   * 完了日付を更新する
+   * @param slipData 
+   * @param compDate 
+   * @param acceseUserId 
+   * @returns 
+   */
+  compDateSetting(slipData: salesServiceInfo, compDate: any, acceseUserId: string):Observable<any> {
+    const compDateNum = this.getDate(String(compDate))
+    return this.apiSlipService.compDateSetting(slipData.slipNo, slipData.serviceType, compDateNum, acceseUserId)
+  }
+
+
+  /**
+   * 完了予定日のチェックを行う
+   * @param inputDate 
+   * @returns 
+   */
+  public completionDateCheck(inputDate: number): string {
+    const today = this.getDate()
+    if (inputDate == 0) {
+      // 未設定の場合は設定必須
+      return '完了予定日を設定する。';
+    } else if (inputDate < today) {
+      // 完了予定日を過ぎている場合
+      return '完了日を過ぎています。\r 更新が必要です';
+    } else if (inputDate == today) {
+      // 完了予定日当日の場合
+      return  '完了日となります。\r 変更はこちらから';
+    } else {
+      // いづれも該当しない場合
+      return  '完了予定の変更はこちらから';
+    }
+  }
+
+  /**
+   * 入力された日付データのチェックを行う
+   * @param inputDate 
+   */
+  public checkInputDate(inputDate: String): string {
+    if(!inputDate) {
+      return '日付の入力が不正です。'
+    } 
+    if(Number(inputDate) < this.getDate()) {
+      return '日付は未来日を設定してください。'
+    }
+    return ''
+  }
+
+
+  /**
+   * yymmdd形式の日付を取得
+   * @returns 
+   */
+  public getDate(inputDate?: string): number {
+    let date = String(new Date())
+    if(inputDate) {
+      date = inputDate;
+    }
+    const dayStr = String(date);
+    const day = dayStr.split(' ');
+    const d = _find(monthMap, month => month.month === day[1]);
+    // 今日の日付yyymmdd形式
+    return Number(day[3] + d?.monthNum + day[2])
+  }
+
+  /**
+   * yymmdd形式の日付をDate型に変換する
+   * @param strDate 
+   */
+  public dateFormat(numDate: number): Date {
+    // 20230615
+    const dateStr = String(numDate);
+    const year = Number(dateStr.slice(0,4));
+    const month = Number(dateStr.slice(4,6));
+    const day = Number(dateStr.slice(6,8));
+    console.log(year)
+    console.log(month)
+    console.log(day)
+
+    return new Date(year, month - 1, day, 0, 0, 0, 0);
+
+  }
 
 }
