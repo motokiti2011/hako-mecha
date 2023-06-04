@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, pipe, map } from 'rxjs';
+import { Observable, pipe, map, mergeMap, of} from 'rxjs';
 import { salesServiceInfo } from 'src/app/entity/salesServiceInfo';
 import { userFavorite } from 'src/app/entity/userFavorite';
 import { ApiSerchService } from 'src/app/page/service/api-serch.service';
@@ -170,8 +170,8 @@ export class ServiceDetailService {
 
   /**
    * 作業場所情報を設定する
-   * @param workAreaInfo 
-   * @param serviceType 
+   * @param workAreaInfo
+   * @param serviceType
    */
   public setDispWorkArea(workAreaInfo: string, serviceType: string): string {
     let result = '';
@@ -193,7 +193,7 @@ export class ServiceDetailService {
 
   /**
    * アクセスユーザーが伝票管理者かをチェックする
-   * @param accessId 
+   * @param accessId
    */
   public acsessUserAdminCheck(adminId: string, serviceType: string, accessId: string): Observable<any> {
     return this.apiCheckService.checkAcceseAdmin(adminId, serviceType, accessId);
@@ -208,10 +208,10 @@ export class ServiceDetailService {
 
   /**
    * 取引依頼中ユーザーかを判定する
-   * @param slipNo 
-   * @param requestUserId 
+   * @param slipNo
+   * @param requestUserId
    * @param serviceType
-   * @returns 
+   * @returns
    */
   public transactionReqUserCheck(slipNo: string, requestUserId: string, serviceType: string): Observable<boolean> {
     return this.apiCheckService.checkTransactionReq(slipNo, requestUserId, serviceType);
@@ -219,31 +219,30 @@ export class ServiceDetailService {
 
   /**
    * 取引中伝票情報に対してのアクセスチェックを行う
-   * @param slipNo 
-   * @param serviceType 
-   * @param userId 
+   * @param slipNo
+   * @param serviceType
+   * @param userId
    */
   public transactionCheck(slipNo: string, serviceType: string, userId: string): Observable<string> {
     // 管理者チェック
     return this.accessUserAdminCheck(slipNo, userId, serviceType).pipe(
-      map((res: boolean) => {
+      mergeMap((res: boolean) => {
         if (res) {
           // 伝票関係　管理者
           return slipRelation.ADMIN;
         } else {
-          this.transactionReqUserCheck(slipNo, serviceType, userId).pipe(
+          return this.transactionReqUserCheck(slipNo, userId, serviceType).pipe(
             map((res: boolean) => {
               if (res) {
                 // 伝票関係　管理者
                 return slipRelation.TRADER;
+              } else {
+                // いずれも該当なしの場合、関係なし
+                return slipRelation.OTHERS;
               }
-              // いずれも該当なしの場合、関係なし
-              return slipRelation.OTHERS;
             })
-          )
+          );
         }
-        // いずれも該当なしの場合、関係なし
-        return slipRelation.OTHERS;
       })
     )
   }
@@ -271,9 +270,9 @@ export class ServiceDetailService {
 
   /**
    * 取引依頼済かを確認する
-   * @param slipNo 
-   * @param userId 
-   * @returns 
+   * @param slipNo
+   * @param userId
+   * @returns
    */
   public sentTranReqCheck(slipNo: string, userId: string): Observable<serviceTransactionRequest> {
     return this.apiCheckService.sentTranReqCheck(slipNo, userId);
@@ -281,8 +280,8 @@ export class ServiceDetailService {
 
   /**
    * 取引依頼情報を取得する
-   * @param slipNo 
-   * @param userId 
+   * @param slipNo
+   * @param userId
    */
   public getTranRequest(slipNo: string): Observable<serviceTransactionRequest[]> {
     return this.apiGsiService.serchTransactionRequest(slipNo);
@@ -290,9 +289,9 @@ export class ServiceDetailService {
 
   /**
    * 取引依頼を承認
-   * @param request 
-   * @param userId 
-   * @returns 
+   * @param request
+   * @param userId
+   * @returns
    */
   public approvalRequest(request:serviceTransactionRequest, userId: string, serviceType: string): Observable<number> {
     return this.apiSlipService.approvalTransaction(request, userId, serviceType);
@@ -300,10 +299,10 @@ export class ServiceDetailService {
 
   /**
    * 完了日付を更新する
-   * @param slipData 
-   * @param compDate 
-   * @param acceseUserId 
-   * @returns 
+   * @param slipData
+   * @param compDate
+   * @param acceseUserId
+   * @returns
    */
   compDateSetting(slipData: salesServiceInfo, compDate: any, acceseUserId: string):Observable<any> {
     const compDateNum = this.getDate(String(compDate))
@@ -313,8 +312,8 @@ export class ServiceDetailService {
 
   /**
    * 完了予定日のチェックを行う
-   * @param inputDate 
-   * @returns 
+   * @param inputDate
+   * @returns
    */
   public completionDateCheck(inputDate: number): string {
     const today = this.getDate()
@@ -335,12 +334,12 @@ export class ServiceDetailService {
 
   /**
    * 入力された日付データのチェックを行う
-   * @param inputDate 
+   * @param inputDate
    */
   public checkInputDate(inputDate: String): string {
     if(!inputDate) {
       return '日付の入力が不正です。'
-    } 
+    }
     if(Number(inputDate) < this.getDate()) {
       return '日付は未来日を設定してください。'
     }
@@ -350,7 +349,7 @@ export class ServiceDetailService {
 
   /**
    * yymmdd形式の日付を取得
-   * @returns 
+   * @returns
    */
   public getDate(inputDate?: string): number {
     let date = String(new Date())
@@ -366,7 +365,7 @@ export class ServiceDetailService {
 
   /**
    * yymmdd形式の日付をDate型に変換する
-   * @param strDate 
+   * @param strDate
    */
   public dateFormat(numDate: number): Date {
     // 20230615
