@@ -309,6 +309,18 @@ export class ServiceDetailService {
     return this.apiSlipService.compDateSetting(slipData.slipNo, slipData.serviceType, compDateNum, acceseUserId)
   }
 
+  /**
+   * 取引を完了する
+   * @param slipNo 
+   * @param serviceType 
+   * @param acceseUser 
+   */
+  public completedTransaction(slipNo: string, serviceType: string, acceseUser: string) :Observable<any> {
+    return this.apiSlipService.compTransaction(slipNo, serviceType, acceseUser)
+  }
+
+
+
 
   /**
    * 完了予定日のチェックを行う

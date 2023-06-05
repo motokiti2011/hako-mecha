@@ -285,7 +285,7 @@ export class ServiceDetailComponent implements OnInit {
       // 問題なければ更新確認ダイアログ表示
       const msg = '完了日を更新しますがよろしいですか？';
       this.selectMsgDialog(msg).subscribe(result => {
-        if(!result) {
+        if (!result) {
           // TODO
           this.dispDate = this.service.dateFormat(this.dispContents.completionDate);
           return;
@@ -310,6 +310,25 @@ export class ServiceDetailComponent implements OnInit {
    * 取引を完了するボタン押下イベント
    */
   onCompletedTransaction() {
+    const msg = 'この取引を終了しますがよろしいですか？';
+    this.selectMsgDialog(msg).subscribe(result => {
+      if (!result) {
+        return;
+      }
+      this.service.completedTransaction(this.dispContents.slipNo, this.dispContents.serviceType, this.acceseUserId).subscribe(res => {
+        if (res) {
+          this.dispContents = res;
+          // 完了済伝票の表示を行う
+          this.completionDisp();
+        }
+      });
+    });
+  }
+
+  /**
+   * 取引をキャンセルするボタン押下イベント
+   */
+  onTransactionCancel() {
 
   }
 
@@ -374,6 +393,46 @@ export class ServiceDetailComponent implements OnInit {
       this.openMsgDialog(messageDialogMsg.NotAuthorized, true);
     }
   }
+
+  /**
+   * 完了済伝票の表示設定を行う
+   */
+  private completionDisp() {
+    const user = this.getLoginUser();
+    if (user) {
+      this.isLogin = true;
+      this.acceseUserId = user;
+      this.setAccessUserSetting(user);
+
+
+
+      // アクセス者判定
+      this.service.transactionCheck(this.dispContents.slipNo, this.dispContents.serviceType, user).subscribe(result => {
+        if (result === slipRelation.OTHERS) {
+          this.openMsgDialog(messageDialogMsg.NotAuthorized, true);
+          return;
+        }
+        // 取引完了ボタン表示
+        this.tranCompBtnDiv = true;
+
+        if (result === slipRelation.ADMIN) {
+          // 管理者区分
+          this.adminDiv = true;
+          // 管理者表示設定
+          this.transactionAdminDispSetting();
+        } else if (result === slipRelation.TRADER) {
+          // 取引者表示設定
+          this.transactionTraderDispSetting();
+        } else {
+          this.openMsgDialog(messageDialogMsg.NotAuthorized, true);
+        }
+      });
+    } else {
+      this.openMsgDialog(messageDialogMsg.NotAuthorized, true);
+    }
+  }
+
+
 
   /**
    * 取引中管理者表示設定
@@ -496,7 +555,7 @@ export class ServiceDetailComponent implements OnInit {
     // 取引中の場合、完了予定日チェックを行う
     if (this.dispContents.processStatus == processStatus.SURINGTRADING) {
       this.compDateBtnMsg = this.service.completionDateCheck(this.dispContents.completionDate);
-      if(this.dispContents.completionDate != 0) {
+      if (this.dispContents.completionDate != 0) {
         this.dispDate = this.service.dateFormat(this.dispContents.completionDate);
       }
     }

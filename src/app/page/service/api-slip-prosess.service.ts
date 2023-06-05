@@ -28,16 +28,16 @@ export class ApiSlipProsessService {
     const body = {
       "OperationType": "TRANSACTIONREQUEST",
       "Keys": {
-        "slipNo" : slipNo,
-        "serviceType" : serviceType,        
-        "requestUserId" : userId,
-        "serviceUserType" : serviceUserType,
+        "slipNo": slipNo,
+        "serviceType": serviceType,
+        "requestUserId": userId,
+        "serviceUserType": serviceUserType,
       }
     };
     return this.http.post<serviceTransactionRequest>(this.apiEndPoint + '/sendtransactionrequest', body).pipe(
       timeout(2500), // タイムアウト処理
       retry(3), // リトライ処理
-      // 取得できた場合ユーザー情報を返却
+      // 取得できた場合情報を返却
       map((res: serviceTransactionRequest) => res),
       // エラー時HTTPステータスコードを戻す
       catchError((err: HttpErrorResponse) => of(undefined))
@@ -56,7 +56,7 @@ export class ApiSlipProsessService {
     const body = {
       "OperationType": "CONFIRMTRANSACTION",
       "Keys": {
-        "serviceTransactionRequest" : req,
+        "serviceTransactionRequest": req,
         "userId": adminId,
         "serviceType": serviceType,
       }
@@ -64,7 +64,7 @@ export class ApiSlipProsessService {
     return this.http.post<serviceTransactionRequest>(this.apiEndPoint + '/confirmtransaction', body).pipe(
       timeout(2500), // タイムアウト処理
       retry(3), // リトライ処理
-      // 取得できた場合ユーザー情報を返却
+      // 取得できた場合情報を返却
       map((res: serviceTransactionRequest) => res),
       // エラー時HTTPステータスコードを戻す
       catchError((err: HttpErrorResponse) => of(undefined))
@@ -78,47 +78,47 @@ export class ApiSlipProsessService {
    * @param serviceContents
    * @returns
    */
-  public relistedService(serviceType: string, serviceContents:salesServiceInfo ): Observable<any> {
+  public relistedService(serviceType: string, serviceContents: salesServiceInfo): Observable<any> {
     // リクエストボディ生成
     const body = {
       "OperationType": "RELISTEDSERVICE",
       "Keys": {
-        "slipNo" : serviceContents.slipNo,
-        "deleteDiv" : serviceContents.deleteDiv,
-        "category" : serviceContents.category,
-        "slipAdminUserId" : serviceContents.slipAdminUserId,
-        "slipAdminOfficeId" : serviceContents.slipAdminOfficeId,
-        "slipAdminMechanicId" : serviceContents.slipAdminMechanicId,
-        "adminDiv" : serviceContents.adminDiv,
-        "title" : serviceContents.title,
-        "areaNo1" : serviceContents.areaNo1,
-        "areaNo2" : serviceContents.areaNo2,
-        "price" : serviceContents.price,
-        "bidMethod" : serviceContents.bidMethod,
-        "bidderId" : serviceContents.bidderId,
-        "bidEndDate" : serviceContents.bidEndDate,
-        "explanation" : serviceContents.explanation,
-        "displayDiv" : serviceContents.displayDiv,
-        "serviceType" : serviceContents.serviceType,
-        "targetVehicleId" : serviceContents.targetVehicleId,
-        "targetVehicleName" : serviceContents.targetVehicleName,
-        "targetVehicleInfo" : serviceContents.targetVehicleInfo,
-        "workAreaInfo" : serviceContents.workAreaInfo,
-        "preferredDate" : serviceContents.preferredDate,
-        "preferredTime" : serviceContents.preferredTime,
-        "completionDate" : serviceContents.completionDate,
-        "transactionCompletionDate" : serviceContents.transactionCompletionDate,
-        "thumbnailUrl" : serviceContents.thumbnailUrl,
-        "imageUrlList" : serviceContents.imageUrlList,
-        "messageOpenLebel" : serviceContents.messageOpenLebel,
-        "updateUserId" : serviceContents.updateUserId,
-        "created" : serviceContents.created
+        "slipNo": serviceContents.slipNo,
+        "deleteDiv": serviceContents.deleteDiv,
+        "category": serviceContents.category,
+        "slipAdminUserId": serviceContents.slipAdminUserId,
+        "slipAdminOfficeId": serviceContents.slipAdminOfficeId,
+        "slipAdminMechanicId": serviceContents.slipAdminMechanicId,
+        "adminDiv": serviceContents.adminDiv,
+        "title": serviceContents.title,
+        "areaNo1": serviceContents.areaNo1,
+        "areaNo2": serviceContents.areaNo2,
+        "price": serviceContents.price,
+        "bidMethod": serviceContents.bidMethod,
+        "bidderId": serviceContents.bidderId,
+        "bidEndDate": serviceContents.bidEndDate,
+        "explanation": serviceContents.explanation,
+        "displayDiv": serviceContents.displayDiv,
+        "serviceType": serviceContents.serviceType,
+        "targetVehicleId": serviceContents.targetVehicleId,
+        "targetVehicleName": serviceContents.targetVehicleName,
+        "targetVehicleInfo": serviceContents.targetVehicleInfo,
+        "workAreaInfo": serviceContents.workAreaInfo,
+        "preferredDate": serviceContents.preferredDate,
+        "preferredTime": serviceContents.preferredTime,
+        "completionDate": serviceContents.completionDate,
+        "transactionCompletionDate": serviceContents.transactionCompletionDate,
+        "thumbnailUrl": serviceContents.thumbnailUrl,
+        "imageUrlList": serviceContents.imageUrlList,
+        "messageOpenLebel": serviceContents.messageOpenLebel,
+        "updateUserId": serviceContents.updateUserId,
+        "created": serviceContents.created
       }
     };
     return this.http.post<any>(this.apiEndPoint + '/relistedservice', body).pipe(
       timeout(2500), // タイムアウト処理
       retry(3), // リトライ処理
-      // 取得できた場合ユーザー情報を返却
+      // 取得できた場合情報を返却
       map((res: any) => res),
       // エラー時HTTPステータスコードを戻す
       catchError((err: HttpErrorResponse) => of(undefined))
@@ -138,7 +138,7 @@ export class ApiSlipProsessService {
     const body = {
       "OperationType": "SCHEDULEDCOMPSETTING",
       "Keys": {
-        "slipNo" : slipNo,
+        "slipNo": slipNo,
         "serviceType": serviceType,
         "compDate": compDateNum,
         "acceseUserId": acceseUserId,
@@ -147,12 +147,68 @@ export class ApiSlipProsessService {
     return this.http.post<salesServiceInfo>(this.apiEndPoint + '/scheduledcompletionsetting', body).pipe(
       timeout(2500), // タイムアウト処理
       retry(3), // リトライ処理
-      // 取得できた場合ユーザー情報を返却
+      // 取得できた場合情報を返却
       map((res: salesServiceInfo) => res),
       // エラー時HTTPステータスコードを戻す
       catchError((err: HttpErrorResponse) => of(undefined))
     );
   }
+
+
+  /**
+   * 取引を完了する
+   * @param slipNo 
+   * @param serviceType 
+   * @param acceseUser 
+   * @returns 
+   */
+  public compTransaction(slipNo: string, serviceType: string, acceseUser: string): Observable<any> {
+    // リクエストボディ生成
+    const body = {
+      "OperationType": "COMPTRANSACTION",
+      "Keys": {
+        "slipNo": slipNo,
+        "serviceType": serviceType,
+        "acceseUserId": acceseUser,
+      }
+    };
+    return this.http.post<any>(this.apiEndPoint + '/completiontransaction', body).pipe(
+      timeout(2500), // タイムアウト処理
+      retry(3), // リトライ処理
+      // 取得できた場合情報を返却
+      map((res: any) => res),
+      // エラー時HTTPステータスコードを戻す
+      catchError((err: HttpErrorResponse) => of(undefined))
+    );
+  }
+
+  /**
+   * 取引をキャンセルする
+   * @param slipNo 
+   * @param serviceType 
+   * @param acceseUser 
+   * @returns 
+   */
+  public cancelTransaction(slipNo: string, serviceType: string, acceseUser: string): Observable<any> {
+    // リクエストボディ生成
+    const body = {
+      "OperationType": "CANCELTRANSACTION",
+      "Keys": {
+        "slipNo": slipNo,
+        "serviceType": serviceType,
+        "acceseUserId": acceseUser,
+      }
+    };
+    return this.http.post<any>(this.apiEndPoint + '/canceltransaction', body).pipe(
+      timeout(2500), // タイムアウト処理
+      retry(3), // リトライ処理
+      // 取得できた場合情報を返却
+      map((res: any) => res),
+      // エラー時HTTPステータスコードを戻す
+      catchError((err: HttpErrorResponse) => of(undefined))
+    );
+  }
+
 
 
 
