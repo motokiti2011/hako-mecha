@@ -307,6 +307,13 @@ export class ServiceDetailComponent implements OnInit {
   }
 
   /**
+   * 取引を完了するボタン押下イベント
+   */
+  onCompletedTransaction() {
+
+  }
+
+  /**
    * 戻るボタン押下イベント
    * @return void
    */

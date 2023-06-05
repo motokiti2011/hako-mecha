@@ -51,7 +51,11 @@
             </div>
 
             <div *ngIf="tranCompBtnDiv" class="row button_item">
-              <button type="button" class="btn btn-outline-primary" (click)="onTransaction()">取引を終了する</button>
+              <button type="button" class="btn btn-outline-primary" (click)="onCompletedTransaction()">取引を完了する</button>
+            </div>
+
+            <div *ngIf="tranCompBtnDiv" class="row button_item">
+              <button type="button" class="btn btn-outline-primary" (click)="onCompletedTransaction()">取引をキャンセルする</button>
             </div>
 
             <div *ngIf="builderDiv" class="row button_item">
@@ -67,7 +71,8 @@
 
             <div *ngIf="!builderDiv" class="row button_item">
               <label>現在の完了予定日</label>
-              <div>{{dispDate}}</div>
+
+              <div>{{dispDate | date:"yy/MM/dd"}}</div>
             </div>
 
           </div>
