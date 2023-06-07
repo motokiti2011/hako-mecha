@@ -7,17 +7,17 @@ export const environment = {
 
   Auth: {
     /** CognitoClientId */
-    clientId: '1nv523knj4pid8jns5ipod905i',
+    clientId: '5h49jtccpbpf2j5460g24d1vch',
     /** CognitoIdentityPoolId */
-    identityPoolId: 'us-east-1:adff3a5a-96ad-4e1e-96b0-7b3468aecdaa',
+    identityPoolId: 'us-east-1:d6930e45-6ef7-458e-b0d2-17d1ea6c1c95',
     /** CognitoUserPoolId */
-    userPoolId: 'us-east-1_hMnGA9jm1',
+    userPoolId: 'us-east-1_rPYZiILjg',
     /** Region */
     region: 'us-east-1',
   },
   Buket: {
     /** S3UploadBucketName */
-    bucketName: 'hako-mecha-s3-1ex93yihre8l2-s3bucket-kmdf49l190qn',
+    bucketName: 'hako-mecha-s3-1sad3kth1se90-s3bucket-10pgcsoxzurzd',
   },
   EndPoint: {
     apiVersion: '/v1',
@@ -25,17 +25,17 @@ export const environment = {
     apiCheckVersion: '/v1',
     apiAuthVersion: '/v1',
     /** APIエンドポイント */
-    apiEmdPoint: 'https://c5pf226ksi.execute-api.us-east-1.amazonaws.com/dev',
+    apiEmdPoint: 'https://bwusnf9h01.execute-api.us-east-1.amazonaws.com/dev',
     /** GsiAPIエンドポイント */
-    apiEmdPointGsi: ' https://kfl3jkx3y6.execute-api.us-east-1.amazonaws.com/dev',
+    apiEmdPointGsi: 'https://snjjje5vi8.execute-api.us-east-1.amazonaws.com/dev',
     /** チェックエンドポイント */
-    apiEmdPointCheck: 'https://n5jd4c194i.execute-api.us-east-1.amazonaws.com/dev',
+    apiEmdPointCheck: 'https://333htlckwj.execute-api.us-east-1.amazonaws.com/dev',
     /** 単体機能エンドポイント */
     apiEmdPointUNIQUE : 'https://4esxr3t3t6.execute-api.us-east-1.amazonaws.com/dev',
     /** 伝票機能エンドポイント */
-    apiEmdPointSLIPPROSESS : 'https://yyvnn0tfl9.execute-api.us-east-1.amazonaws.com/dev',
+    apiEmdPointSLIPPROSESS : 'https://booffwzcqh.execute-api.us-east-1.amazonaws.com/dev',
     /** 認証エンドポイント */
-    apiEmdAuth : ' https://wtj87p282f.execute-api.us-east-1.amazonaws.com/dev'
+    apiEmdAuth : ' https://jawc25yuk4.execute-api.us-east-1.amazonaws.com/dev'
   }
 };
 
