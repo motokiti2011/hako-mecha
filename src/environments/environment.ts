@@ -31,7 +31,7 @@ export const environment = {
     /** チェックエンドポイント */
     apiEmdPointCheck: 'https://333htlckwj.execute-api.us-east-1.amazonaws.com/dev',
     /** 単体機能エンドポイント */
-    apiEmdPointUNIQUE : 'https://4esxr3t3t6.execute-api.us-east-1.amazonaws.com/dev',
+    apiEmdPointUNIQUE : 'https://booffwzcqh.execute-api.us-east-1.amazonaws.com/dev',
     /** 伝票機能エンドポイント */
     apiEmdPointSLIPPROSESS : 'https://booffwzcqh.execute-api.us-east-1.amazonaws.com/dev',
     /** 認証エンドポイント */
