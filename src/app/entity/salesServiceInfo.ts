@@ -34,6 +34,8 @@ export interface salesServiceInfo {
   price: number;
   // 入札方式
   bidMethod: string;
+  // 入札ユーザータイプ
+  bidUserType?: string,
   // 入札者ID
   bidderId: string;
   // 入札終了日

@@ -24,6 +24,8 @@ export interface completionSlip {
   praice: string;
   // 説明
   explanation: string;
+  // 入札ユーザータイプ
+  bidUserType?: string,
   // 入札者ID
   bidderId: string;
   // 入札完了日

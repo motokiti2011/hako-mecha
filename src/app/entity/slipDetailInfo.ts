@@ -23,6 +23,8 @@ export interface slipDetailInfo {
   price: number;
   // 入札方式
   bidMethod: string;
+  // 入札ユーザータイプ
+  bidUserType?: string,
   // 入札者ID
   bidderId: string;
   // 入札終了日
@@ -40,7 +42,7 @@ export interface slipDetailInfo {
   // 対象車両名
   targetVehicleName: string;
   // 車両区分
-  targetVehicleDiv: string;  
+  targetVehicleDiv: string;
   // 対象車両情報
   targetVehicleInfo?: slipVehicle | null;
   // 作業場所情報
@@ -113,7 +115,7 @@ export const defaultSlip: slipDetailInfo = {
   // // 対象車両情報
   // targetVehicleInfo: '',
   // 車両区分
-  targetVehicleDiv: '',  
+  targetVehicleDiv: '',
   // 作業場所情報
   workAreaInfo: '',
   // 希望日
