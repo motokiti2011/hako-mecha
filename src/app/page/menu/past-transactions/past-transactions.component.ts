@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Overlay } from '@angular/cdk/overlay';
-import { forkJoin, Observable, of } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-
 import { completionSlip } from 'src/app/entity/completionSlip';
 import { ApiCheckService } from '../../service/api-check.service';
 import { ApiUniqueService } from '../../service/api-unique.service';

@@ -21,7 +21,7 @@ export interface completionSlip {
   // タイトル
   title: string;
   // 価格
-  praice: string;
+  price: string;
   // 説明
   explanation: string;
   // 入札ユーザータイプ
@@ -72,7 +72,7 @@ export const initCompletionSlip: completionSlip = {
    // タイトル
    title: '',
    // 価格
-   praice: '',
+   price: '',
    // 説明
    explanation: '',
    // 入札者ID

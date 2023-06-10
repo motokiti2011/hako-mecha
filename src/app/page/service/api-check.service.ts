@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpResponse, } from '@angular/common/http';
-import { Observable, of, tap } from 'rxjs';
+import { HttpClient, HttpErrorResponse, } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 import { map, catchError, timeout, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { user } from 'src/app/entity/user';
-import { browsingHistory } from 'src/app/entity/browsingHistory';
-import { userFavorite } from 'src/app/entity/userFavorite';
 import { slipDetailInfo } from 'src/app/entity/slipDetailInfo';
 import { serviceTransactionRequest } from 'src/app/entity/serviceTransactionRequest';
 

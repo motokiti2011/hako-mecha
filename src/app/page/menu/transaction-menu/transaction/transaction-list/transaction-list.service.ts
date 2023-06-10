@@ -1,20 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpClientJsonpModule, HttpErrorResponse, } from '@angular/common/http';
-import { tap, catchError, Observable, of, map, mergeMap } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import {
   find as _find,
   isNil as _isNil,
   sortBy as _sortBy,
   orderBy as _orderBy,
 } from 'lodash';
-import { transactionContents, dispTransactionContents, TranStatus } from 'src/app/entity/transactionContents';
+import { TranStatus } from 'src/app/entity/transactionContents';
 import { transactionSlip, SlipRelation } from 'src/app/entity/transactionSlip';
 
-import { slipDetailInfo } from 'src/app/entity/slipDetailInfo';
-import { slipMessageInfo } from 'src/app/entity/slipMessageInfo';
-import { slipQuestion } from 'src/app/entity/slipQuestion';
 import { ApiGsiSerchService } from 'src/app/page/service/api-gsi-serch.service';
-
 import { monthMap } from 'src/app/entity/month';
 
 @Injectable({

@@ -12,11 +12,9 @@ import {
   cloneDeep as _cloneDeep,
   uniq as _uniq,
 } from 'lodash';
-import { Observable, of, forkJoin } from 'rxjs';
-import { catchError, distinct, map, switchMap, tap } from "rxjs/operators";
+import { Observable } from 'rxjs';
 import { serchCategoryData } from 'src/app/entity/serchCategory';
 import { prefecturesCoordinateData, cityApiDate } from 'src/app/entity/prefectures';
-import { serviceContents } from 'src/app/entity/serviceContents';
 import { AuthUserService } from 'src/app/page/auth/authUser.service';
 import { loginUser } from 'src/app/entity/loginUser';
 import { userFavorite } from 'src/app/entity/userFavorite';
@@ -24,10 +22,9 @@ import { browsingHistory } from 'src/app/entity/browsingHistory';
 import { ServiceListcomponentService } from '../../service-listcomponent.service';
 import { Router } from '@angular/router';
 import { serchSidAmount } from 'src/app/entity/serchSid';
-import { noUndefined } from '@angular/compiler/src/util';
 import { cityData } from 'src/app/entity/area1SelectArea2';
 import { serchServiceCombination } from 'src/app/entity/serchCondition';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { ApiSerchService } from 'src/app/page/service/api-serch.service';
 
 @Component({

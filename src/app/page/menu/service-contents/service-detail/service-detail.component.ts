@@ -17,7 +17,6 @@ import { MessageDialogComponent } from 'src/app/page/modal/message-dialog/messag
 import { TransactionRequestModalComponent } from 'src/app/page/modal/transaction-request-modal/transaction-request-modal.component';
 import { CognitoService } from 'src/app/page/auth/cognito.service';
 import { messageDialogMsg } from 'src/app/entity/msg';
-import { ApiAuthService } from 'src/app/page/service/api-auth.service';
 import { processStatus } from 'src/app/entity/processStatus';
 import { slipRelation } from 'src/app/entity/slipRelation';
 import { user } from 'src/app/entity/user';

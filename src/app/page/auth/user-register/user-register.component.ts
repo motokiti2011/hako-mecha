@@ -9,8 +9,7 @@ import {
   isNil as _isNil,
   cloneDeep as _cloneDeep,
 } from 'lodash';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { AuthUserService } from '../authUser.service';
+import { FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ApiSerchService } from '../../service/api-serch.service';
 import { UploadService } from '../../service/upload.service';
 import { FormService } from '../../service/form.service';
@@ -19,7 +18,6 @@ import { Overlay } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { cityData } from 'src/app/entity/area1SelectArea2';
-import { postSerchInfo } from 'src/app/entity/postCodeInfo';
 import { MatDialog } from '@angular/material/dialog';
 import { SingleImageModalComponent } from 'src/app/page/modal/single-image-modal/single-image-modal.component';
 import { imgFile } from 'src/app/entity/imgFile';

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, pipe, map, mergeMap, of} from 'rxjs';
+import { Observable, map, mergeMap} from 'rxjs';
 import { salesServiceInfo } from 'src/app/entity/salesServiceInfo';
 import { userFavorite } from 'src/app/entity/userFavorite';
 import { ApiSerchService } from 'src/app/page/service/api-serch.service';

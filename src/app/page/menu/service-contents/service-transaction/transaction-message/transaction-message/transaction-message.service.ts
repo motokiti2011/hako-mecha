@@ -1,7 +1,7 @@
 import { Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { slipMessageInfo, dispSlipComment, defaltDispSlipComment } from 'src/app/entity/slipMessageInfo';
+import { slipMessageInfo, dispSlipComment } from 'src/app/entity/slipMessageInfo';
 import { user } from 'src/app/entity/user';
 import { sortBy as _sortBy } from 'lodash';
 import { slipMegPrmUser } from 'src/app/entity/slipMegPrmUser';

@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Overlay } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-factory-mechanic-impletion',

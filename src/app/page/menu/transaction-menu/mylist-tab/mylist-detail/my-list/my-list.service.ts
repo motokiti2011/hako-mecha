@@ -1,6 +1,6 @@
 import { Injectable, Inject, LOCALE_ID } from '@angular/core';
-import { HttpClient, HttpResponse, HttpClientJsonpModule, HttpErrorResponse, } from '@angular/common/http';
-import { catchError, Observable, of, map } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { userMyList, dispUserMyList, MylistCategory, MylistCategoryMessage } from 'src/app/entity/userMyList';
 import { formatDate } from '@angular/common';
 import { ApiGsiSerchService } from 'src/app/page/service/api-gsi-serch.service';

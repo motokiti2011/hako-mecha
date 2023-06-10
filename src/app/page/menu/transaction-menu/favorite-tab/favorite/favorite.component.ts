@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { serviceContents } from 'src/app/entity/serviceContents';
 import { detailList } from 'src/app/entity/detailList';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { TransactionMenuService } from '../../transaction-menu.service';
 import {
   find as _find,
@@ -15,7 +15,6 @@ import {
 } from 'lodash';
 import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { FavoriteService } from './favorite.service';
-import { AuthUserService } from 'src/app/page/auth/authUser.service';
 import { messageDialogData } from 'src/app/entity/messageDialogData';
 import { MessageDialogComponent } from 'src/app/page/modal/message-dialog/message-dialog.component';
 import { userFavorite } from 'src/app/entity/userFavorite';

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ApiSerchService } from 'src/app/page/service/api-serch.service';
 import { CognitoService } from 'src/app/page/auth/cognito.service';

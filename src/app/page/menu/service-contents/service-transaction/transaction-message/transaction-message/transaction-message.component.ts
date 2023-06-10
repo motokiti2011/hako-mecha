@@ -1,15 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { slipMessageInfo } from 'src/app/entity/slipMessageInfo';
 import { TransactionMessageService } from './transaction-message.service';
 import { dispSlipComment } from 'src/app/entity/slipMessageInfo';
 import { AuthUserService } from 'src/app/page/auth/authUser.service';
 import { isNil as _isNil, find as _find } from 'lodash';
-import { ApiCheckService } from 'src/app/page/service/api-check.service';
 import { CognitoService } from 'src/app/page/auth/cognito.service';
 import { Overlay } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { ApiAuthService } from 'src/app/page/service/api-auth.service';
 
 @Component({

@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ServiceTransactionService } from './service-transaction.service';
 import { slipDetailInfo, defaultSlip } from 'src/app/entity/slipDetailInfo';
 import { QuestionBoardComponent } from 'src/app/page/modal/question-board/question-board/question-board.component';

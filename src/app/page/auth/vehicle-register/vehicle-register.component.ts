@@ -8,15 +8,8 @@ import { CognitoService } from '../cognito.service';
 import { user, initUserInfo } from 'src/app/entity/user';
 import { UploadService } from '../../service/upload.service';
 import { userVehicle, vehicleNumberPlate, selectEraName, selectColoer } from 'src/app/entity/userVehicle';
-import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
-import {
-  makerInfo,
-  domesticVehicleMakerData,
-  abroadBikeMakerData,
-  domesticBikeMakerData,
-  abroadVehicleMakerData,
-  vehicleFormData, bikeFormData
-} from 'src/app/entity/vehicleDataInfo';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { makerInfo } from 'src/app/entity/vehicleDataInfo';
 import { MessageDialogComponent } from 'src/app/page/modal/message-dialog/message-dialog.component';
 import { messageDialogData } from 'src/app/entity/messageDialogData';
 import { messageDialogMsg } from 'src/app/entity/msg';

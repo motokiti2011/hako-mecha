@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import { ApiSerchService } from 'src/app/page/service/api-serch.service';
 import { CognitoService } from 'src/app/page/auth/cognito.service';
 import { user, initUserInfo } from 'src/app/entity/user';
-import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { userVehicle, vehicleNumberPlate, selectEraName, selectColoer } from 'src/app/entity/userVehicle';
 import { MessageDialogComponent } from 'src/app/page/modal/message-dialog/message-dialog.component';
 import { messageDialogData } from 'src/app/entity/messageDialogData';
@@ -13,7 +12,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { MessageSelectDaialogComponent } from 'src/app/page/modal/message-select-daialog/message-select-daialog.component';
 import { ApiAuthService } from 'src/app/page/service/api-auth.service';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpResponse, } from '@angular/common/http';
-import { Observable, of, tap } from 'rxjs';
+import { HttpClient, HttpErrorResponse, } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 import { map, catchError, timeout, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { serviceTransactionRequest } from 'src/app/entity/serviceTransactionRequest';
@@ -35,8 +35,8 @@ export class ApiSlipProsessService {
       }
     };
     return this.http.post<serviceTransactionRequest>(this.apiEndPoint + '/sendtransactionrequest', body).pipe(
-      timeout(2500), // タイムアウト処理
-      retry(3), // リトライ処理
+      timeout(10000), // タイムアウト処理
+      // retry(3), // リトライ処理
       // 取得できた場合情報を返却
       map((res: serviceTransactionRequest) => res),
       // エラー時HTTPステータスコードを戻す
@@ -62,8 +62,8 @@ export class ApiSlipProsessService {
       }
     };
     return this.http.post<serviceTransactionRequest>(this.apiEndPoint + '/confirmtransaction', body).pipe(
-      timeout(2500), // タイムアウト処理
-      retry(3), // リトライ処理
+      timeout(10000), // タイムアウト処理
+      // retry(3), // リトライ処理
       // 取得できた場合情報を返却
       map((res: serviceTransactionRequest) => res),
       // エラー時HTTPステータスコードを戻す
@@ -145,8 +145,8 @@ export class ApiSlipProsessService {
       }
     };
     return this.http.post<salesServiceInfo>(this.apiEndPoint + '/scheduledcompletionsetting', body).pipe(
-      timeout(2500), // タイムアウト処理
-      retry(3), // リトライ処理
+      timeout(10000), // タイムアウト処理
+      // retry(3), // リトライ処理
       // 取得できた場合情報を返却
       map((res: salesServiceInfo) => res),
       // エラー時HTTPステータスコードを戻す
@@ -173,8 +173,8 @@ export class ApiSlipProsessService {
       }
     };
     return this.http.post<any>(this.apiEndPoint + '/completiontransaction', body).pipe(
-      timeout(2500), // タイムアウト処理
-      retry(3), // リトライ処理
+      timeout(10000), // タイムアウト処理
+      // retry(3), // リトライ処理
       // 取得できた場合情報を返却
       map((res: any) => res),
       // エラー時HTTPステータスコードを戻す

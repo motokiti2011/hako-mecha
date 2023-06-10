@@ -8,8 +8,6 @@ import { ApiSerchService } from '../../service/api-serch.service';
 import { LoginComponent } from '../../modal/login/login.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Overlay } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-main-menu',

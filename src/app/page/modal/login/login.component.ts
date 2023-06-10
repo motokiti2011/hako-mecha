@@ -109,7 +109,6 @@ export class LoginComponent implements OnInit {
       if (isLogin === null) {
         await this.cognito.login(username, password);
         this.openMsgDialog(messageDialogMsg.Login, true);
-        
       } else {
         this.cognito.logout();
       }
@@ -121,11 +120,11 @@ export class LoginComponent implements OnInit {
   }
 
 
-/**
- * メッセージダイアログ展開
- * @param msg
- * @param locationDiv
- */
+  /**
+   * メッセージダイアログ展開
+   * @param msg
+   * @param locationDiv
+   */
   private openMsgDialog(msg: string, locationDiv: boolean) {
     // ダイアログ表示（ログインしてください）し前画面へ戻る
     const dialogData: messageDialogData = {
@@ -142,7 +141,6 @@ export class LoginComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (locationDiv) {
         this.closeModal();
-        // this.router.navigate(["/main_menu"]);
       }
       console.log(result);
       // ローディング解除

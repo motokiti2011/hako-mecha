@@ -1,47 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-
-import { ApiSerchService } from 'src/app/page/service/api-serch.service';
-import { ApiUniqueService } from 'src/app/page/service/api-unique.service';
-import { ApiSlipProsessService } from 'src/app/page/service/api-slip-prosess.service';
-import { CognitoService } from 'src/app/page/auth/cognito.service';
-import { user } from 'src/app/entity/user';
-import { serviceContents, initServiceContent } from 'src/app/entity/serviceContents';
-import {
-  createServiceSelect,
-  timeData,
-  userWorkArea,
-  mechanicWorkArea,
-  userTargetVehcle,
-  mechanicTargetVehcle,
-  userPrice,
-  mechanicPrice,
-  messageLevel,
-  adminUserSelect,
-} from '../service-create/service-create-option';
-
-import { prefecturesCoordinateData } from 'src/app/entity/prefectures';
-import { serchCategoryData } from 'src/app/entity/serchCategory';
-
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { Overlay } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { MatDialog } from '@angular/material/dialog';
 import {
   find as _find,
   filter as _filter,
   isNil as _isNil,
   cloneDeep as _cloneDeep,
 } from 'lodash';
-
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { Overlay } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { salesServiceInfo, defaulsalesService } from 'src/app/entity/salesServiceInfo';
-
+import {
+  createServiceSelect,
+  timeData,
+  messageLevel,
+  adminUserSelect,
+} from '../service-create/service-create-option';
 import { MessageDialogComponent } from 'src/app/page/modal/message-dialog/message-dialog.component';
+
+import { ApiSerchService } from 'src/app/page/service/api-serch.service';
+import { ApiUniqueService } from 'src/app/page/service/api-unique.service';
+import { ApiSlipProsessService } from 'src/app/page/service/api-slip-prosess.service';
+import { ApiAuthService } from 'src/app/page/service/api-auth.service';
+import { CognitoService } from 'src/app/page/auth/cognito.service';
+
+import { user } from 'src/app/entity/user';
+import { serviceContents, initServiceContent } from 'src/app/entity/serviceContents';
+import { prefecturesCoordinateData } from 'src/app/entity/prefectures';
+import { serchCategoryData } from 'src/app/entity/serchCategory';
+import { salesServiceInfo, defaulsalesService } from 'src/app/entity/salesServiceInfo';
 import { messageDialogData } from 'src/app/entity/messageDialogData';
 import { messageDialogMsg } from 'src/app/entity/msg';
-import { MatDialog } from '@angular/material/dialog';
 
-import { ApiAuthService } from 'src/app/page/service/api-auth.service';
+
+
 
 /**
  * 再出品コンポーネント

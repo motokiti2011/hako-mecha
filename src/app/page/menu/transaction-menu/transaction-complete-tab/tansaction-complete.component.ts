@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MessageDialogComponent } from 'src/app/page/modal/message-dialog/message-dialog.component';
 import { AuthUserService } from 'src/app/page/auth/authUser.service';
-import { loginUser } from 'src/app/entity/loginUser';
 import { TransactionMenuService } from '../transaction-menu.service';
 import { TansactionCompleteService } from './tansaction-complete.service';
 import {
@@ -85,7 +84,6 @@ export class TansactionCompleteComponent implements OnInit {
     private router: Router,
     private service: TransactionMenuService,
     private compService: TansactionCompleteService,
-    private auth: AuthUserService,
     public modal: MatDialog,
     private overlay: Overlay,
     private cognito: CognitoService,
@@ -113,7 +111,7 @@ export class TansactionCompleteComponent implements OnInit {
     // ユーザー情報を設定する
     this.loginUser = user;
     // データを取得
-    this.compService.getTransactionCompSlip(this.loginUser, this.selectType).subscribe(data => {
+    this.compService.getTransactionCompSlip(this.loginUser).subscribe(data => {
       this.detailList = this.compService.dispContentsSlip(data)
       // ローディング解除
       this.overlayRef.detach();

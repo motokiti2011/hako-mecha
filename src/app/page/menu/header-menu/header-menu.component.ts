@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Overlay } from '@angular/cdk/overlay';
 import { LoginComponent } from '../../modal/login/login.component';

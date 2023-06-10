@@ -12,7 +12,6 @@ import { salesServiceInfo } from 'src/app/entity/salesServiceInfo';
 import { serchInfo } from 'src/app/entity/serchInfo';
 import { slipMessageInfo } from 'src/app/entity/slipMessageInfo';
 import { slipQuestion } from 'src/app/entity/slipQuestion';
-import { browsingHistory } from 'src/app/entity/browsingHistory';
 import { mcfcItem } from 'src/app/entity/mcfcItem';
 import { serviceAdminInfo } from 'src/app/entity/serviceAdminInfo';
 import { completionSlip } from 'src/app/entity/completionSlip';
@@ -680,6 +679,37 @@ export class ApiUniqueService {
       catchError((err: HttpErrorResponse) => of(undefined))
     );
   }
+
+
+  /**
+   * 各種IDから完了伝票情報を取得
+   * @param id
+   * @param serchType
+   * @returns
+   */
+  public serchCompletionSlip(accessUser: string): Observable<any> {
+
+    // リクエストボディ生成
+    const body = {
+      "IndexType": 'SERCHCOMPLETIONSLIP',
+      "Keys": {
+        "accessUser": accessUser,
+      }
+    };
+    return this.http.post<completionSlip>(this.apiEndPoint + '/serchcompletionslip', body).pipe(
+      timeout(2500), // タイムアウト処理
+      retry(3), // リトライ処理
+      // 取得できた場合ユーザー情報を返却
+      map((res: completionSlip) => res),
+      // エラー時HTTPステータスコードを戻す
+      catchError((err: HttpErrorResponse) => of(undefined))
+    );
+  }
+
+
+
+
+
 
 
 

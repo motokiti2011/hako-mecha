@@ -3,7 +3,7 @@ import { Overlay } from '@angular/cdk/overlay';
 import { Router } from '@angular/router';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { CognitoService } from '../cognito.service';
 import { messageDialogData } from 'src/app/entity/messageDialogData';
 import { messageDialogMsg } from 'src/app/entity/msg';

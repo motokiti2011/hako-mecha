@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpClientJsonpModule, HttpErrorResponse, } from '@angular/common/http';
-import { catchError, Observable, of, map} from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable} from 'rxjs';
 import { browsingHistory } from 'src/app/entity/browsingHistory';
 import { ApiGsiSerchService } from 'src/app/page/service/api-gsi-serch.service';
 import { ApiUniqueService } from 'src/app/page/service/api-unique.service';

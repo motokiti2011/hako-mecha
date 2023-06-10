@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpErrorResponse, HttpResponse, } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { nextActionButtonType } from 'src/app/entity/nextActionButtonType';
 import { serviceContents } from 'src/app/entity/serviceContents';
 import { slipDetailInfo } from 'src/app/entity/slipDetailInfo';
-import { userVehicle } from 'src/app/entity/userVehicle';
 import { salesServiceInfo } from 'src/app/entity/salesServiceInfo';
 
 import { ApiGsiSerchService } from 'src/app/page/service/api-gsi-serch.service';

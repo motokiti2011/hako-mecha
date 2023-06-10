@@ -7,11 +7,11 @@ import {
   pull as _pull,
   remove as _remove,
   difference as _difference,
-  isNil as _isNil
+  orderBy as _orderBy,
+  isNil as _isNil,
 } from 'lodash';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthUserService } from 'src/app/page/auth/authUser.service';
-import { loginUser } from 'src/app/entity/loginUser';
 import { dispUserMyList } from 'src/app/entity/userMyList';
 import { messageDialogData } from 'src/app/entity/messageDialogData';
 import { MessageDialogComponent } from 'src/app/page/modal/message-dialog/message-dialog.component';
@@ -20,7 +20,6 @@ import { MyListService } from './my-list.service';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { messageDialogMsg } from 'src/app/entity/msg';
 import { ApiAuthService } from 'src/app/page/service/api-auth.service';
 import { CognitoService } from 'src/app/page/auth/cognito.service';
 
@@ -53,10 +52,10 @@ export class MyListComponent implements OnInit {
   selected = '';
 
   orderMenu = [
-    { id: '1', value: '未読のみ' },
-    { id: '2', value: '既読のみ' },
-    { id: '3', value: '新しい順' },
-    { id: '4', value: '古い順' },
+    { id: '1', value: '未読のみ', order: 'desc' },
+    { id: '2', value: '既読のみ', order: 'desc' },
+    { id: '3', value: '新しい順', order: 'desc' },
+    { id: '4', value: '古い順', order: 'asc' },
   ];
 
   /** 取引中件数 */
@@ -126,7 +125,9 @@ export class MyListComponent implements OnInit {
     this.mylistservice.getMyList(this.loginUser, '0').subscribe(data => {
       console.log(data);
       if (data.length !== 0) {
-        this.detailList = this.mylistservice.displayFormatdisplayFormat(data);
+        // 最新を上部に表示
+        const orderData = _orderBy(data, 'created', 'desc')        
+        this.detailList = this.mylistservice.displayFormatdisplayFormat(orderData);
         this.setServiceContents();
       }
       // ローディング解除

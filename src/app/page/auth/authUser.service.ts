@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from "rxjs";
 import { loginUser } from 'src/app/entity/loginUser';
-// import { ApiAuthService } from '../service/api-auth.service';
 import { CognitoService } from './cognito.service';
 
 @Injectable({
@@ -13,7 +12,6 @@ export class AuthUserService {
 
   constructor(
     private cognito: CognitoService,
-    // private authService: ApiAuthService,
   ) {
     this._userInfo$ = new BehaviorSubject<loginUser | null>(null)
   }

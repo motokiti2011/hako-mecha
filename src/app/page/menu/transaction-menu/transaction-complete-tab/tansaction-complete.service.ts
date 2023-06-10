@@ -7,11 +7,13 @@ import {
   sortBy as _sortBy,
   orderBy as _orderBy,
 } from 'lodash';
-import { transactionContents, dispTransactionContents, TranStatus } from 'src/app/entity/transactionContents';
+import { transactionContents, TranStatus } from 'src/app/entity/transactionContents';
 import { slipDetailInfo } from 'src/app/entity/slipDetailInfo';
-
+import { completionSlip } from 'src/app/entity/completionSlip';
 import { monthMap } from 'src/app/entity/month';
 import { ApiGsiSerchService } from 'src/app/page/service/api-gsi-serch.service';
+import { ApiUniqueService } from 'src/app/page/service/api-unique.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,50 +23,37 @@ export class TansactionCompleteService {
   constructor(
     private http: HttpClient,
     private apiGsiService: ApiGsiSerchService,
+    private apiUniqueService: ApiUniqueService
   ) { }
 
   /**
    * 取引完了後の伝票情報を取得する
    * @returns
    */
-   public getTransactionCompSlip(userId: string, serviceType: string): Observable<transactionContents[]> {
-    return this.apiGsiService.serchCompletionSlip(userId,serviceType);
+   public getTransactionCompSlip(userId: string): Observable<completionSlip[]> {
+    return this.apiUniqueService.serchCompletionSlip(userId);
   }
 
   /**
    * 取引伝票情報を表示用に加工する。
    * @param slip
    */
-  public dispContentsSlip(transactionSlip: transactionContents[]): dispTransactionContents[] {
-    let result: dispTransactionContents[] = [];
+  public dispContentsSlip(transactionSlip: completionSlip[]): any[] {
+    let result: any[] = [];
     let count = 1;
     transactionSlip.forEach(slip => {
-      const dispSlip: dispTransactionContents = {
+      const dispSlip = {
         id: count,
-        userId: slip.userId,
-        userName: slip.userName,
         slipNo: slip.slipNo,
         title: slip.title,
         price: slip.price,
-        imageUrl: slip.imageUrl,
-        category: slip.category,
-        area: slip.area,
-        bidMethod: slip.bidMethod,
         bidderId: slip.bidderId,
         bidEndDate: slip.bidEndDate,
         explanation: slip.explanation,
-        displayDiv: slip.deleteDiv,
-        preferredDate: slip.preferredDate,
-        preferredTime: slip.preferredTime,
-        completionDate: slip.completionDate,
-        whet: this.getWhet(Number(slip.preferredDate),Number(slip.preferredTime)),
-        endDate: this.getDispDate(Number(slip.preferredDate)),
-        deleteDiv: slip.deleteDiv,
-        completionScheduledDate: slip.completionScheduledDate,
-        transactionStatus: this.setSlipStatus(slip.transactionStatus),
-        message: this.setMessage(slip.transactionStatus)
+        endDate: this.getDispDate(Number(slip.transactionCompletionDate)),
       }
       result.push(dispSlip)
+      count++;
     });
     return result;
   }

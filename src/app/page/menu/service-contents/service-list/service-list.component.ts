@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable, tap } from 'rxjs';
 import { Location } from '@angular/common';
 import {
   find as _find,
@@ -93,6 +92,7 @@ export class ServiceListComponent implements OnInit {
     { label: '残り日付が長いものから表示', value: 'preferredDate', order: 'asc', disabled: false },
     { label: '残り日付が短いものから表示', value: 'preferredDate', order: 'desc', disabled: false },
   ];
+
   url = '';
 
   /** ユーザーID */

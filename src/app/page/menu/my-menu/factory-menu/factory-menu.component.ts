@@ -3,7 +3,7 @@ import { officeInfo, initOfficeInfo } from 'src/app/entity/officeInfo';
 import { UploadService } from 'src/app/page/service/upload.service';
 import { Router } from '@angular/router';
 import { user } from 'src/app/entity/user';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
 import { ApiSerchService } from 'src/app/page/service/api-serch.service';
 import { CognitoService } from 'src/app/page/auth/cognito.service';
@@ -14,7 +14,6 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { prefecturesCoordinateData } from 'src/app/entity/prefectures';
 import { filter as _filter } from 'lodash'
 import { find as _find } from 'lodash'
-import { postSerchInfo } from 'src/app/entity/postCodeInfo';
 import { imgFile } from 'src/app/entity/imgFile';
 import { SingleImageModalComponent } from 'src/app/page/modal/single-image-modal/single-image-modal.component';
 import { cityData } from 'src/app/entity/area1SelectArea2';

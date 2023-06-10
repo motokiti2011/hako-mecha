@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { serchCategoryData } from 'src/app/entity/serchCategory';
 import { prefecturesCoordinateData } from 'src/app/entity/prefectures';
 import { serviceContents, initServiceContent } from 'src/app/entity/serviceContents';

@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable, from, map, tap, catchError } from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Amplify } from 'aws-amplify';
 import { CognitoUserPool, CognitoUser, AuthenticationDetails, CognitoUserAttribute } from 'amazon-cognito-identity-js';
 import * as AWS from 'aws-sdk';
-import { IAuthenticationCallback } from 'amazon-cognito-identity-js';
 import { errorMsg } from 'src/app/entity/errorMsg';
+import { MessageDialogComponent } from '../modal/message-dialog/message-dialog.component';
+import { messageDialogData } from 'src/app/entity/messageDialogData';
+import { MatDialog } from '@angular/material/dialog';
+import { messageDialogMsg } from 'src/app/entity/msg';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +14,13 @@ import { errorMsg } from 'src/app/entity/errorMsg';
 export class CognitoService {
 
   private userPool: CognitoUserPool;
-  constructor() {
+  constructor(
+    public modal: MatDialog,
+  ) {
     AWS.config.region = environment.Auth.region;
     this.userPool = new CognitoUserPool({
       UserPoolId: environment.Auth.userPoolId,
-      ClientId: environment.Auth.clientId
+      ClientId: environment.Auth.clientId,
     });
   }
 
@@ -50,11 +51,12 @@ export class CognitoService {
           resolve(msg);
         },
         onFailure: (err) => {
-          if (err.message == errorMsg[3].message) {
-            alert(errorMsg[3].value);
-          } else {
-            alert(err.message);
-          }
+          // if (err.message == errorMsg[3].message) {
+          //   alert(errorMsg[3].value);
+          // } else {
+          //   alert(err.message);
+          // }
+          this.openMsgDialog(messageDialogMsg.LoginFailure);
           reject(err);
         }
       });
@@ -259,6 +261,30 @@ export class CognitoService {
       Logins: logins
     });
   }
+
+  /**
+   * メッセージダイアログ展開
+   * @param msg
+   * @param locationDiv
+   */
+  private openMsgDialog(msg: string) {
+    // ダイアログ表示（ログインしてください）し前画面へ戻る
+    const dialogData: messageDialogData = {
+      massage: msg,
+      closeFlg: false,
+      closeTime: 0,
+      btnDispDiv: true
+    }
+    const dialogRef = this.modal.open(MessageDialogComponent, {
+      width: '300px',
+      height: '150px',
+      data: dialogData
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      return;
+    });
+  }
+
 
 
 }

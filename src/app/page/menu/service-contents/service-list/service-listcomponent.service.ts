@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpClientJsonpModule, HttpErrorResponse, } from '@angular/common/http';
-import { catchError, Observable, of, } from 'rxjs';
-import { filter as RXfilter, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import {
   find as _find,
   findIndex as _findIndex,
@@ -14,7 +12,6 @@ import { prefecturesCoordinateData } from 'src/app/entity/prefectures';
 import { serchCategoryData } from 'src/app/entity/serchCategory';
 import { userFavorite } from 'src/app/entity/userFavorite';
 import { browsingHistory } from 'src/app/entity/browsingHistory';
-import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 import { serchSidAmount } from 'src/app/entity/serchSid';
 import { monthMap } from 'src/app/entity/month';
 import { ApiSerchService } from 'src/app/page/service/api-serch.service';

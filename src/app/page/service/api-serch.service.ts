@@ -1,6 +1,6 @@
 import { Injectable, Inject, LOCALE_ID } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpResponse, } from '@angular/common/http';
-import { Observable, of, tap } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 import { map, catchError, timeout, retry } from 'rxjs/operators';
 import { formatDate } from '@angular/common';
 
@@ -17,7 +17,6 @@ import { officeInfo } from 'src/app/entity/officeInfo';
 import { slipMessageInfo } from 'src/app/entity/slipMessageInfo';
 import { slipMegPrmUser } from 'src/app/entity/slipMegPrmUser';
 import { userVehicle } from 'src/app/entity/userVehicle';
-import { userMyList } from 'src/app/entity/userMyList';
 import { factoryMechanicFavorite } from 'src/app/entity/factoryMechanicFavorite';
 import { inquiryInfo } from 'src/app/entity/inquiryInfo';
 

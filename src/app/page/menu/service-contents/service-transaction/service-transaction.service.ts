@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { slipDetailInfo } from 'src/app/entity/slipDetailInfo';
 import { prefecturesCoordinateData } from 'src/app/entity/prefectures';
@@ -10,10 +9,7 @@ import { ApiGsiSerchService } from 'src/app/page/service/api-gsi-serch.service';
 import { ApiCheckService } from 'src/app/page/service/api-check.service';
 import { ApiUniqueService } from 'src/app/page/service/api-unique.service';
 import { ApiSlipProsessService } from 'src/app/page/service/api-slip-prosess.service';
-import { slipMegPrmUser } from 'src/app/entity/slipMegPrmUser';
-import { user } from 'src/app/entity/user';
 import { serviceTransactionRequest } from 'src/app/entity/serviceTransactionRequest';
-import { ServiceQuotas } from 'aws-sdk';
 
 
 @Injectable({
