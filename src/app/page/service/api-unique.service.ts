@@ -100,8 +100,8 @@ export class ApiUniqueService {
       }
     };
     return this.http.post<HttpErrorResponse>(this.apiEndPoint + '/initmechanicup', body).pipe(
-      timeout(2500), // タイムアウト処理
-      retry(3), // リトライ処理
+      timeout(5000), // タイムアウト処理
+      // retry(3), // リトライ処理
       // 取得できた場合ユーザー情報を返却
       map((res: HttpErrorResponse) => res),
       // エラー時HTTPステータスコードを戻す
@@ -148,8 +148,8 @@ export class ApiUniqueService {
       }
     };
     return this.http.post<officeInfo>(this.apiEndPoint + '/initofficeup', body).pipe(
-      timeout(2500), // タイムアウト処理
-      retry(3), // リトライ処理
+      timeout(5000), // タイムアウト処理
+      retry(1), // リトライ処理
       // 取得できた場合ユーザー情報を返却
       map((res: officeInfo) => res),
       // エラー時HTTPステータスコードを戻す
@@ -203,8 +203,8 @@ export class ApiUniqueService {
       }
     };
     return this.http.post<HttpErrorResponse>(this.apiEndPoint + '/initpostslip', body).pipe(
-      timeout(2500), // タイムアウト処理
-      retry(3), // リトライ処理
+      timeout(5000), // タイムアウト処理
+      retry(1), // リトライ処理
       map((res: HttpErrorResponse) => res),
       // エラー時HTTPステータスコードを戻す
       catchError((err: HttpErrorResponse) => of(undefined))
@@ -260,8 +260,8 @@ export class ApiUniqueService {
       }
     };
     return this.http.post<HttpErrorResponse>(this.apiEndPoint + '/initsalesservice', body).pipe(
-      timeout(2500), // タイムアウト処理
-      retry(3), // リトライ処理
+      timeout(5000), // タイムアウト処理
+      retry(1), // リトライ処理
       map((res: HttpErrorResponse) => res),
       // エラー時HTTPステータスコードを戻す
       catchError((err: HttpErrorResponse) => of(undefined))
@@ -409,8 +409,8 @@ export class ApiUniqueService {
       }
     };
     return this.http.post<slipMessageInfo>(this.apiEndPoint + '/sendmessage', body).pipe(
-      timeout(2500), // タイムアウト処理
-      retry(3), // リトライ処理
+      timeout(5000), // タイムアウト処理
+      retry(1), // リトライ処理
       // 取得できた場合ユーザー情報を返却
       map((res: slipMessageInfo) => res),
       // エラー時HTTPステータスコードを戻す
@@ -447,8 +447,8 @@ export class ApiUniqueService {
     };
     console.log(body)
     return this.http.post<slipQuestion>(this.apiEndPoint + '/sendquestion', body).pipe(
-      timeout(2500), // タイムアウト処理
-      retry(3), // リトライ処理
+      timeout(5000), // タイムアウト処理
+      retry(1), // リトライ処理
       // 取得できた場合ユーザー情報を返却
       map((res: slipQuestion) => res),
       // エラー時HTTPステータスコードを戻す
@@ -471,8 +471,8 @@ export class ApiUniqueService {
       }
     };
     return this.http.post<any>(this.apiEndPoint + '/multiplefavorite', body).pipe(
-      timeout(2500), // タイムアウト処理
-      retry(3), // リトライ処理
+      timeout(5000), // タイムアウト処理
+      retry(1), // リトライ処理
       // 取得できた場合ユーザー情報を返却
       map((res: any) => res),
       // エラー時HTTPステータスコードを戻す
@@ -494,8 +494,8 @@ export class ApiUniqueService {
       }
     };
     return this.http.post<any>(this.apiEndPoint + '/multiplebrosing', body).pipe(
-      timeout(2500), // タイムアウト処理
-      retry(3), // リトライ処理
+      timeout(5000), // タイムアウト処理
+      retry(1), // リトライ処理
       // 取得できた場合ユーザー情報を返却
       map((res: any) => res),
       // エラー時HTTPステータスコードを戻す
@@ -648,8 +648,8 @@ export class ApiUniqueService {
       }
     };
     return this.http.post<connectionOfficeInfo>(this.apiEndPoint + '/connectionofficestatus', body).pipe(
-      timeout(2500), // タイムアウト処理
-      retry(3), // リトライ処理
+      timeout(5000), // タイムアウト処理
+      retry(1), // リトライ処理
       // 取得できた場合ユーザー情報を返却
       map((res: connectionOfficeInfo) => res),
       // エラー時HTTPステータスコードを戻す

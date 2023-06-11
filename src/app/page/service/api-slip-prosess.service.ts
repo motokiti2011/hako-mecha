@@ -116,8 +116,8 @@ export class ApiSlipProsessService {
       }
     };
     return this.http.post<any>(this.apiEndPoint + '/relistedservice', body).pipe(
-      timeout(2500), // タイムアウト処理
-      retry(3), // リトライ処理
+      timeout(5000), // タイムアウト処理
+      // retry(3), // リトライ処理
       // 取得できた場合情報を返却
       map((res: any) => res),
       // エラー時HTTPステータスコードを戻す
@@ -201,7 +201,7 @@ export class ApiSlipProsessService {
     };
     return this.http.post<any>(this.apiEndPoint + '/canceltransaction', body).pipe(
       timeout(2500), // タイムアウト処理
-      retry(3), // リトライ処理
+      // retry(3), // リトライ処理
       // 取得できた場合情報を返却
       map((res: any) => res),
       // エラー時HTTPステータスコードを戻す
