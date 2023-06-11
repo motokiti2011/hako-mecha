@@ -46,8 +46,9 @@ export class FactoryMechanicMenuComponent implements OnInit {
   tabs = [
     { name: 'メカニック情報', contents: MechanicMenuComponent, current: true },
     { name: '工場情報', contents: FactoryMenuComponent, current: false },
-    { name: '出品中商品一覧', contents: FactoryMechanicContentsManagementComponent, current: false },
-    { name: '評価', contents: FactoryMechanicImpletionComponent, current: false },
+    // 一旦保留
+    // { name: '出品中商品一覧', contents: FactoryMechanicContentsManagementComponent, current: false },
+    // { name: '評価', contents: FactoryMechanicImpletionComponent, current: false },
   ];
 
 

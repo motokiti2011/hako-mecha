@@ -111,8 +111,16 @@
   margin-left: 7vh;
 }
 
+.empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+}
+
 .loading {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 500px;
 }

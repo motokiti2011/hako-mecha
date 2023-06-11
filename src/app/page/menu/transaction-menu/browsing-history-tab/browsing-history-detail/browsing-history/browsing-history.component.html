@@ -6,13 +6,13 @@
   </div>
   <ng-template #mainContent>
 
-    <div>
+    <!-- <div *ngIf="detailList.length > 0">
       <select class="select-btn" [(ngModel)]="selected" (change)="changeOrder()">
         <option value="">並び順</option>
         <option *ngFor="let item of orderMenu" [value]="item.value" [selected]="item.value === selected">{{item.value}}
         </option>
       </select>
-    </div>
+    </div> -->
 
     <div class="contants">
       <div *ngIf="detailList.length > 0; ElseContents" class="table_area">
@@ -20,31 +20,39 @@
         <table class="table">
           <thead>
             <tr>
-              <th><input type="checkbox" [(ngModel)]="hedSelection" (change)="bulkSelection()"></th>
-              <th>{{HEAD.title}}</th>
-              <th>{{HEAD.price}}</th>
-              <th>{{HEAD.whet}}</th>
-              <th>{{HEAD.endDate}}</th>
+              <th class="item_check"><input type="checkbox" [(ngModel)]="hedSelection" (change)="bulkSelection()"></th>
+              <th class="item_title_head">{{HEAD.title}}</th>
+              <th class="item_price">{{HEAD.price}}</th>
+              <th class="item_whet">{{HEAD.whet}}</th>
+              <th class="item_endDate">{{HEAD.endDate}}</th>
           </thead>
         </table>
+
         <div class="table2">
           <table class="table">
             <tbody>
               <tr *ngFor="let item of detailList | slice: begin: begin + maxLength">
-                <td><input type="checkbox" [(ngModel)]="item.check" (change)="deleteSelection(item.id, item.check)"></td>
-                <td>{{item.title}}</td>
-                <td>{{item.price}}</td>
-                <td>{{item.whet}}</td>
-                <td>{{item.endDate}}</td>
+                <td class="item_check"><input type="checkbox" [(ngModel)]="item.check" (change)="deleteSelection(item.id, item.check)">
+                </td>
+                <td class="item_title">{{item.title}}</td>
+                <td class="item_price">{{item.price}}</td>
+                <td class="item_whet">{{item.whet}}</td>
+                <td class="item_endDate">{{item.endDate}}</td>
               </tr>
             </tbody>
           </table>
         </div>
+
       </div>
+
+      <div class="delete-btn">
+        <button (click)="deleteCheck()" [disabled]="checkbutton">選択を削除する</button>
+      </div>
+
     </div>
   </ng-template>
 </div>
 
-<div class="delete-btn">
-  <button (click)="deleteCheck()" [disabled]="checkbutton">選択を削除する</button>
+<div *ngIf="detailList.length == 0" class="empty">
+  閲覧履歴がありません。
 </div>

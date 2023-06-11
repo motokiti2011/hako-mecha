@@ -26,24 +26,27 @@
         <table class="table">
           <thead>
             <tr>
-              <th>No</th>
-              <th>{{HEAD.readDiv}}</th>
-              <th>{{HEAD.msgPage}}</th>
-              <th>{{HEAD.adlessMsg}}</th>
-              <th>{{HEAD.messageDate}}</th>
+              <th class="item_no">No</th>
+              <th class="item_read">{{HEAD.readDiv}}</th>
+              <!-- <th class="item_title">{{HEAD.title}}</th> -->
+              <th class="item_title_head">{{HEAD.msgPage}}</th>
+              <th class="item_message">{{HEAD.adlessMsg}}</th>
+              <th class="item_date">{{HEAD.messageDate}}</th>
           </thead>
         </table>
         <div class="table2">
           <table class="table">
             <tbody>
               <tr *ngFor="let item of detailList | slice: begin: begin+maxLength">
-                <td>{{detailList.length}}</td>
-                <td>{{item.dispRead}}</td>
-                <td>
-                  <div class="item-title" (click)="contentsDetail(item)">{{item.serviceTitle}}</div>
+                <td class="item_no">{{item.no}}</td>
+                <td class="item_read">{{item.dispRead}}</td>
+                <td class="item_title" (click)="contentsDetail(item)">
+                  <!-- <div class="item_title" (click)="contentsDetail(item)"> -->
+                    {{item.serviceTitle}}
+                  <!-- </div> -->
                 </td>
-                <td>{{item.message}}</td>
-                <td>{{item.messageDate}}</td>
+                <td class="item_message">{{item.message}}</td>
+                <td class="item_date">{{item.messageDate}}</td>
               </tr>
             </tbody>
           </table>

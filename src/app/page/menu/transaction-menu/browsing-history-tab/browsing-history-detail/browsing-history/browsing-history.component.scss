@@ -1,4 +1,3 @@
-
 .service-contents {
   margin-top: 2%;
   margin-left: 5%;
@@ -65,7 +64,7 @@
     border: 1px solid #000;
     width: 200px;
     padding-top: 1.4em;
-    cursor:pointer;
+    cursor: pointer;
     color: blue;
   }
 
@@ -91,18 +90,61 @@
 .table_area {
   background-color: #fff;
   border: #000;
+
   th {
     position: sticky;
     background: #f2f2f2;
     top: 0;
     left: 0;
   }
+
   .table2 {
     height: 450px;
     overflow: hidden;
     overflow-y: auto;
   }
+
+  .item_check {
+    width: 40px;
+    text-align: center;
+    padding: 20px 0px 0px 10px;
+  }
+
+  .item_title_head {
+    width: 200px;
+    text-align: center;
+    padding: 20px 0px 0px 10px;    
+  }
+
+  .item_title {
+    width: 200px;
+    cursor: pointer;
+    color: blue;
+    text-align: center;
+    padding: 20px 0px 0px 10px;
+  }
+
+  .item_price {
+    width: 150px;
+    text-align: center;
+    padding: 20px 0px 0px 10px;
+  }
+
+  .item_whet {
+    width: 120px;
+    text-align: center;
+    padding: 20px 0px 0px 10px;
+  }
+
+  .item_endDate {
+    width: 120px;
+    text-align: center;
+    padding: 20px 0px 0px 10px;
+  }
+
 }
+
+
 
 .delete-btn {
   margin-top: 5vh;
@@ -146,6 +188,13 @@
       padding: 10px 5px 0px 5px;
     }
   }
+}
+
+.empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
 }
 
 .loading {

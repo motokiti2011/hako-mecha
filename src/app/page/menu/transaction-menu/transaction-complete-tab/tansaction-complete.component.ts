@@ -94,54 +94,14 @@ export class TansactionCompleteComponent implements OnInit {
     this.setListSetting();
   }
 
-  /**
-   * 表示リストの初期設定を行います。
-   */
-  private setListSetting() {
-    // ローディング開始
-    this.overlayRef.attach(new ComponentPortal(MatProgressSpinner));
-    this.loading = true;
-    const user = this.cognito.initAuthenticated();
-    // 未認証の場合前画面へ戻る
-    if (user == null) {
-      this.apiAuth.authenticationExpired();
-      this.openMsgDialog(messageDialogMsg.LoginRequest, true);
-      return;
-    }
-    // ユーザー情報を設定する
-    this.loginUser = user;
-    // データを取得
-    this.compService.getTransactionCompSlip(this.loginUser).subscribe(data => {
-      this.detailList = this.compService.dispContentsSlip(data)
-      // ローディング解除
-      this.overlayRef.detach();
-      this.loading = false;
-    });
-  }
 
   /**
-   * チェックボックス選択時イベント
-   * @param title
-   * @param check
+   * 対象の伝票タイトルクリックイベント
+   * @param item 
    */
-  deleteSelection(title: String, check: boolean) {
-
-    // チェック状態の場合リストに追加
-    if (check) {
-      this.selectionList.push(title);
-    } else {
-      _pull(this.selectionList, title);
-    }
-
-    // 削除ボタンの制御
-    if (this.selectionList.length > 0) {
-      this.checkbutton = false;
-    } else {
-      this.checkbutton = true;
-    }
-
+  onItemClick(item: any) {
+    this.router.navigate(["servicedetail"], { queryParams: { serviceId: item.slipNo, searchTargetService: item.serviceType } });
   }
-
 
   /**
    * 一括選択チェックボックスイベント
@@ -171,27 +131,6 @@ export class TansactionCompleteComponent implements OnInit {
 
   }
 
-  /** 削除ボタン押下時のイベント */
-  deleteCheck() {
-    const List: [] = _cloneDeep(this.selectionList);
-    const deleteList: detailList[] = []
-
-    List.forEach((select) => {
-      // 削除対象を取得する
-      if (_find(this.detailList, disp => disp.id === select)) {
-        deleteList.push(_find(this.detailList, disp => disp.id === select));
-      }
-    });
-
-    // 差集合を抽出
-    const dispList = _difference(this.detailList, deleteList);
-    // 表示リストを書き換える。
-    this.detailList = _cloneDeep(dispList);
-
-    // 削除するデータをＡＰＩへ
-    /**  */
-
-  }
 
   /**
    * タイトルクリック時、詳細画面へ遷移する
@@ -228,6 +167,33 @@ export class TansactionCompleteComponent implements OnInit {
    */
   onEvo(item: serviceContents) {
     this.router.navigate(["service-evaluation"], { queryParams: { serviceId: item.id } });
+  }
+
+  /******************************* 以下内部処理 *************************************/
+
+  /**
+   * 表示リストの初期設定を行います。
+   */
+  private setListSetting() {
+    // ローディング開始
+    this.overlayRef.attach(new ComponentPortal(MatProgressSpinner));
+    this.loading = true;
+    const user = this.cognito.initAuthenticated();
+    // 未認証の場合前画面へ戻る
+    if (user == null) {
+      this.apiAuth.authenticationExpired();
+      this.openMsgDialog(messageDialogMsg.LoginRequest, true);
+      return;
+    }
+    // ユーザー情報を設定する
+    this.loginUser = user;
+    // データを取得
+    this.compService.getTransactionCompSlip(this.loginUser).subscribe(data => {
+      this.detailList = this.compService.dispContentsSlip(data)
+      // ローディング解除
+      this.overlayRef.detach();
+      this.loading = false;
+    });
   }
 
 

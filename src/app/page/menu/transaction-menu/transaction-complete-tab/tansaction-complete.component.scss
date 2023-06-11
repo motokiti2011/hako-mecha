@@ -4,87 +4,45 @@
   margin-left: 5%;
 }
 
-
-.item-list-heder {
-  display: flex;
-  height: 2em;
-  text-align: center;
-  font-size: 1.5em;
-
-  .heder-check {
-    border: 1px solid #000;
-    background-color: #97cdf3;
-    width: 40px;
-    padding: 0%;
-    padding-top: 0.6em;
+.table_area {
+  background-color: #fff;
+  border: #000;
+  th {
+    position: sticky;
+    background: #f2f2f2;
+    top: 0;
+    left: 0;
+  }
+  .table2 {
+    height: 450px;
+    overflow: hidden;
+    overflow-y: auto;
   }
 
-  .heder-title {
-    border: 1px solid #000;
-    width: 200px;
-    background-color: #97cdf3;
-    padding-top: 0.6em;
+  .item_title_head {
+    width: 100px;
+    text-align: center;
+    padding: 20px 0px 0px 20px;    
   }
 
-  .heder-price {
-    border: 1px solid #000;
-    width: 150px;
-    background-color: #97cdf3;
-    padding-top: 0.6em;
-  }
-
-  .heder-whet {
-    border: 1px solid #000;
-    width: 150px;
-    background-color: #97cdf3;
-    padding-top: 0.6em;
-  }
-
-  .heder-endDate {
-    border: 1px solid #000;
-    width: 150px;
-    background-color: #97cdf3;
-    padding-top: 0.6em;
-  }
-}
-
-
-.item-list {
-  display: flex;
-  height: 3em;
-  text-align: center;
-
-  .item-check {
-    border: 1px solid #000;
-    width: 40px;
-    padding: 0%;
-    padding-top: 0.8em;
-  }
-
-  .item-title {
-    border: 1px solid #000;
-    width: 200px;
-    padding-top: 1.4em;
+  .item_title {
+    width: 100px;
     cursor:pointer;
     color: blue;
+    text-align: center;
+    padding: 20px 0px 0px 20px;
   }
 
-  .item-price {
-    border: 1px solid #000;
+  .item_price {
     width: 150px;
-    padding-top: 1.4em;
+    text-align: center;
+    padding: 20px 0px 0px 20px;
   }
 
-  .item-whet {
-    border: 1px solid #000;
-    width: 150px;
-    padding-top: 1.4em;
-  }
-
-  .item-endDate {
-    border: 1px solid #000;
-    width: 150px;
-    padding-top: 1.4em;
+  .item_end {
+    width: 120px;
+    text-align: center;
+    padding: 20px 0px 0px 20px;
   }
 }
 
@@ -93,6 +51,12 @@
   margin-left: 7vh;
 }
 
+.empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+}
 
 .loading {
   height: 700px;

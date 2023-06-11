@@ -3,33 +3,34 @@
     <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
   </div>
   <ng-template #mainContent>
-    <div>
+
+    <!-- <div>
       <select class="select-btn" [(ngModel)]="selected" (change)="changeOrder()">
         <option value="">並び順</option>
         <option *ngFor="let item of orderMenu" [value]="item.value" [selected]="item.value === selected">{{item.value}}
         </option>
       </select>
-    </div>
+    </div> -->
 
     <div class="contants">
       <div *ngIf="detailList.length > 0; ElseContents" class="table_area">
         <table class="table">
           <thead>
             <tr>
-              <th>{{HEAD.title}}</th>
-              <th>{{HEAD.relation}}</th>
-              <th>{{HEAD.adminName}}</th>
-              <th>{{HEAD.completionScheduledDate}}</th>
+              <th class="item_title_head">{{HEAD.title}}</th>
+              <th class="item_relation">{{HEAD.relation}}</th>
+              <th class="item_admin">{{HEAD.adminName}}</th>
+              <th class="item_scheduled">{{HEAD.completionScheduledDate}}</th>
           </thead>
         </table>
         <div class="table2">
           <table class="table">
             <tbody>
               <tr *ngFor="let item of detailList">
-                <td>{{item.serviceTitle}}</td>
-                <td>{{item.slipRelation}}</td>
-                <td>{{item.slipAdminName}}</td>
-                <td>{{item.completionScheduledDate}}</td>
+                <td class="item_title">{{item.serviceTitle}}</td>
+                <td class="item_relation">{{item.slipRelation}}</td>
+                <td class="item_admin">{{item.slipAdminName}}</td>
+                <td class="item_scheduled">{{item.completionScheduledDate}}</td>
               </tr>
             </tbody>
           </table>

@@ -17,7 +17,6 @@ export class MyListService {
     @Inject(LOCALE_ID) private locale: string
   ) { }
 
-  private apiEndPoint: string = 'http://localhost:8080/v1/';
 
   /**
    * マイリスト情報を取得
@@ -35,8 +34,11 @@ export class MyListService {
    */
   public displayFormatdisplayFormat(userMyList: userMyList[]): dispUserMyList[] {
     let resultList: dispUserMyList[] = [];
+    let count = 1;
+
     userMyList.forEach(data => {
       let dispContents: dispUserMyList = {
+        no: count,
         userId: data.userId,
         mechanicId: data.mechanicId,
         officeId: data.officeId,
@@ -55,6 +57,7 @@ export class MyListService {
         deleteDiv: data.deleteDiv
       }
       resultList.push(dispContents);
+      count++;
     });
     return resultList;
   }

@@ -1,28 +1,25 @@
-
-
 <div class="service-contents">
   <div *ngIf="loading; else mainContent" class="loading">
     <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
   </div>
   <ng-template #mainContent>
-    <div class="contants">
-      <div>
-        <select class="select-btn" [(ngModel)]="selected" (change)="changeOrder()">
-          <option value="">並び順</option>
-          <option *ngFor="let item of orderMenu"
-          [value]="item.value"
-          [selected]="item.value === selected">{{item.value}}
-        </option>
-        </select>
-      </div>
 
+    <div class="contants">
       <div *ngIf="detailList.length > 0; ElseContents" class="table_area">
+
+        <!-- <div>
+          <select class="select-btn" [(ngModel)]="selected" (change)="changeOrder()">
+            <option value="">並び順</option>
+            <option *ngFor="let item of orderMenu" [value]="item.value" [selected]="item.value === selected">
+              {{item.value}}
+            </option>
+          </select>
+        </div> -->
+
         <table class="table">
           <thead>
             <tr>
-              <th><input type="checkbox"
-                [(ngModel)]="hedSelection"
-                (change)="bulkSelection()"></th>
+              <th><input type="checkbox" [(ngModel)]="hedSelection" (change)="bulkSelection()"></th>
               <th>{{HEAD.title}}</th>
               <th>{{HEAD.price}}</th>
               <th>{{HEAD.whet}}</th>
@@ -30,13 +27,13 @@
 
           </thead>
         </table>
+
         <div class="table2">
           <table class="table">
             <tbody>
               <tr *ngFor="let item of detailList">
-                <td><input type="checkbox"
-                  [(ngModel)]="item.check"
-                  (change)="deleteSelection(item.id, item.check)"></td>
+                <td><input type="checkbox" [(ngModel)]="item.check" (change)="deleteSelection(item.id, item.check)">
+                </td>
                 <td>{{item.title}}</td>
                 <td>{{item.price}}</td>
                 <td>{{item.whet}}</td>
@@ -45,14 +42,18 @@
             </tbody>
           </table>
         </div>
-      </div>
-      <ng-component #ElseContents>
-        <div>
-          お知らせはありません。
+
+        <div class="delete-btn">
+          <button (click)="deleteCheck()" [disabled]="checkbutton">選択を削除する</button>
         </div>
-      </ng-component>
+      </div>
+
+
+      <!-- <ng-template #ElseContents> -->
+      <div *ngIf="detailList.length == 0" class="empty">
+        お気に入り登録がありません。
+      </div>
+      <!-- </ng-template> -->
+
     </div>
   </ng-template>
-<div class="delete-btn">
-  <button (click)="deleteCheck()" [disabled]="checkbutton">選択を削除する</button>
-</div>

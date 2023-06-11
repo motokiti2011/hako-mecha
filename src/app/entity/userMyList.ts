@@ -49,6 +49,8 @@ export interface requestInfo {
 
 /** 表示用マイリスト情報 */
 export interface dispUserMyList {
+  // No.
+  no?: number;
   // ユーザーID
   userId: string;
   // メカニックID

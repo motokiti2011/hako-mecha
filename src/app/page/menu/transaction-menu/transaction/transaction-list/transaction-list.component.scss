@@ -19,6 +19,48 @@
     overflow: hidden;
     overflow-y: auto;
   }
+
+
+  .item_title_head {
+    width: 100px;
+    text-align: center;
+    padding: 20px 0px 0px 20px;    
+  }
+
+
+  .item_title {
+    width: 100px;
+    cursor:pointer;
+    color: blue;
+    text-align: center;
+    padding: 20px 0px 0px 20px;
+  }
+
+  .item_relation {
+    width: 150px;
+    text-align: center;
+    padding: 20px 0px 0px 20px;
+  }
+
+  .item_admin {
+    width: 120px;
+    text-align: center;
+    padding: 20px 0px 0px 20px;
+  }
+
+  .item_scheduled {
+    width: 120px;
+    text-align: center;
+    padding: 20px 0px 0px 20px;
+  }
+
+  .item_status {
+    width: 200px;
+    text-align: center;
+    padding: 20px 0px 0px 20px;
+  }
+
+
 }
 
 
@@ -62,46 +104,6 @@
     width: 200px;
     background-color: #97cdf3;
     padding-top: 0.6em;
-  }
-}
-
-
-.item-list {
-  display: flex;
-  height: 3em;
-  text-align: center;
-
-
-  .item-title {
-    border: 1px solid #000;
-    width: 200px;
-    padding-top: 1.4em;
-    cursor:pointer;
-    color: blue;
-  }
-
-  .item-price {
-    border: 1px solid #000;
-    width: 150px;
-    padding-top: 1.4em;
-  }
-
-  .item-whet {
-    border: 1px solid #000;
-    width: 120px;
-    padding-top: 1.4em;
-  }
-
-  .item-endDate {
-    border: 1px solid #000;
-    width: 120px;
-    padding-top: 1.4em;
-  }
-
-  .item-status {
-    border: 1px solid #000;
-    width: 200px;
-    padding-top: 1.4em;
   }
 }
 

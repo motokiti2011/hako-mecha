@@ -33,6 +33,7 @@ export class MyListComponent implements OnInit {
   HEAD = {
     readDiv: '既読/未読',
     msgPage: 'メッセージページ',
+    title: 'タイトル',
     adlessMsg: '宛先・メッセージ内容',
     messageDate: '日付',
   };
