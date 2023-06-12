@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { user } from 'src/app/entity/user';
-
+import { CognitoService } from '../../auth/cognito.service';
+import { ApiSerchService } from '../../service/api-serch.service';
 
 @Component({
   selector: 'app-side-menu',
@@ -22,12 +23,24 @@ export class SideMenuComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private cognito: CognitoService,
+    private api: ApiSerchService
   ) { }
 
   ngOnInit(): void {
     if (this.acceseUser != undefined) {
       this.dispMenuDiv();
     }
+
+    const login = this.cognito.initAuthenticated();
+    if(login != null) {
+      this.api.getUser(login).subscribe(res => {
+        this.acceseUser = res[0];
+        this.dispMenuDiv();
+      });
+    }
+
+
   }
 
   /**

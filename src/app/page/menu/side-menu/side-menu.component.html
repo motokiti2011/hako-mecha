@@ -10,19 +10,29 @@
   </div>
 
   <div class="row">
-    <p>ユーザーメニュー</p>
+    <p class="menu_guid">ユーザーメニュー</p>
+  </div>
+
+  <div class="row">
     <div class="menu_item item" (click)="onWorkRequest()">作業を依頼する</div>
   </div>
 
   <div *ngIf="mechaDiv" class="row">
-    <p>メカニックメニュー</p>
+    <p class="menu_guid">メカニックメニュー</p>
+  </div>
+
+  <div *ngIf="mechaDiv" class="row">
     <div class="menu_item item" (click)="onWorkExhibit('1')">サービスを出品する</div>
   </div>
 
   <div *ngIf="factoryDiv" class="row">
-    <p>工場メニュー</p>
+    <p class="menu_guid">工場メニュー</p>
+  </div>
+
+  <div *ngIf="factoryDiv" class="row">
     <div class="menu_item item" (click)="onWorkExhibit('2')">サービスを出品する</div>
   </div>
+
 
   <div class="row">
     <div class="menu_item item" (click)="onProfileEdit()">プロフィールを編集</div>

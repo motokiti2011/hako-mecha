@@ -3,61 +3,53 @@
     <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
   </div>
   <ng-template #mainContent>
-    <!-- <p class="title">お知らせ一覧</p> -->
 
-    <div class="list-option">
-      <div class="alert-message">
-        新着メッセージ・質問{{messageAlert}}
-      </div>
+    <div *ngIf="detailList.length > 0">
 
-      <div>
-        <select class="select_btn" [(ngModel)]="selected" (change)="changeOrderSort()">
-          <option value="">並び順</option>
-          <option *ngFor="let item of orderMenu" [value]="item.id" [selected]="item.id === selected">{{item.value}}
-          </option>
-        </select>
-      </div>
-    </div>
-
-
-    <div class="service_contents">
-
-      <div *ngIf="detailList.length > 0; ElseContents" class="table_area">
-        <table class="table">
-          <thead>
-            <tr>
-              <th class="item_no">No</th>
-              <th class="item_read">{{HEAD.readDiv}}</th>
-              <!-- <th class="item_title">{{HEAD.title}}</th> -->
-              <th class="item_title_head">{{HEAD.msgPage}}</th>
-              <th class="item_message">{{HEAD.adlessMsg}}</th>
-              <th class="item_date">{{HEAD.messageDate}}</th>
-          </thead>
-        </table>
-        <div class="table2">
-          <table class="table">
-            <tbody>
-              <tr *ngFor="let item of detailList | slice: begin: begin+maxLength">
-                <td class="item_no">{{item.no}}</td>
-                <td class="item_read">{{item.dispRead}}</td>
-                <td class="item_title" (click)="contentsDetail(item)">
-                  <!-- <div class="item_title" (click)="contentsDetail(item)"> -->
-                    {{item.serviceTitle}}
-                  <!-- </div> -->
-                </td>
-                <td class="item_message">{{item.message}}</td>
-                <td class="item_date">{{item.messageDate}}</td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="list-option">
+        <div class="alert-message">
+          新着メッセージ・質問{{messageAlert}}
         </div>
-
-      </div>
-      <ng-component #ElseContents>
         <div>
-          お知らせはありません。
+          <select class="select_btn" [(ngModel)]="selected" (change)="changeOrderSort()">
+            <option value="">並び順</option>
+            <option *ngFor="let item of orderMenu" [value]="item.id" [selected]="item.id === selected">{{item.value}}
+            </option>
+          </select>
         </div>
-      </ng-component>
+      </div>
+
+
+      <div class="service_contents">
+        <div *ngIf="detailList.length > 0; ElseContents" class="table_area">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="item_no">No</th>
+                <th class="item_read">{{HEAD.readDiv}}</th>
+                <th class="item_title_head">{{HEAD.msgPage}}</th>
+                <th class="item_message">{{HEAD.adlessMsg}}</th>
+                <th class="item_date">{{HEAD.messageDate}}</th>
+            </thead>
+          </table>
+          <div class="table2">
+            <table class="table">
+              <tbody>
+                <tr *ngFor="let item of detailList | slice: begin: begin+maxLength">
+                  <td class="item_no">{{item.no}}</td>
+                  <td class="item_read">{{item.dispRead}}</td>
+                  <td class="item_title" (click)="contentsDetail(item)">
+                      {{item.serviceTitle}}
+                  </td>
+                  <td class="item_message">{{item.message}}</td>
+                  <td class="item_date">{{item.messageDate}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <div *ngIf="detailList.length > 0;" class="service_index">
@@ -73,7 +65,10 @@
 
       </div>
     </div>
-
   </ng-template>
+
+  <div *ngIf="detailList.length == 0" class="empty">
+    お知らせはありません。
+  </div>
 
 </div>

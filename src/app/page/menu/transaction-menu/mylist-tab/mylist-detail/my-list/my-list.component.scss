@@ -19,7 +19,7 @@
     background: #f2f2f2;
     top: 0;
     left: 0;
-    
+
   }
 
   .table2 {
@@ -44,7 +44,7 @@
   .item_title_head {
     text-align: center;
     width: 200px;
-    padding: 20px 0px 0px 70px;    
+    padding: 20px 0px 0px 70px;
   }
 
   .item_title {
@@ -202,6 +202,13 @@
       padding: 10px 5px 0px 5px;
     }
   }
+}
+
+.empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
 }
 
 .loading {

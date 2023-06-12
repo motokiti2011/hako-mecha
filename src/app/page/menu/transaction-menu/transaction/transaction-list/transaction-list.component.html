@@ -36,12 +36,9 @@
           </table>
         </div>
       </div>
-      <ng-component #ElseContents>
-        <div>取引中のサービスはありません。</div>
-      </ng-component>
-    </div>
-    <div class="delete-btn">
-      <button (click)="deleteCheck()" [disabled]="checkbutton">選択を削除する</button>
+      <div *ngIf="detailList.length == 0">
+        取引中のサービスはありません。
+      </div>
     </div>
   </ng-template>
 </div>
