@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map, mergeMap} from 'rxjs';
 import { slipDetailInfo } from 'src/app/entity/slipDetailInfo';
 import { prefecturesCoordinateData } from 'src/app/entity/prefectures';
 import { find as _find } from 'lodash';
@@ -10,7 +10,7 @@ import { ApiCheckService } from 'src/app/page/service/api-check.service';
 import { ApiUniqueService } from 'src/app/page/service/api-unique.service';
 import { ApiSlipProsessService } from 'src/app/page/service/api-slip-prosess.service';
 import { serviceTransactionRequest } from 'src/app/entity/serviceTransactionRequest';
-
+import { slipRelation } from 'src/app/entity/slipRelation';
 
 @Injectable({
   providedIn: 'root'
@@ -141,10 +141,10 @@ export class ServiceTransactionService {
 
   /**
    * 取引依頼中ユーザーかを判定する
-   * @param slipNo 
-   * @param requestUserId 
+   * @param slipNo
+   * @param requestUserId
    * @param serviceType
-   * @returns 
+   * @returns
    */
   public transactionReqUserCheck(slipNo:string, requestUserId: string, serviceType: string): Observable<boolean> {
     return this.apiCheckService.checkTransactionReq(slipNo, requestUserId, serviceType);
@@ -153,10 +153,10 @@ export class ServiceTransactionService {
 
   /**
    * 取引中ユーザーかを判定する
-   * @param slipNo 
-   * @param userId 
+   * @param slipNo
+   * @param userId
    * @param serviceType
-   * @returns 
+   * @returns
    */
   public transactionUserCheck(slipNo:string, userId: string, serviceType: string): Observable<boolean> {
     return this.apiCheckService.checkTransaction(slipNo, userId, serviceType);
@@ -164,13 +164,64 @@ export class ServiceTransactionService {
 
   /**
    * 取引依頼済かを確認する
-   * @param slipNo 
-   * @param userId 
-   * @returns 
+   * @param slipNo
+   * @param userId
+   * @returns
    */
   public sentTranReqCheck(slipNo: string, userId: string):Observable<serviceTransactionRequest> {
     return this.apiCheckService.sentTranReqCheck(slipNo, userId);
   }
+
+  /**
+   * 取引依頼を承認
+   * @param request
+   * @param userId
+   * @returns
+   */
+  public approvalRequest(request:serviceTransactionRequest, userId: string, serviceType: string): Observable<number> {
+    return this.apiSlipService.approvalTransaction(request, userId, serviceType);
+  }
+
+  /**
+   * 取引を完了する
+   * @param slipNo
+   * @param serviceType
+   * @param acceseUser
+   */
+  public completedTransaction(slipNo: string, serviceType: string, acceseUser: string) :Observable<any> {
+    return this.apiSlipService.compTransaction(slipNo, serviceType, acceseUser)
+  }
+
+  /**
+   * 取引中伝票情報に対してのアクセスチェックを行う
+   * @param slipNo
+   * @param serviceType
+   * @param userId
+   */
+  public transactionCheck(slipNo: string, serviceType: string, userId: string): Observable<string> {
+    // 管理者チェック
+    return this.accessUserAdminCheck(slipNo, userId, serviceType).pipe(
+      mergeMap((res: boolean) => {
+        if (res) {
+          // 伝票関係　管理者
+          return slipRelation.ADMIN;
+        } else {
+          return this.transactionReqUserCheck(slipNo, userId, serviceType).pipe(
+            map((res: boolean) => {
+              if (res) {
+                // 伝票関係　管理者
+                return slipRelation.TRADER;
+              } else {
+                // いずれも該当なしの場合、関係なし
+                return slipRelation.OTHERS;
+              }
+            })
+          );
+        }
+      })
+    )
+  }
+
 
 
 

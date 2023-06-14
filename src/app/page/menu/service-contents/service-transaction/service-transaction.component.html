@@ -8,28 +8,52 @@
       <input type="button" class="btn_item" on-click="onServiceList()" value="一覧に戻る">
       <input type="button" class="btn_item" on-click="onQuestion()" value="質問">
 
-      <div *ngIf="privateDiv">
-        <p class="private_message">このサービスのメッセージは<br>非公開です。</p>
+      <div *ngIf="processStatus == '0'">
+        <div *ngIf="privateDiv">
+          <p class="private_message">このサービスのメッセージは<br>非公開です。</p>
+        </div>
+
+        <div *ngIf="adminUserDiv">
+          <input type="button" class="btn_item" on-click="onOpenLevelSet()" value="メッセージ公開レベル設定">
+        </div>
+
+        <div *ngIf="openDiv">
+          <input type="button" class="btn_item" on-click="onMsgPrmReq()" value="メッセージ許可申請">
+        </div>
+
+        <div *ngIf="!tranReqDiv && !adminUserDiv" class="row button_item">
+          <input type="button" class="btn_item" on-click="onTransactionRequest()" value="取引を依頼する">
+        </div>
+        <div *ngIf="tranReqDiv && !adminUserDiv" class="row button_item">
+          <p>取引依頼中です。</p>
+        </div>
+
+
+        <div *ngIf="adminUserDiv" class="row button_item">
+          <p>現在の取引依頼は{{tranReqList.length}}件です。</p>
+        </div>
+        <div *ngIf="adminUserDiv && tranReqList.length > 0" class="row button_item">
+          <input type="button" class="btn_item" on-click="onRequest()" value="取引依頼を確認する。">
+        </div>
+
+        <div *ngIf="privateDiv">
+          <p class="private_message">このサービスのメッセージは<br>非公開です。</p>
+        </div>
+
+
       </div>
 
-      <div *ngIf="adminUserDiv">
-        <input type="button" class="btn_item" on-click="onOpenLevelSet()" value="メッセージ公開レベル設定">
+      <div *ngIf="processStatus == '1'">
+
+        <div *ngIf="tranCompBtnDiv"  class="row button_item">
+          <!-- <button type="button" class="btn btn-outline-primary" (click)="onCompletedTransaction()">取引を完了する</button> -->
+          <input type="button" class="btn_item" on-click="onCompletedTransaction()" value="取引を完了する">
+
+        </div>
+
       </div>
 
-      <div *ngIf="openDiv">
-        <input type="button" class="btn_item" on-click="onMsgPrmReq()" value="メッセージ許可申請">
-      </div>
-      
-      <div *ngIf="!adminUserDiv && !transactionTarget">
-        <input type="button" class="btn_item" on-click="onTransactionRequest()" value="取引を依頼する">
-      </div>
 
-      <div *ngIf="adminUserDiv">
-        <input type="button" class="btn_item" on-click="onTransactionApproval()" value="取引依頼を承認する">
-      </div>
-      <div *ngIf="privateDiv">
-        <p class="private_message">このサービスのメッセージは<br>非公開です。</p>
-      </div>
     </div>
 
 
