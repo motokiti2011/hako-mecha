@@ -19,6 +19,7 @@ import { slipMegPrmUser } from 'src/app/entity/slipMegPrmUser';
 import { userVehicle } from 'src/app/entity/userVehicle';
 import { factoryMechanicFavorite } from 'src/app/entity/factoryMechanicFavorite';
 import { inquiryInfo } from 'src/app/entity/inquiryInfo';
+import { userMyList } from 'src/app/entity/userMyList';
 
 @Injectable({
   providedIn: 'root'
@@ -122,6 +123,7 @@ export class ApiSerchService {
         "price": data.price,
         "bidMethod": data.bidMethod,
         "bidderId": data.bidderId,
+        "bidUserType": data.bidUserType,
         "bidEndDate": data.bidEndDate,
         "explanation": data.explanation,
         "displayDiv": data.displayDiv,
@@ -182,6 +184,7 @@ export class ApiSerchService {
         "price" : data.price,
         "bidMethod" : data.bidMethod,
         "bidderId" : data.bidderId,
+        "bidUserType": data.bidUserType,
         "bidEndDate" : data.bidEndDate,
         "explanation" : data.explanation,
         "displayDiv" : data.displayDiv,
@@ -204,7 +207,7 @@ export class ApiSerchService {
         "updated": String(formatDate(new Date, "yy/MM/dd HH:mm", this.locale))
       }
     };
-    return this.http.post<salesServiceInfo>(this.apiEndPoint + '/salesServiceInfo', body).pipe(
+    return this.http.post<salesServiceInfo>(this.apiEndPoint + '/salesserviceinfo', body).pipe(
       timeout(2500), // タイムアウト処理
       retry(3), // リトライ処理
       // 取得できた場合ユーザー情報を返却
@@ -681,6 +684,35 @@ export class ApiSerchService {
       catchError((err: HttpErrorResponse) => of(undefined))
     );
   }
+
+
+
+
+  /**
+   * お問い合わせを登録する
+   * @param data
+   * @returns
+   */
+  public putMyList(data: userMyList): Observable<any> {
+
+    // リクエストボディ生成
+    const body = {
+      "OperationType": "PUT",
+      "Keys": {
+        "id": data.id,
+        "data": data
+      }
+    };
+    return this.http.post<userMyList>(this.apiEndPoint + '/usermylist', body).pipe(
+      timeout(2500), // タイムアウト処理
+      retry(3), // リトライ処理
+      // 取得できた場合ユーザー情報を返却
+      map((res: userMyList) => res),
+      // エラー時HTTPステータスコードを戻す
+      catchError((err: HttpErrorResponse) => of(undefined))
+    );
+  }
+
 
 
   /**

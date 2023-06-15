@@ -51,6 +51,8 @@ export interface requestInfo {
 export interface dispUserMyList {
   // No.
   no?: number;
+  // id
+  id: string;
   // ユーザーID
   userId: string;
   // メカニックID

@@ -1,10 +1,15 @@
 import { Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { userMyList, dispUserMyList, MylistCategory, MylistCategoryMessage } from 'src/app/entity/userMyList';
 import { formatDate } from '@angular/common';
+import { ApiSerchService } from 'src/app/page/service/api-serch.service';
 import { ApiGsiSerchService } from 'src/app/page/service/api-gsi-serch.service';
 import { mylistMessages } from 'src/app/entity/mylistMessage';
+import {
+  find as _find,
+} from 'lodash';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +18,7 @@ export class MyListService {
 
   constructor(
     private http: HttpClient,
+    private apiSerchService: ApiSerchService,
     private apiGsiService: ApiGsiSerchService,
     @Inject(LOCALE_ID) private locale: string
   ) { }
@@ -39,6 +45,7 @@ export class MyListService {
     userMyList.forEach(data => {
       let dispContents: dispUserMyList = {
         no: count,
+        id: data.id,
         userId: data.userId,
         mechanicId: data.mechanicId,
         officeId: data.officeId,
@@ -100,14 +107,35 @@ export class MyListService {
   }
 
   /**
+   * 未読状態のメッセージを既読に更新する
+   * @param id
+   * @param myList
+   */
+  public putReadMsg(id: string, myList: userMyList[]) : Observable<any> {
+    if (myList.length == 0) {
+      return of(500);
+    }
+    const data = _find(myList , list => list.id === id);
+    if(!data) {
+      return of(500);
+    }
+    data.readDiv = '1'
+    return this.apiSerchService.putMyList(data);
+
+  }
+
+
+
+
+  /**
    * 表示メッセージを設定する
-   * @param category 
-   * @param message 
-   * @returns 
+   * @param category
+   * @param message
+   * @returns
    */
   private setMessage(category: string, message: string):string {
     if(category == '' ) {
-      return message;      
+      return message;
     }
     const messageList = Object.values(mylistMessages);
     return messageList[Number(category)];

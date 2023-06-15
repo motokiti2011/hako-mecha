@@ -622,7 +622,7 @@ export class ServiceEditComponent implements OnInit {
       this.apiService.postSalesServiceInfo(salesServiceData).subscribe(result => {
         // 登録結果からメッセージを表示する
         if (result === 200) {
-          this.openMsgDialog(messageDialogMsg.Resister, false);
+          this.openMsgDialog(messageDialogMsg.Resister, true);
         } else {
           this.openMsgDialog(messageDialogMsg.AnResister, false);
         }
@@ -633,7 +633,7 @@ export class ServiceEditComponent implements OnInit {
       this.apiService.postSlip(slipDitail).subscribe(result => {
         // 登録結果からメッセージを表示する
         if (result === 200) {
-          this.openMsgDialog(messageDialogMsg.Resister, false);
+          this.openMsgDialog(messageDialogMsg.Resister, true);
         } else {
           this.openMsgDialog(messageDialogMsg.AnResister, false);
         }
@@ -669,6 +669,7 @@ export class ServiceEditComponent implements OnInit {
       price: this.inputData.price,
       bidMethod: this.inputData.bidMethod,
       bidderId: this.beforData.bidderId,
+      bidUserType: this.beforData.bidUserType,
       bidEndDate: this.beforData.bidEndDate,
       explanation: this.inputData.explanation,
       displayDiv: this.beforData.displayDiv,
@@ -726,6 +727,7 @@ export class ServiceEditComponent implements OnInit {
       price: this.inputData.price,
       bidMethod: this.inputData.bidMethod,
       bidderId: this.beforData.bidderId,
+      bidUserType: this.beforData.bidUserType,
       bidEndDate: this.beforData.bidEndDate,
       explanation: this.inputData.explanation,
       displayDiv: this.beforData.displayDiv,
@@ -750,17 +752,6 @@ export class ServiceEditComponent implements OnInit {
     return salesService;
 
   }
-
-
-
-
-
-
-
-
-
-
-
 
   /**
    * 入力内容をリセットする
@@ -1073,9 +1064,6 @@ export class ServiceEditComponent implements OnInit {
     if (areaa) {
       this.apiService.serchArea(areaa.prefectures)
         .subscribe(data => {
-          // console.log(data);
-          // console.log(data.response);
-          console.log(data.response.location);
           if (data.response.location.length > 0) {
             this.areaCityData = data.response.location;
           }
