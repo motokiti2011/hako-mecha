@@ -693,13 +693,14 @@ export class ApiSerchService {
    * @param data
    * @returns
    */
-  public putMyList(data: userMyList): Observable<any> {
+  public putMyList(data: userMyList, accessUser: string): Observable<any> {
 
     // リクエストボディ生成
     const body = {
       "OperationType": "PUT",
       "Keys": {
         "id": data.id,
+        "userId": accessUser,
         "data": data
       }
     };

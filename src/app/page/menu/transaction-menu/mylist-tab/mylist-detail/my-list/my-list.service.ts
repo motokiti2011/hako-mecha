@@ -111,7 +111,7 @@ export class MyListService {
    * @param id
    * @param myList
    */
-  public putReadMsg(id: string, myList: userMyList[]) : Observable<any> {
+  public putReadMsg(id: string, myList: userMyList[], accessUser: string) : Observable<any> {
     if (myList.length == 0) {
       return of(500);
     }
@@ -120,7 +120,7 @@ export class MyListService {
       return of(500);
     }
     data.readDiv = '1'
-    return this.apiSerchService.putMyList(data);
+    return this.apiSerchService.putMyList(data, accessUser);
 
   }
 
