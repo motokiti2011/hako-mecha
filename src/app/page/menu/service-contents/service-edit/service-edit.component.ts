@@ -169,7 +169,9 @@ export class ServiceEditComponent implements OnInit {
   /** サービスタイプ */
   serviceType = '';
   /** 工場情報 */
-  office?: officeInfo
+  office?: officeInfo;
+  /** 伝票日付 */
+  dispYmd = '';
 
   /** ローディングオーバーレイ */
   overlayRef = this.overlay.create({
@@ -841,7 +843,9 @@ export class ServiceEditComponent implements OnInit {
       const year = stDate.slice(0, 4)
       const month = stDate.substring(4, 6)
       const day = stDate.slice(6)
+
       this.startDate = year + '-' + month + '-' + day;
+      this.dispYmd = year + '年' + month + '月' + day + '日　：　' + slip.preferredTime + '時' ;
       this.timeSelect = slip.preferredTime;
       this.inputData.preferredTime = Number(slip.preferredTime);
       const ti = _find(this.timeData, data => data.id === String(this.timeSelect));
@@ -918,6 +922,7 @@ export class ServiceEditComponent implements OnInit {
       const month = stDate.substring(4, 6)
       const day = stDate.slice(6)
       this.startDate = year + '-' + month + '-' + day;
+      this.dispYmd = year + '年' + month + '月' + day + '日　：　' + slip.preferredTime + '時' ;
       this.timeSelect = slip.preferredTime;
       const ti = _find(this.timeData, data => data.id === String(this.timeSelect));
       if (!_isNil(ti)) {
@@ -985,16 +990,16 @@ export class ServiceEditComponent implements OnInit {
       this.inputData.preferredDate = slip.preferredDate;
       const stDate = String(slip.preferredDate);
       const year = stDate.slice(0, 4)
-      console.log('year:' + year);
       const month = stDate.substring(4, 6)
-      console.log('month:' + month);
       const day = stDate.slice(6)
-      console.log('day:' + day);
+
       this.startDate = year + '-' + month + '-' + day;
+      this.dispYmd = year + '年' + month + '月' + day + '日　：　' + slip.preferredTime + '時' ;
       const ti = _find(this.timeData, data => data.id === String(this.timeSelect));
       if (!_isNil(ti)) {
         this.inputData.preferredTime = Number(ti.id);
       }
+
 
       this.inputData.preferredTime = Number(slip.preferredTime);
       this.inputData.vehicleDiv = slip.targetVehicleDiv;

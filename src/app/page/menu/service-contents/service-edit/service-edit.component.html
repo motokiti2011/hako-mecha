@@ -180,25 +180,25 @@
 
           <tr>
             <!-- 希望日　-->
-            <td>希望日</td>
+            <td>希望日時</td>
             <td>
-              <div class="mandatory_area">
+              <!-- <div class="mandatory_area">
                 <div *ngIf="preferredDateDiv; else elseContent">
                   <label class="mandatory">必須</label>
                 </div>
                 <ng-template #elseContent>
                   <div class="margin"></div>
                 </ng-template>
-              </div>
+              </div> -->
             </td>
             <td>
-              <div>
-                <mat-form-field class="example-form-field" >
+              <div>{{dispYmd}}
+                <!-- <mat-form-field class="example-form-field" >
                   <mat-label>希望日</mat-label>
                   <input matInput [matDatepicker]="picker"[(ngModel)]="startDate" (dateChange)="inputPreferredDate($event)" >
                   <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
                   <mat-datepicker #picker startView="year" [startAt]="startDate" ></mat-datepicker>
-                </mat-form-field>
+                </mat-form-field> -->
               </div>
             </td>
             <td>
@@ -209,8 +209,8 @@
           </tr>
 
 
-          <tr>
-            <!-- 希望時間　-->
+          <!-- 希望時間　-->
+          <!-- <tr>
             <td>希望時間</td>
             <td>
               <div class="mandatory-area">
@@ -230,7 +230,7 @@
                 [selected]="time.id === timeSelect">{{time.label}}</option>
               </select>
             </td>
-          </tr>
+          </tr> -->
 
           <tr>
             <!-- メッセージの公開レベル　-->

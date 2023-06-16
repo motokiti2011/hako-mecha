@@ -255,7 +255,10 @@ export class MyListComponent implements OnInit {
    * @param content
    */
   private readMsg(content: dispUserMyList) {
-    return this.mylistservice.putReadMsg(content.id, this.userMyList)
+    this.mylistservice.putReadMsg(content.id, this.userMyList).subscribe(res => {
+      console.log('マイリスト');
+      console.log(res);
+    })
   }
 
 
