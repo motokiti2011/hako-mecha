@@ -109,7 +109,7 @@ export class ServiceTransactionComponent implements OnInit {
       this.serviceType = params['serviceType'];
       // 伝票取得
       this.service.getService(this.dispSlipId, this.serviceType).subscribe(data => {
-        if(!data) {
+        if (!data) {
           this.openMsgDialog(messageDialogMsg.AnSerchAgainOperation, true);
           return;
         }
@@ -125,29 +125,29 @@ export class ServiceTransactionComponent implements OnInit {
 
 
 
-    /**
-   * 取引を完了するボタン押下イベント
-   */
-    onCompletedTransaction() {
+  /**
+ * 取引を完了するボタン押下イベント
+ */
+  onCompletedTransaction() {
 
-      const msg = 'この取引を終了しますがよろしいですか？';
-      this.selectMsgDialog(msg).subscribe(result => {
-        if (!result) {
-          return;
+    const msg = 'この取引を終了しますがよろしいですか？';
+    this.selectMsgDialog(msg).subscribe(result => {
+      if (!result) {
+        return;
+      }
+      if (!this.slip) {
+        this.openMsgDialog(messageDialogMsg.AnSerchAgainOperation, true);
+        return;
+      }
+      this.service.completedTransaction(this.slip.slipNo, this.slip.serviceType, this.acsessUser.userId).subscribe(res => {
+        if (res) {
+          this.slip = res;
+          // 完了済伝票の表示を行う
+          // this.completionDisp();
         }
-        if(!this.slip) {
-          this.openMsgDialog(messageDialogMsg.AnSerchAgainOperation, true);
-          return;
-        }
-        this.service.completedTransaction(this.slip.slipNo, this.slip.serviceType, this.acsessUser.userId).subscribe(res => {
-          if (res) {
-            this.slip = res;
-            // 完了済伝票の表示を行う
-            // this.completionDisp();
-          }
-        });
       });
-    }
+    });
+  }
 
 
   /**
@@ -178,7 +178,7 @@ export class ServiceTransactionComponent implements OnInit {
       data: ''
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(!this.slip) {
+      if (!this.slip) {
         this.openMsgDialog(messageDialogMsg.AnSerchAgainOperation, true);
         return;
       }
@@ -247,8 +247,8 @@ export class ServiceTransactionComponent implements OnInit {
     const dialogData: user = this.userInfo as user;
     // 確認ダイアログを表示
     const dialogRef = this.modal.open(TransactionRequestModalComponent, {
-      width: '300px',
-      height: '150px',
+      width: '400px',
+      height: '350px',
       data: dialogData
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -312,8 +312,11 @@ export class ServiceTransactionComponent implements OnInit {
     if (service.processStatus == processStatus.EXHIBITING) {
       // 初期のメッセージエリア表示設定と管理者チェックを行う
       this.initChatArea(service);
-    } else if(service.processStatus == processStatus.EXPIRED) {
+    } else if (service.processStatus == processStatus.EXPIRED) {
       // 期限切れ表示設定
+      // ローディング解除
+      this.overlayRef.detach();
+      this.loading = false;
     } else {
       // 取引中表示設定
       this.transactionDispSetting();
@@ -325,7 +328,7 @@ export class ServiceTransactionComponent implements OnInit {
    */
   private initChatArea(slip: slipDetailInfo) {
     // 認証ユーザー情報取得
-    const acceseUser = this.cognito.initAuthenticated();
+    const acceseUser = this.setUser();
     if (acceseUser !== null) {
       this.service.getSendName(acceseUser).subscribe(user => {
         if (user.length === 0) {
@@ -337,7 +340,7 @@ export class ServiceTransactionComponent implements OnInit {
           return;
         }
         this.userInfo = user[0];
-        if(!this.slip) {
+        if (!this.slip) {
           this.openMsgDialog(messageDialogMsg.AnSerchAgainOperation, true);
           return;
         }
@@ -450,14 +453,18 @@ export class ServiceTransactionComponent implements OnInit {
    * 取引中、管理者表示設定
    */
   transactionAdminDispSetting() {
-
+    // ローディング解除
+    this.overlayRef.detach();
+    this.loading = false;
   }
 
   /**
    * 取引中、依頼者表示設定
    */
   transactionTraderDispSetting() {
-
+    // ローディング解除
+    this.overlayRef.detach();
+    this.loading = false;
   }
 
 
@@ -468,10 +475,13 @@ export class ServiceTransactionComponent implements OnInit {
    * @param userSetviceType
    */
   private sendTransactionReq(userSetviceType: string) {
-    if(!this.slip) {
+    if (!this.slip) {
       this.openMsgDialog(messageDialogMsg.AnSerchAgainOperation, true);
       return;
     }
+    // ローディング開始
+    this.overlayRef.attach(new ComponentPortal(MatProgressSpinner));
+    this.loading = true;
     this.service.transactionReq(this.slip.slipNo, this.serviceType, this.acsessUser.userId, userSetviceType).subscribe(
       result => {
         console.log(result)
@@ -492,7 +502,7 @@ export class ServiceTransactionComponent implements OnInit {
    * アクセス者が取引依頼を出しているかをチェック
    */
   private sentTransactionReq() {
-    if(!this.slip) {
+    if (!this.slip) {
       this.openMsgDialog(messageDialogMsg.AnSerchAgainOperation, true);
       return;
     }
@@ -501,6 +511,8 @@ export class ServiceTransactionComponent implements OnInit {
         this.tranReqDiv = true;
         console.log(res);
       }
+      this.loading = false;
+      this.overlayRef.detach();
     })
   }
 
@@ -531,7 +543,7 @@ export class ServiceTransactionComponent implements OnInit {
     // ローディング開始
     this.overlayRef.attach(new ComponentPortal(MatProgressSpinner));
     this.loading = true;
-    if(!this.slip) {
+    if (!this.slip) {
       this.openMsgDialog(messageDialogMsg.AnSerchAgainOperation, true);
       return;
     }
@@ -546,6 +558,20 @@ export class ServiceTransactionComponent implements OnInit {
         this.overlayRef.detach();
       }
     })
+  }
+
+
+
+  /**
+   * アクセスユーザー情報取得
+   */
+  private setUser(): string {
+    const acceseUser = this.cognito.initAuthenticated();
+    if (acceseUser) {
+      this.acsessUser.userId = acceseUser;
+      return acceseUser;
+    }
+    return '';
   }
 
 

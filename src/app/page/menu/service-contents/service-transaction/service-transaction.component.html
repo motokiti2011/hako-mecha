@@ -21,18 +21,19 @@
           <input type="button" class="btn_item" on-click="onMsgPrmReq()" value="メッセージ許可申請">
         </div>
 
-        <div *ngIf="!tranReqDiv && !adminUserDiv" class="row button_item">
+        <div *ngIf="!tranReqDiv && !adminUserDiv">
           <input type="button" class="btn_item" on-click="onTransactionRequest()" value="取引を依頼する">
         </div>
-        <div *ngIf="tranReqDiv && !adminUserDiv" class="row button_item">
+
+        <div *ngIf="tranReqDiv && !adminUserDiv">
           <p>取引依頼中です。</p>
         </div>
 
 
-        <div *ngIf="adminUserDiv" class="row button_item">
+        <div *ngIf="adminUserDiv">
           <p>現在の取引依頼は{{tranReqList.length}}件です。</p>
         </div>
-        <div *ngIf="adminUserDiv && tranReqList.length > 0" class="row button_item">
+        <div *ngIf="adminUserDiv && tranReqList.length > 0">
           <input type="button" class="btn_item" on-click="onRequest()" value="取引依頼を確認する。">
         </div>
 

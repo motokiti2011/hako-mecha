@@ -4,12 +4,8 @@
 </div>
 
 
-<div>
+<div class="btn_area">
   <div *ngFor="let item of selectItemList">
-    <div class="btn_area">
-      <button type="button" class="btn btn-outline-primary" (click)="onItemClick(item.id)">{{item.value}}</button>
-    </div>
+    <button type="button" class="btn btn-outline-primary" (click)="onItemClick(item.id)">{{item.value}}</button>
   </div>
 </div>
-
-
