@@ -551,7 +551,7 @@ export class ServiceTransactionComponent implements OnInit {
       if (result == 200) {
         this.openMsgDialog(messageDialogMsg.TransactionStart, false);
         // 取引中伝票表示処理を行う
-        // this.transactionDisp();
+        this.ngOnInit();
       } else {
         this.openMsgDialog(messageDialogMsg.ProblemOperation, false);
         this.loading = false;

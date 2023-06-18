@@ -138,6 +138,8 @@ export class ServiceDetailComponent implements OnInit {
         if (this.dispContents.processStatus == processStatus.EXHIBITING) {
           // 出品中伝票の表示を行う
           this.exhibitingDisp();
+        } else if (this.dispContents.processStatus == processStatus.ENDOFTRANSACTION) {
+          this.completionDisp()
         } else {
           // その他は取引中表示を行う
           this.transactionDisp()
@@ -318,7 +320,8 @@ export class ServiceDetailComponent implements OnInit {
         if (res) {
           this.dispContents = res;
           // 完了済伝票の表示を行う
-          this.completionDisp();
+          // this.completionDisp();
+          this.ngOnInit()
         }
       });
     });
@@ -361,6 +364,8 @@ export class ServiceDetailComponent implements OnInit {
    * 取引中伝票の表示設定を行う
    */
   private transactionDisp() {
+
+
     const user = this.getLoginUser();
     if (user) {
       this.isLogin = true;
@@ -403,28 +408,17 @@ export class ServiceDetailComponent implements OnInit {
       this.acceseUserId = user;
       this.setAccessUserSetting(user);
 
-
-
       // アクセス者判定
       this.service.transactionCheck(this.dispContents.slipNo, this.dispContents.serviceType, user).subscribe(result => {
         if (result === slipRelation.OTHERS) {
           this.openMsgDialog(messageDialogMsg.NotAuthorized, true);
           return;
         }
-        // 取引完了ボタン表示
-        this.tranCompBtnDiv = true;
-
-        if (result === slipRelation.ADMIN) {
-          // 管理者区分
-          this.adminDiv = true;
-          // 管理者表示設定
-          this.transactionAdminDispSetting();
-        } else if (result === slipRelation.TRADER) {
-          // 取引者表示設定
-          this.transactionTraderDispSetting();
-        } else {
-          this.openMsgDialog(messageDialogMsg.NotAuthorized, true);
-        }
+        // データ表示設定
+        this.defaltDispSetting();
+        // ローディング解除
+        this.overlayRef.detach();
+        this.loading = false;
       });
     } else {
       this.openMsgDialog(messageDialogMsg.NotAuthorized, true);
@@ -661,7 +655,8 @@ export class ServiceDetailComponent implements OnInit {
       if (result == 200) {
         this.openMsgDialog(messageDialogMsg.TransactionStart, false);
         // 取引中伝票表示処理を行う
-        this.transactionDisp();
+        // this.transactionDisp();
+        this.ngOnInit();
       } else {
         this.openMsgDialog(messageDialogMsg.ProblemOperation, false);
         this.loading = false;
