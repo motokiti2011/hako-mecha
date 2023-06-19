@@ -65,10 +65,6 @@ export class SignUpComponent implements OnInit {
     this.location.back();
   }
 
-  show() {
-    console.log(1);
-  }
-
   /**
    * 新規ユーザー登録を行う
    * @param email
@@ -86,7 +82,6 @@ export class SignUpComponent implements OnInit {
         this.userInfo.userId = userId;
         this.userInfo.userName = '';
         this.userInfo.mailAdress = email;
-        console.log(result);
         this.overlayRef.detach();
         this.loading = false;
       }).catch((err) => {
@@ -113,7 +108,6 @@ export class SignUpComponent implements OnInit {
     this.cognito.confirmation(confirmationEmail, confirmationCode)
       .then((result) => {
         this.dispMsg = '';
-        console.log(result);
         this.overlayRef.detach();
         this.loading = false;
         if (result) {
@@ -159,7 +153,6 @@ export class SignUpComponent implements OnInit {
       if (locationDiv) {
         this.router.navigate(["/main_menu"]);
       }
-      console.log(result);
       return;
     });
   }

@@ -115,18 +115,11 @@ export class ServiceDetailService {
    */
   public setDispYMD(ymd: string): Date {
     // 年月日を取得
-    console.log(ymd);
     const ymdst = String(ymd);
     const year = ymdst.slice(0, 4)
     const month = ymdst.slice(5, 6)
     const day = ymdst.slice(7, 9)
-    console.log('year:' + year)
-    console.log('month:' + month)
-    console.log('day:' + day)
-    return new Date(Number(year), Number(month) - 1, Number(day), 0, 0, 0, 0); // 2022年5月5日6時35分20.333秒を設定
-
-
-    return new Date(2022, 5 - 1, 5, 6, 35, 20, 333); // 2022年5月5日6時35分20.333秒を設定
+    return new Date(Number(year), Number(month) - 1, Number(day), 0, 0, 0, 0);
   }
 
   /**
@@ -135,23 +128,15 @@ export class ServiceDetailService {
    */
   public setDispYMDSt(ymd: number): string {
     // 年月日を取得
-    console.log(ymd);
-
     const ymdst = String(ymd);
     const stYear = ymdst.slice(0, 4)
     const stMonth = ymdst.slice(5, 6)
     const stDay = ymdst.slice(6, 9)
-    console.log('year:' + stYear)
-    console.log('month:' + stMonth)
-    console.log('day:' + stDay)
     // 月、日付は先頭0の場合があるので一旦数値型に戻す
     const month = Number(stMonth);
     const day = Number(stDay);
 
     return stYear + '年' + String(month) + '月' + String(day) + '日'
-
-
-    // return new Date(2022, 5 - 1, 5, 6, 35, 20, 333); // 2022年5月5日6時35分20.333秒を設定
   }
 
   /**
@@ -311,9 +296,9 @@ export class ServiceDetailService {
 
   /**
    * 取引を完了する
-   * @param slipNo 
-   * @param serviceType 
-   * @param acceseUser 
+   * @param slipNo
+   * @param serviceType
+   * @param acceseUser
    */
   public completedTransaction(slipNo: string, serviceType: string, acceseUser: string) :Observable<any> {
     return this.apiSlipService.compTransaction(slipNo, serviceType, acceseUser)
@@ -385,9 +370,6 @@ export class ServiceDetailService {
     const year = Number(dateStr.slice(0,4));
     const month = Number(dateStr.slice(4,6));
     const day = Number(dateStr.slice(6,8));
-    console.log(year)
-    console.log(month)
-    console.log(day)
 
     return new Date(year, month - 1, day, 0, 0, 0, 0);
 

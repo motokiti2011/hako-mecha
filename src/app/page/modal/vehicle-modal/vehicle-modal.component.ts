@@ -67,8 +67,6 @@ export class VehicleModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.serviceType = this.data.serviceType;
-    console.log(this.data);
-
     // ユーザー依頼の場合
     if (this.data.serviceType == '0') {
       this.acsessId = this.data.acsessId;
@@ -78,7 +76,7 @@ export class VehicleModalComponent implements OnInit {
       }
     } else {
       // ユーザー車両設定の場合
-      this.unspecifiedDiv = this.data.unspecifiedDiv; 
+      this.unspecifiedDiv = this.data.unspecifiedDiv;
       if(this.unspecifiedDiv) {
         this.dispVehicleDiv = '99';
       }
@@ -97,8 +95,6 @@ export class VehicleModalComponent implements OnInit {
    * @param i
    */
   onSelectVehicleDiv(i: number) {
-    console.log(this.vehicleDivData[i]);
-    console.log(this.dispVehicleDiv);
     this.makerDataSetting();
     this.formDataSetting();
   }
@@ -136,7 +132,6 @@ export class VehicleModalComponent implements OnInit {
    * 指定なしチェック押下時
    */
   onUnspecified() {
-    console.log(this.unspecifiedDiv);
     if(this.unspecifiedDiv) {
       this.dispVehicleName = '指定なし';
       this.dispVehicleDiv = '99';
@@ -232,7 +227,6 @@ export class VehicleModalComponent implements OnInit {
       }
       this.makerDataGroupData.push({ key: '国内メーカー', items: domesticData })
       this.makerDataGroupData.push({ key: '外国メーカー', items: abroadData })
-      console.log(this.makerDataGroupData);
     } else if (this.dispVehicleDiv == '1') {
       // バイク指定の場合
       domesticData = domesticBikeMakerData;
@@ -265,7 +259,7 @@ export class VehicleModalComponent implements OnInit {
 
   /**
    * 画面表示に現在設定されているデータを設定する
-   * @param settingVehicleInfo 
+   * @param settingVehicleInfo
    */
   private setFormData(settingVehicleInfo: slipVehicle) {
     this.unspecifiedDiv = this.data.unspecifiedDiv;

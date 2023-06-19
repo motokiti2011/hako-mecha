@@ -154,7 +154,6 @@ export class ServiceTransactionComponent implements OnInit {
    * 質問モーダルを展開する
    */
   onQuestion() {
-    console.log('サービスタイプ:' + this.serviceType)
     this.questionBoardModal.open(QuestionBoardComponent, {
       width: '600px',
       height: '800px',
@@ -210,7 +209,6 @@ export class ServiceTransactionComponent implements OnInit {
           this.service.messagePrmReq(this.acsessUser.userId, this.acsessUser.userName, this.dispSlipId);
         }
       }
-      console.log(result);
     });
   }
 
@@ -401,7 +399,6 @@ export class ServiceTransactionComponent implements OnInit {
    * 取引依頼中ユーザーかを確認する
    */
   private transactionReqUserCheck() {
-    // TODO 引数のServiceTypeはこのままで大丈夫かは後日検討要
     this.service.transactionReqUserCheck(this.dispSlipId, this.acsessUser.userId, this.serviceType).subscribe(res => {
       this.transactionTarget = res;
       // ローディング解除
@@ -484,7 +481,6 @@ export class ServiceTransactionComponent implements OnInit {
     this.loading = true;
     this.service.transactionReq(this.slip.slipNo, this.serviceType, this.acsessUser.userId, userSetviceType).subscribe(
       result => {
-        console.log(result)
         if (result == 200) {
           this.openMsgDialog(messageDialogMsg.Sender, false);
           this.sentTransactionReq();
@@ -526,7 +522,6 @@ export class ServiceTransactionComponent implements OnInit {
       data: this.tranReqList
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result) {
         this.approvalRequest(result);
       }
@@ -594,7 +589,6 @@ export class ServiceTransactionComponent implements OnInit {
       data: dialogData
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (locationDiv) {
         this.loading = false;
         this.overlayRef.detach();

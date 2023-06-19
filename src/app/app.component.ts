@@ -39,17 +39,16 @@ export class AppComponent implements OnInit {
     this.head.ngOnInit();
     const route = this.activatedRoute;
     const routeAny: any = route.snapshot;
-    console.log(routeAny._routerState.url);
-    const hoge: string = routeAny._routerState.url;
-    const hoge2: string[] = hoge.split('?')
-    if (hoge2[0] !== '/transaction_menu'
-      && hoge2[0] !== '/factory-mechanic-menu'
-      && hoge2[0] !== '/service-transaction') {
+    const pass: string = routeAny._routerState.url;
+    const link: string[] = pass.split('?')
+    if (link[0] !== '/transaction_menu'
+      && link[0] !== '/factory-mechanic-menu'
+      && link[0] !== '/service-transaction') {
       this.heightDiv = true;
     } else {
       this.heightDiv = false;
     }
-    if (hoge2[0] === '/main_menu') {
+    if (link[0] === '/main_menu') {
       this.main.ngOnInit();
       this.head.ngOnInit();
     }
@@ -57,7 +56,7 @@ export class AppComponent implements OnInit {
 
   /**
    * 認証状況変化に応じた初期化処理を実施する
-   * @param authCheck 
+   * @param authCheck
    */
   onAuthCheck(authCheck: boolean) {
     if(authCheck) {

@@ -18,7 +18,6 @@ export class TransactionApprovalModalComponent implements OnInit {
   dispData:serviceTransactionRequest[] = [];
 
   ngOnInit(): void {
-    console.log(this.data);
     this.dispData = this.data;
   }
 

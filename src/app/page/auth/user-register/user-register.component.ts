@@ -143,7 +143,6 @@ export class UserRegisterComponent implements OnInit {
       this.loading = false;
       return;
     }
-    console.log(user);
     this.apiService.getUser(user).subscribe(data => {
       this.user.userId = data[0].userId;
       // 初回はメールアドレスしかないので格納する
@@ -166,7 +165,6 @@ export class UserRegisterComponent implements OnInit {
    * 地域選択イベント
    */
   selectArea() {
-    console.log('県名選択：' + this.inputData.areaNo1);
     this.inputData.areaNo1 = this.areaSelect;
     this.getCityInfo();
   }
@@ -198,7 +196,6 @@ export class UserRegisterComponent implements OnInit {
    */
   onInputChange(event: any) {
     const file = event.target.files[0];
-    console.log(file);
     this.imageFile = file;
   }
 
@@ -216,7 +213,6 @@ export class UserRegisterComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       result => {
         // 返却値　無理に閉じたらundifind
-        console.log('画像モーダル結果:' + result)
         if (result != undefined && result != null) {
           if (result.length != 0) {
             this.imageFile = result;
@@ -248,7 +244,6 @@ export class UserRegisterComponent implements OnInit {
   private setImageUrl() {
     this.s3.onManagedUpload(this.imageFile[0].file).then((data) => {
       if (data) {
-        console.log(data);
         this.user.profileImageUrl = data.Location;
         this.userResister();
       }
@@ -265,7 +260,6 @@ export class UserRegisterComponent implements OnInit {
    * ユーザー情報を登録する
    */
   private userResister() {
-    console.log(this.inputData);
     if (_isNil(this.inputData.areaNo1) || this.inputData.areaNo1 == '') {
       this.openMsgDialog(messageDialogMsg.Required, false);
     } else {
@@ -296,12 +290,10 @@ export class UserRegisterComponent implements OnInit {
    * 都道府県から市町村データを取得し設定する
    */
   private getCityInfo() {
-    const areaa = _find(this.areaData, data => data.code === this.areaSelect);
-    console.log(areaa)
-    if (areaa) {
-      this.apiService.serchArea(areaa.prefectures)
+    const area = _find(this.areaData, data => data.code === this.areaSelect);
+    if (area) {
+      this.apiService.serchArea(area.prefectures)
         .subscribe(data => {
-          console.log(data.response.location);
           if (data.response.location.length > 0) {
             this.areaCityData = data.response.location;
           }
@@ -316,12 +308,10 @@ export class UserRegisterComponent implements OnInit {
   private getPostCode(postCode: string) {
     this.apiService.serchPostCode(postCode)
       .subscribe(data => {
-        console.log(data.response.location);
         if (data.response.location.length > 0) {
           const postCodeConectData = data.response.location[0];
           const areaCode = _find(this.areaData, area => area.prefectures === postCodeConectData.prefecture);
           if (!areaCode) {
-            console.log('no-area');
             return;
           }
           // 地域1(都道府県名)
@@ -367,7 +357,6 @@ export class UserRegisterComponent implements OnInit {
         }
         this.router.navigate(["/main_menu"])
       }
-      console.log(result);
       // ローディング解除
       this.overlayRef.detach();
       this.loading = false;

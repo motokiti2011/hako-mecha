@@ -61,7 +61,6 @@ export class FactoryRegisterComponent implements OnInit {
   // 事業所メールアドレス
   officeMailAdress = new FormControl('', [
     Validators.required,
-    // Validators.email // TODO
   ]);
 
 
@@ -186,7 +185,6 @@ export class FactoryRegisterComponent implements OnInit {
           this.openMsgDialog(messageDialogMsg.LoginRequest, true);
           return;
         }
-        console.log(user);
         this.user = user[0];
         this.initForm();
       });
@@ -205,7 +203,6 @@ export class FactoryRegisterComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe(result => {
         this.apiAuth.authenticationExpired();
-        console.log(result);
         // ローディング解除
         this.overlayRef.detach();
         this.router.navigate(["/main_menu"]);
@@ -260,7 +257,6 @@ export class FactoryRegisterComponent implements OnInit {
    */
   onInputChange(event: any) {
     const file = event.target.files[0];
-    console.log(file);
     this.imageFile = file;
 
   }
@@ -318,8 +314,6 @@ export class FactoryRegisterComponent implements OnInit {
    * 地域選択イベント
    */
   selectArea() {
-    console.log('地域')
-    console.log(this.areaSelect)
     this.officeArea1 = this.areaSelect;
     this.getCityInfo();
   }
@@ -329,7 +323,6 @@ export class FactoryRegisterComponent implements OnInit {
    */
   onSelectCity() {
     this.officeArea = this.citySelect;
-    // console.log(this.inputData.area2);
   }
 
 
@@ -343,18 +336,6 @@ export class FactoryRegisterComponent implements OnInit {
     // 郵便番号1,2の入力が行われた場合に郵便番号から地域検索を行う
     if (post1 != '' && post2 != '') {
       this.getPostCode(post)
-
-      // if (postCodeConectData) {
-      //   // 地域1(都道府県名)
-      //   this.areaSelect = postCodeConectData.prefecturesCode;
-      //   this.officeArea1 = postCodeConectData.prefecturesCode;
-      //   // 地域2(市町村)
-      //   this.officeArea = postCodeConectData.municipality;
-      //   this.getCityInfo();
-      //   this.citySelect = postCodeConectData.municipality;
-      //   // 地域3(その他)
-      //   this.officeAdress.setValue(postCodeConectData.townArea);
-      // }
     }
   }
 
@@ -371,7 +352,6 @@ export class FactoryRegisterComponent implements OnInit {
   private setImageUrl() {
     this.s3.onManagedUpload(this.imageFile).then((data) => {
       if (data) {
-        console.log(data);
         this.inputData.officePRimageURL = data.Location;
         this.officeResister();
       }
@@ -396,8 +376,6 @@ export class FactoryRegisterComponent implements OnInit {
     this.officeInfo.officePostCode = this.formService.setPostCode(this.postCode1.value, this.postCode2.value);
     this.officeInfo.workContentList = this.businessContentList;
     this.officeInfo.officeTel.push(this.formService.setTelNo(this.telNo1.value, this.telNo2.value, this.telNo3.value))
-
-    // TODO
     this.officeInfo.businessHours = [];
     this.officeInfo.connectionOfficeInfo = [];
     this.officeInfo.connectionMechanicInfo = [];
@@ -409,7 +387,6 @@ export class FactoryRegisterComponent implements OnInit {
     }
 
     this.apiUniqueService.postFactory(this.officeInfo, this.user.userId, mechanicId).subscribe(result => {
-      console.log(result);
       let resultMsg = '';
       if (result == 200) {
         this.openMsgDialog(messageDialogMsg.Resister, true);
@@ -442,7 +419,6 @@ export class FactoryRegisterComponent implements OnInit {
         }
       });
     }
-    console.log(result)
     this.businessContentList = result;
   }
 
@@ -452,13 +428,9 @@ export class FactoryRegisterComponent implements OnInit {
    */
   private getCityInfo() {
     const areaa = _find(this.areaData, data => data.code === this.areaSelect);
-    console.log(areaa)
     if (areaa) {
       this.apiService.serchArea(areaa.prefectures)
         .subscribe(data => {
-          // console.log(data);
-          // console.log(data.response);
-          console.log(data.response.location);
           if (data.response.location.length > 0) {
             this.areaCityData = data.response.location;
           }
@@ -473,12 +445,10 @@ export class FactoryRegisterComponent implements OnInit {
   private getPostCode(postCode: string) {
     this.apiService.serchPostCode(postCode)
       .subscribe(data => {
-        console.log(data.response.location);
         if (data.response.location.length > 0) {
           const postCodeConectData = data.response.location[0];
           const areaCode = _find(this.areaData, area => area.prefectures === postCodeConectData.prefecture);
           if (!areaCode) {
-            console.log('no-area');
             return;
           }
           // 地域1(都道府県名)

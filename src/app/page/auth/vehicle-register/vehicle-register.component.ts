@@ -210,7 +210,6 @@ export class VehicleRegisterComponent implements OnInit {
     if (authUser !== null) {
       this.apiService.getUser(authUser).subscribe(user => {
         if(user.length > 0) {
-          console.log(user);
           this.user = user[0];
           this.user.userId = authUser;
           this.getVehicleList();
@@ -255,12 +254,10 @@ export class VehicleRegisterComponent implements OnInit {
     // ローディング開始
     this.overlayRef.attach(new ComponentPortal(MatProgressSpinner));
     this.loading = true;
-    console.log(this.inputData);
     const userVehicle: userVehicle = {
       vehicleId: '',
       userId: this.user.userId,
       vehicleName: this.inputData.vehicleName,
-      // TODO
       vehicleDiv: '',
       vehicleNo: this.setVehicleNo(),
       vehicleNoAreaName: this.vehicleNoAreaName.value,
@@ -281,8 +278,6 @@ export class VehicleRegisterComponent implements OnInit {
       updated: ''
     }
 
-    console.log(userVehicle);
-
     this.apiService.postUserVehicle(userVehicle).subscribe(result => {
       if (result === 200) {
         this.openMsgDialog(messageDialogMsg.Resister, true, '/vehicle-menu');
@@ -292,7 +287,6 @@ export class VehicleRegisterComponent implements OnInit {
       }
       this.loading = false;
       this.overlayRef.detach();
-      console.log(result);
     });
   }
 
@@ -379,7 +373,6 @@ export class VehicleRegisterComponent implements OnInit {
         this.overlayRef.detach();
         this.router.navigate([root]);
       }
-      console.log(result);
       // ローディング解除
       this.loading = false;
       this.overlayRef.detach();

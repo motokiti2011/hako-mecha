@@ -53,7 +53,6 @@ export class VehicleMenuComponent implements OnInit {
     if (authUser !== null) {
       this.apiService.getUser(authUser).subscribe(user => {
         if (user.length > 0) {
-          console.log(user);
           this.user = user[0];
           this.user.userId = authUser;
           this.getVehicleList();
@@ -77,7 +76,6 @@ export class VehicleMenuComponent implements OnInit {
   */
   onVehcleInfo() {
     this.router.navigate(["/vehicle-register"]);
-    console.log('vehicle-register')
   }
 
   /**
@@ -85,7 +83,6 @@ export class VehicleMenuComponent implements OnInit {
    * @param id
    */
   onVehicleSelect(id: string) {
-    console.log(id);
     // 選択されたIDをキーに車両詳細画面に遷移する
     this.router.navigate(["edit-vehicle"],
       {
@@ -182,7 +179,6 @@ export class VehicleMenuComponent implements OnInit {
         // データ再取得
         this.getVehicleList();
       }
-      console.log(result);
       return;
     });
   }
@@ -223,7 +219,6 @@ export class VehicleMenuComponent implements OnInit {
     this.overlayRef.attach(new ComponentPortal(MatProgressSpinner));
     this.loading = true;
     this.apiService.deleteUserVehicle(id, this.user.userId).subscribe(result => {
-      console.log(result);
       if (result === 200) {
         this.openMsgDialog(messageDialogMsg.DeleteSucsess, false);
       } else {

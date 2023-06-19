@@ -32,7 +32,7 @@ export class UploadService {
 
   /**
    * ファイルアップロード
-   * @file 
+   * @file
    */
   uploadFile(file: any): Promise<any> {
     const params = {
@@ -61,7 +61,7 @@ export class UploadService {
      * @desc AWS.S3
      */
   public onManagedUpload(file: File): Promise<AWS.S3.ManagedUpload.SendData> {
-    
+
     let params: AWS.S3.Types.PutObjectRequest = {
       Bucket: environment.Buket.bucketName,
       Key: file.name,

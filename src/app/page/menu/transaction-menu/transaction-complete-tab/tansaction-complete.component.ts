@@ -97,7 +97,7 @@ export class TansactionCompleteComponent implements OnInit {
 
   /**
    * 対象の伝票タイトルクリックイベント
-   * @param item 
+   * @param item
    */
   onItemClick(item: any) {
     this.router.navigate(["servicedetail"], { queryParams: { serviceId: item.slipNo, searchTargetService: item.serviceType } });
@@ -107,7 +107,6 @@ export class TansactionCompleteComponent implements OnInit {
    * 一括選択チェックボックスイベント
    */
   bulkSelection() {
-    console.log(this.hedSelection)
     const dispList: detailList[] = _cloneDeep(this.detailList);
 
     dispList.forEach((content) => {
@@ -145,12 +144,10 @@ export class TansactionCompleteComponent implements OnInit {
    *
    */
   changeOrder() {
-    console.log(this.selected)
     const order = _find(this.orderMenu, order => order.value === this.selected)
 
     if (!_isNil(order)) {
       this.detailList = this.service.sortOrderList(this.detailList, order.id);
-      console.log(this.detailList);
     }
   }
 
@@ -219,7 +216,6 @@ export class TansactionCompleteComponent implements OnInit {
       if (locationDiv) {
         this.router.navigate(["/main_menu"]);
       }
-      console.log(result);
       // ローディング解除
       this.overlayRef.detach();
       this.loading = false;

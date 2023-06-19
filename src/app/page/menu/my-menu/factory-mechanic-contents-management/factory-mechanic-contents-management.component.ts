@@ -86,7 +86,6 @@ export class FactoryMechanicContentsManagementComponent implements OnInit {
         serviceId: item.serviceId,
         searchTargetService: item.serviceType
       } });
-    console.log(item);
   }
 
 
@@ -147,7 +146,6 @@ export class FactoryMechanicContentsManagementComponent implements OnInit {
         this.overlayRef.detach();
         this.router.navigate(["/main_menu"]);
       }
-      console.log(result);
       return;
     });
   }

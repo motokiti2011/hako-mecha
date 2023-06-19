@@ -211,8 +211,6 @@ export class FactoryAdminSettingModalComponent implements OnInit {
         // this.router.navigate(["/main_menu"]);
       }
       console.log(result);
-      // // ローディング解除
-      // this.overlayRef.detach();
       return;
     });
 }

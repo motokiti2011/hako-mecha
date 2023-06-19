@@ -63,7 +63,6 @@ export class HeaderMenuComponent implements OnInit {
   }
 
   hakomecha() {
-    console.log('hakomecha')
     this.router.navigate(["/main_menu"])
   }
 
@@ -75,9 +74,6 @@ export class HeaderMenuComponent implements OnInit {
     if (authUser !== null) {
       // ログイン状態の場合
       this.authUserDiv = true;
-      // TODO　トークン情報→コメントアウト中
-      // const log = this.cognito.getCurrentUserIdToken();
-      // console.log(log);
       // 認証済の場合表示するユーザー情報を取得
       this.setAuthUser(authUser);
     } else {
@@ -92,7 +88,6 @@ export class HeaderMenuComponent implements OnInit {
   private setAuthUser(userid: string) {
     // 認証済の場合表示するユーザー情報を取得
     this.apiService.getUser(userid).subscribe(data => {
-      // console.log(data[0]);
       if (data[0]) {
         this.authCheck.emit(false);
         this.loginUser.userId = data[0].userId;
@@ -121,8 +116,6 @@ export class HeaderMenuComponent implements OnInit {
    * ユーザー認証(ログイン)を行う
    */
   onLogin() {
-    console.log('user-login');
-
     const dialogRef = this.modal.open(LoginComponent, {
       width: '400px',
       height: '450px',
@@ -131,7 +124,6 @@ export class HeaderMenuComponent implements OnInit {
     // モーダルクローズ後
     dialogRef.afterClosed().subscribe(
       result => {
-        console.log(result);
         if (result !== undefined) {
           this.login = result;
           // 画面遷移の結果でモーダルを閉じた場合、各画面に遷移する。
@@ -142,7 +134,6 @@ export class HeaderMenuComponent implements OnInit {
           }
           if (this.login.newResister) {
             // 新規登録画面に遷移
-            console.log("newResister");
             this.router.navigate(["signup"])
             return;
           }
@@ -165,7 +156,6 @@ export class HeaderMenuComponent implements OnInit {
    * ヘルプを展開する
    */
   onClickHelp() {
-    console.log('help');
     this.router.navigate(["help"])
   }
 
@@ -203,7 +193,6 @@ export class HeaderMenuComponent implements OnInit {
    * マイページ押下時イベント
    */
   onMypage() {
-    console.log("マイページ")
     this.router.navigate(["my-menu-component"]);
   }
 
@@ -230,7 +219,6 @@ export class HeaderMenuComponent implements OnInit {
       if (locationDiv) {
         this.router.navigate(["/main_menu"]);
       }
-      console.log(result);
       // ローディング解除
       this.overlayRef.detach();
 

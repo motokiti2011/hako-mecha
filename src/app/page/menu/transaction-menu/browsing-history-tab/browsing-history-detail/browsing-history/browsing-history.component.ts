@@ -133,7 +133,6 @@ export class BrowsingHistoryComponent implements OnInit {
     this.loginUser = user;
     // データを取得
     this.browsingHistoryService.getMyBrosingHistory(this.loginUser).subscribe(data => {
-      console.log(data);
       this.detailList = this.settingDispBrowsing(data);
       this.setServiceContents();
       // ローディング解除
@@ -198,7 +197,6 @@ export class BrowsingHistoryComponent implements OnInit {
    * 一括選択チェックボックスイベント
    */
   bulkSelection() {
-    console.log(this.hedSelection)
     const dispList: dispBrowsingHistory[] = _cloneDeep(this.detailList);
 
     dispList.forEach((content) => {
@@ -243,7 +241,6 @@ export class BrowsingHistoryComponent implements OnInit {
     // 削除するデータをＡＰＩへ
     // データを取得
     this.browsingHistoryService.deleteMyBrosingHistory(deleteList).subscribe(data => {
-      console.log(data);
       this.detailList = data;
     });
 
@@ -378,7 +375,6 @@ export class BrowsingHistoryComponent implements OnInit {
       if (locationDiv) {
         this.router.navigate(["/main_menu"]);
       }
-      console.log(result);
       // ローディング解除
       this.overlayRef.detach();
       this.loading = false;

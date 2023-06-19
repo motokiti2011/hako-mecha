@@ -47,15 +47,9 @@ export class CognitoService {
           let msg = `Id token: ${result.getIdToken().getJwtToken()}\n`;
           msg += `Access token: ${result.getAccessToken().getJwtToken()}\n`;
           msg += `Refresh token: ${result.getRefreshToken().getToken()}`;
-          console.log(msg);
           resolve(msg);
         },
         onFailure: (err) => {
-          // if (err.message == errorMsg[3].message) {
-          //   alert(errorMsg[3].value);
-          // } else {
-          //   alert(err.message);
-          // }
           this.openMsgDialog(messageDialogMsg.LoginFailure);
           reject(err);
         }
@@ -89,7 +83,6 @@ export class CognitoService {
     if (cognitoUser === null) {
       return null;
     }
-    console.log(sessionStorage)
     // ユーザー名を取得する
     return cognitoUser.getUsername();
   }

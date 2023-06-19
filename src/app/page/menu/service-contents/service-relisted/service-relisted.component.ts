@@ -194,7 +194,6 @@ export class ServiceRelistedComponent implements OnInit {
    */
   private getslipDetial(slipNo: string) {
     this.apiUniqueService.getSlip(slipNo).subscribe(result => {
-      console.log(result);
       // 伝票情報取得
       this.relistedService = result[0]
     });
@@ -206,7 +205,6 @@ export class ServiceRelistedComponent implements OnInit {
    */
   private getserviceContents(slipNo: string) {
     this.apiUniqueService.getServiceContents(slipNo).subscribe(result => {
-      console.log(result);
       // 伝票情報取得
       this.relistedService = result[0]
     });
@@ -273,8 +271,6 @@ export class ServiceRelistedComponent implements OnInit {
     const file = event.dataTransfer.files;
     this.fileList.push(file[0])
     const fileList = Object.entries(file).map(f => f[1]);
-    console.log(fileList);
-
     fileList.forEach(f => {
       let reader = new FileReader();
       reader.readAsDataURL(f);
@@ -377,7 +373,6 @@ export class ServiceRelistedComponent implements OnInit {
         this.location.back();
         // this.router.navigate(["/main_menu"]);
       }
-      console.log(result);
       // ローディング解除
       this.overlayRef.detach();
       this.loading = false;

@@ -127,7 +127,6 @@ export class TransactionListService {
     const dayStr = String(preferredDate);
 
     const targetDate = new Date(Number(dayStr.slice(0, 4)), Number(dayStr.slice(4, 6)) - 1, Number(dayStr.slice(6, 8)))
-    console.log(targetDate);
     const targetTime = targetDate.getTime();
 
     // 引き算して残日数を計算
@@ -156,7 +155,6 @@ export class TransactionListService {
 
     const toStr = String(toDate);
     const len = toStr.split(' ');
-    console.log(len);
     const mon = _find(monthMap, month => month.month === len[1])
     if (_isNil(mon)) {
       return '';
@@ -169,8 +167,6 @@ export class TransactionListService {
     const diffTime = targetTime - toTime;
     const diffDay = diffTime / (1000 * 60 * 60 * 24 * 60);
     const result = Math.ceil(diffDay);
-    console.log(result);
-
     if (result === 1) {
       return '残り' + result + '時間未満';
     }
@@ -200,8 +196,8 @@ export class TransactionListService {
 
   /**
    * 伝票関係性を表示用に設定する
-   * @param relation 
-   * @returns 
+   * @param relation
+   * @returns
    */
   private setRelation(relation: string): string {
     const result = SlipRelation.Admin;

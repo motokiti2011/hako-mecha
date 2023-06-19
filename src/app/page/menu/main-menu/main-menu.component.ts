@@ -59,7 +59,6 @@ export class MainMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.authenticated();
-    this.onmenu();
     this.child.ngOnInit();
   }
 
@@ -113,7 +112,6 @@ export class MainMenuComponent implements OnInit {
    * マイページ押下時イベント
    */
   onMypage() {
-    console.log("マイページ")
     this.router.navigate(["my-menu-component"]);
   }
 
@@ -125,20 +123,12 @@ export class MainMenuComponent implements OnInit {
   }
 
 
-
-  onmenu() {
-    console.log('マイメニュー画面区分値チェック')
-    console.log('authUserDiv:' + this.authUserDiv)
-    console.log('temporaryUserDiv:' + this.temporaryUserDiv)
-  }
-
   /*************** 内部処理  ************************/
 
   /**
    * ログイン状態確認
    */
   private authenticated() {
-    console.log('main動く')
     const authUser = this.cognito.initAuthenticated();
     if (authUser !== null) {
       this.authUserDiv = true;
@@ -163,7 +153,6 @@ export class MainMenuComponent implements OnInit {
     this.menuLoadingDiv = true;
     // 認証済の場合表示するユーザー情報を取得
     this.apiService.getUser(userid).subscribe(data => {
-      console.log(data[0]);
       if (data[0]) {
         const user = data[0];
         // this.loginUser.userId = data[0].userId;
@@ -200,8 +189,6 @@ export class MainMenuComponent implements OnInit {
    * ユーザー認証(ログイン)を行う
    */
   onLogin() {
-    console.log('user-login');
-
     const dialogRef = this.loginModal.open(LoginComponent, {
       width: '400px',
       height: '450px',
@@ -210,7 +197,6 @@ export class MainMenuComponent implements OnInit {
     // モーダルクローズ後
     dialogRef.afterClosed().subscribe(
       result => {
-        console.log(result);
         if (result !== undefined) {
           this.login = result;
           // 画面遷移の結果でモーダルを閉じた場合、各画面に遷移する。
@@ -221,7 +207,6 @@ export class MainMenuComponent implements OnInit {
           }
           if (this.login.newResister) {
             // 新規登録画面に遷移
-            console.log("newResister");
             this.router.navigate(["signup"])
             return;
           }

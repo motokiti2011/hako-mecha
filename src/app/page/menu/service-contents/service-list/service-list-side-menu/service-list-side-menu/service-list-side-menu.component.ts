@@ -134,7 +134,6 @@ export class ServiceListSideMenuComponent implements OnInit {
     if (userId === undefined) {
       return;
     }
-    console.log(this.favoriteList)
     // 閲覧履歴情報を取得
     this.service.getBrowsingHistory(userId).subscribe(data => {
       this.displayBrowsing = this.service.browsingHistoryUnuq(data);
@@ -158,7 +157,6 @@ export class ServiceListSideMenuComponent implements OnInit {
    * 地域２（市町村）選択イベント
    */
   onAreaCity() {
-    console.log(this.citySelect)
     this.serchValue.area2 = this.citySelect;
   }
 
@@ -168,9 +166,7 @@ export class ServiceListSideMenuComponent implements OnInit {
    * 選択した作業内容をイベント発火させ親へと戻す
    */
   onWorkContents() {
-    console.log(this.serchValue.category);
     this.serchValue.category = this.categorySelect;
-    console.log(this.serchValue.category);
   }
 
   /**
@@ -194,7 +190,6 @@ export class ServiceListSideMenuComponent implements OnInit {
    * お気に入り、閲覧履歴コンテンツ押下時イベント
    */
   onContentsDetail(slipNo: string) {
-    console.log(slipNo);
     this.router.navigate(["servicedetail"], { queryParams: { serviceId: slipNo } });
   }
 
@@ -209,7 +204,6 @@ export class ServiceListSideMenuComponent implements OnInit {
    * 検索するボタン押下イベント
    */
   onSerch() {
-    console.log(this.serchValue);
     this.serviceSerchValue.emit(this.serchValue);
   }
 
@@ -217,14 +211,10 @@ export class ServiceListSideMenuComponent implements OnInit {
  * 都道府県から市町村データを取得し設定する
  */
   private getCityInfo() {
-    const areaa = _find(this.areaData, data => data.code === this.areaSelect);
-    console.log(areaa)
-    if (areaa) {
-      this.apiService.serchArea(areaa.prefectures)
+    const area = _find(this.areaData, data => data.code === this.areaSelect);
+    if (area) {
+      this.apiService.serchArea(area.prefectures)
         .subscribe(data => {
-          // console.log(data);
-          // console.log(data.response);
-          console.log(data.response.location);
           if (data.response.location.length > 0) {
             this.areaCityData = data.response.location;
           }

@@ -71,7 +71,6 @@ export class MyMenuComponent implements OnInit {
     if (authUser !== null) {
       this.apiservice.getUser(authUser).subscribe(user => {
         if(user.length > 0) {
-          console.log(user);
           const acceseUser: loginUser = {
             userId: authUser,
             userName: user[0].userName,
@@ -176,7 +175,6 @@ export class MyMenuComponent implements OnInit {
    */
   onEditUserInfo() {
     this.router.navigate(["/edit-user-menu"]);
-    console.log('chengeUserInfo')
   }
 
   /**
@@ -184,7 +182,6 @@ export class MyMenuComponent implements OnInit {
    */
   onTransaction() {
     this.router.navigate(["/transaction_menu"]);
-    console.log('transaction')
   }
 
   /**
@@ -197,7 +194,6 @@ export class MyMenuComponent implements OnInit {
           mechanicId: this.mechanicId
         }
       });
-    console.log('mechanic-register')
   }
 
   /**
@@ -205,7 +201,6 @@ export class MyMenuComponent implements OnInit {
    */
   onVehcleInfo() {
     this.router.navigate(["/vehicle-menu"]);
-    console.log('vehicle-menu')
   }
 
   /**
@@ -247,7 +242,6 @@ export class MyMenuComponent implements OnInit {
         this.overlayRef.detach();
         this.router.navigate(["/main_menu"]);
       }
-      console.log(result);
       // ローディング解除
       this.loading = false;
       this.overlayRef.detach();

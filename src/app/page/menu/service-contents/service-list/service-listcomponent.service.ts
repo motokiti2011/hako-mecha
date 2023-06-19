@@ -304,7 +304,6 @@ export class ServiceListcomponentService {
     const dayStr = String(content.preferredDate);
 
     const targetDate = new Date(Number(dayStr.slice(0, 4)), Number(dayStr.slice(4, 6)) - 1, Number(dayStr.slice(6, 8)))
-    console.log(targetDate);
     const targetTime = targetDate.getTime();
 
     // 引き算して残日数を計算
@@ -332,7 +331,6 @@ export class ServiceListcomponentService {
 
     const toStr = String(toDate);
     const len = toStr.split(' ');
-    console.log(len);
     const mon = _find(monthMap, month => month.month === len[1])
     if (_isNil(mon)) {
       return '';
@@ -345,8 +343,6 @@ export class ServiceListcomponentService {
     const diffTime = targetTime - toTime;
     const diffDay = diffTime / (1000 * 60 * 60 * 24 * 60);
     const result = Math.ceil(diffDay);
-    console.log(result);
-
     if (result === 1) {
       return '残り' + result + '時間未満';
     }
@@ -432,7 +428,6 @@ export class ServiceListcomponentService {
     // お気に入り情報がない場合
     if (favoriteList.length == 0) {
       this.apiService.postFavorite(data).subscribe(st => {
-        console.log(st);
       });
     } else {
       // 既存のお気に入りに存在するかをチェック
@@ -441,14 +436,12 @@ export class ServiceListcomponentService {
         // 存在する場合解除が必用なため削除する。
         if (id !== undefined && id !== null) {
           this.apiService.deleteFavorite(id).subscribe(st => {
-            console.log('削除');
             console.log(st);
           });
         }
       } else {
         // 存在しないので追加する
         this.apiService.postFavorite(data).subscribe(st => {
-          console.log('追加');
           console.log(st);
         });
       }

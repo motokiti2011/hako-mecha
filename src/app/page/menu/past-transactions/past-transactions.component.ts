@@ -75,7 +75,6 @@ export class PastTransactionsComponent implements OnInit {
         this.uniqueService.getPastTransaction(this.adminId,this.serviceType, accessUser),
         this.checkService.checkAcceseAdmin(this.adminId,this.serviceType, accessUser)
       ).subscribe(resultList => {
-        console.log(resultList);
         const list = resultList[0];
         this.setDispList(list);
         if(resultList[1]) {
@@ -104,7 +103,7 @@ export class PastTransactionsComponent implements OnInit {
 
   /**
    * アクセス者情報取得
-   * @param accessUser 
+   * @param accessUser
    */
   private setUserInfo(accessUser: string) {
     this.apiSerch.getUser(accessUser).subscribe(user => {

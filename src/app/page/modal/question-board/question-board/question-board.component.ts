@@ -73,8 +73,6 @@ export class QuestionBoardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('初期データ：'+this.data);
-    console.log(this.data);
     this.adminDiv = this.data.slipAdmin;
     this.getDispData();
   }
@@ -107,12 +105,8 @@ export class QuestionBoardComponent implements OnInit {
    * 回答した場合のイベント
    */
   onAnser(index: number) {
-    console.log(index);
     this.anserIndex = String(index)
-    console.log(this.questionList);
-    console.log(this.questionList[index]);
     this.anserDiv = true;
-    console.log(this.anserDiv);
     this.formPlaceholder = '回答はこちらに記入してください。'
     this.buttonMessage = '回答する'
   }
@@ -239,8 +233,6 @@ export class QuestionBoardComponent implements OnInit {
         // this.router.navigate(["/main_menu"]);
       }
       console.log(result);
-      // ローディング解除
-      // this.overlayRef.detach();
       this.loading = false;
       return;
     });

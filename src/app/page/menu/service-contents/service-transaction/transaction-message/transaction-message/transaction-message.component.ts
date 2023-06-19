@@ -120,13 +120,10 @@ export class TransactionMessageComponent implements OnInit {
    */
   onShow(serviceId: string, acceseUser: string) {
     // ローディング開始
-    // this.overlayRef.attach(new ComponentPortal(MatProgressSpinner));
     this.loading = true;
     this.dispDiv = true;
     this.serviceId = serviceId;
     this.acceseUser = acceseUser;
-    // this.service.getSlipMessage(serviceId).subscribe(data => {
-    //   console.log(data);
     this.service.checkAdminSlip(serviceId, acceseUser).subscribe(check => {
       this.adminDiv = check
       // 伝票メッセージ情報を取得
@@ -148,7 +145,6 @@ export class TransactionMessageComponent implements OnInit {
       } else {
         this.dispMessageList = this.service.gestDispSetting(data, this.acceseUserInfo.userId)
       }
-      console.log(this.dispMessageList);
       // ローディング解除
       this.loading = false;
     });
@@ -169,7 +165,6 @@ export class TransactionMessageComponent implements OnInit {
     if (!this.adminDiv) {
       this.adressData = this.service.sendAdressSetting();
       // ローディング解除
-      // this.overlayRef.detach();
       this.loading = false;
       return;
     }
@@ -178,7 +173,6 @@ export class TransactionMessageComponent implements OnInit {
     this.service.getSendAdress(this.serviceId).subscribe(data => {
       this.adressData = this.service.setAdminAdress(this.acceseUser, data[0]);
       // ローディング解除
-      // this.overlayRef.detach();
       this.loading = false;
     });
   }
@@ -187,7 +181,6 @@ export class TransactionMessageComponent implements OnInit {
    *　宛先変更イベント
    */
   selectAdress() {
-    console.log(this.adressSelect)
     const adress = _find(this.adressData, data => data.sendId == this.adressSelect)
     if (adress != undefined) {
       this.adressId = adress.sendId;
@@ -230,8 +223,6 @@ export class TransactionMessageComponent implements OnInit {
             this.isDisabled = true;
             // 再読み込みを実施
             this.setDispMessage();
-          } else {
-            console.log('メッセージ登録失敗です。')
           }
         });
     }

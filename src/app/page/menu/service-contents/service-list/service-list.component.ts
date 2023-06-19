@@ -258,7 +258,6 @@ export class ServiceListComponent implements OnInit {
     if (this.userCertificationDiv) {
       // 認証されている場合は閲覧履歴情報に登録
       this.service.postBrowsingHistory(content, this.authUser).subscribe(d => {
-        console.log(d)
       });
     }
 
@@ -269,7 +268,6 @@ export class ServiceListComponent implements OnInit {
           searchTargetService: this.searchTargetService
         }
       });
-    console.log(content);
   }
 
   /**
@@ -277,8 +275,6 @@ export class ServiceListComponent implements OnInit {
    * @param contents
    */
   onContentFavorite(contents: serviceContents) {
-    console.log('お気に入り：' + contents.id);
-
     // サービス一覧のお気に入りFlgを制御する
     this.contentsList = this.service.favoriteSetting(contents.id, this.displayContentsList);
     // 画面表示のお気に入りFlgを制御する
@@ -296,7 +292,6 @@ export class ServiceListComponent implements OnInit {
    * 表示順セレクトボックス選択時
    */
   onDisplayList() {
-    console.log(this.selected);
     if (this.selected == 'defult') {
       return;
     }
@@ -325,7 +320,6 @@ export class ServiceListComponent implements OnInit {
    * @param event
    */
   onServiceSerch(event: serchServiceCombination) {
-    console.log(event);
     if (this.searchTargetService !== '0') {
       this.serchServiceContents(event);
     } else {

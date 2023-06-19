@@ -46,7 +46,7 @@ export class TransactionRequestModalComponent implements OnInit {
 
   /**
    * ボタン押下イベント
-   * @param selected 
+   * @param selected
    */
   onItemClick(selected: string) {
     this.confirmMsgDialog(selected);
@@ -79,9 +79,7 @@ export class TransactionRequestModalComponent implements OnInit {
       data: dialogData
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result) {
-        
         this._dialogRef.close(selected);
       }
       return;

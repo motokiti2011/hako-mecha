@@ -204,8 +204,6 @@ export class EditVehicleInfoComponent implements OnInit {
       this.apiService.getUser(authUser).subscribe(user => {
         if(user.length > 0) {
           this.authUser = authUser;
-          // console.log(user);
-          // this.user = user[0];
           this.activatedRoute.queryParams.subscribe(params => {
             const vehicleId = params['vehicleId'];
             this.getVehicleInfo(vehicleId);
@@ -232,7 +230,6 @@ export class EditVehicleInfoComponent implements OnInit {
    * 登録ボタン押下イベント
    */
   onRegister() {
-    console.log(this.vehicleList)
     this.vehicleResister();
   }
 
@@ -327,7 +324,6 @@ export class EditVehicleInfoComponent implements OnInit {
    * 車両登録登録
    */
   private vehicleResister() {
-    console.log(this.inputData);
     if (!this.vehicleList) {
       return;
     }
@@ -338,7 +334,6 @@ export class EditVehicleInfoComponent implements OnInit {
       vehicleId: this.vehicleList.vehicleId,
       userId: this.authUser,
       vehicleName: this.vehicleName.value,
-      // TODO
       vehicleDiv: '',
       vehicleNo: this.setVehicleNo(),
       vehicleNoAreaName: this.vehicleNoAreaName.value,
@@ -358,9 +353,6 @@ export class EditVehicleInfoComponent implements OnInit {
       created: this.vehicleList.created,
       updated: ''
     }
-
-    console.log(userVehicle);
-
     this.apiService.putUserVehicle(userVehicle).subscribe(result => {
       if (result === 200) {
         this.openMsgDialog(messageDialogMsg.Resister, true, '/vehicle-menu');
@@ -369,7 +361,6 @@ export class EditVehicleInfoComponent implements OnInit {
       }
       this.loading = false;
       this.overlayRef.detach();
-      console.log(result);
     });
   }
 
@@ -451,7 +442,6 @@ export class EditVehicleInfoComponent implements OnInit {
       if (locationDiv) {
         this.router.navigate([root]);
       }
-      console.log(result);
       // ローディング解除
       this.loading = false;
       this.overlayRef.detach();

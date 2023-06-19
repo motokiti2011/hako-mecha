@@ -123,7 +123,6 @@ export class MyListComponent implements OnInit {
     this.loginUser = user;
     // データを取得
     this.mylistservice.getMyList(this.loginUser, '0').subscribe(data => {
-      console.log(data);
       this.userMyList = data;
       if (data.length !== 0) {
         // 最新を上部に表示
@@ -256,7 +255,6 @@ export class MyListComponent implements OnInit {
    */
   private readMsg(content: dispUserMyList) {
     this.mylistservice.putReadMsg(content.id, this.userMyList, this.loginUser).subscribe(res => {
-      console.log('マイリスト');
       console.log(res);
     })
   }
@@ -287,7 +285,6 @@ export class MyListComponent implements OnInit {
       if (locationDiv) {
         this.router.navigate(["/main_menu"]);
       }
-      console.log(result);
       // ローディング解除
       this.overlayRef.detach();
       this.loading = false;

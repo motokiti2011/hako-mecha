@@ -424,8 +424,6 @@ export class ApiUniqueService {
    * @returns
    */
   public sendQuestion(question: slipQuestion, serviceType: string): Observable<any> {
-    console.log(question)
-    console.log(serviceType)
 
     // リクエストボディ生成
     const body = {
@@ -445,7 +443,6 @@ export class ApiUniqueService {
         "updated": String(formatDate(new Date, "yy/MM/dd HH:mm", this.locale))
       }
     };
-    console.log(body)
     return this.http.post<slipQuestion>(this.apiEndPoint + '/sendquestion', body).pipe(
       timeout(5000), // タイムアウト処理
       retry(1), // リトライ処理

@@ -310,7 +310,6 @@ export class ServiceEditComponent implements OnInit {
    * タイトル変更イベント
    */
   inputTitle() {
-    console.log(this.title.value);
     this.cangeMonitoring();
   }
 
@@ -364,13 +363,10 @@ export class ServiceEditComponent implements OnInit {
 
     // 半角数値以外変換できないので以下で判定
     if (isNaN(numCheck)) {
-      console.log('価格には「半角数値を入力してください」');
-      // this.formPrice.value('');
       this.priceDiv = true;
       this.errorFlg = true;
       this.errormessage = '「半角数値を入力してください」';
     } else {
-      console.log('OK');
       if (tr === '0') {
         this.errormessage = '「1円以上で入力してください」';
         // this.formPrice.value('');
@@ -389,7 +385,6 @@ export class ServiceEditComponent implements OnInit {
         }
       }
     }
-    console.log(this.inputData.price);
     this.cangeMonitoring();
   }
 
@@ -397,7 +392,6 @@ export class ServiceEditComponent implements OnInit {
    * 説明変更イベント
    */
   inputExplanation() {
-    console.log(this.inputData.explanation);
     this.cangeMonitoring();
   }
 
@@ -405,9 +399,6 @@ export class ServiceEditComponent implements OnInit {
    * 入札方式選択イベント
    */
   selectBidMethod() {
-    // 選択状態を反映する
-    console.log('入札方式選択状態2：' + this.inputData.bidMethod);
-
     // 選択状態によって価格のフォーム表示を切り替える
     if (this.inputData.bidMethod === '1' || this.inputData.bidMethod === '41') {
       this.pricePlace = '価格'
@@ -420,7 +411,6 @@ export class ServiceEditComponent implements OnInit {
       this.priceDiv = false;
       this.errorFlg = false;
     }
-    console.log(this.priceFormDiv);
     this.cangeMonitoring();
   }
 
@@ -436,7 +426,6 @@ export class ServiceEditComponent implements OnInit {
    */
   onSelectArea() {
     this.inputData.area1 = this.areaSelect;
-    console.log(this.areaSelect)
     this.cangeMonitoring();
     this.getCityInfo();
   }
@@ -446,14 +435,12 @@ export class ServiceEditComponent implements OnInit {
    */
   onSelectCity() {
     this.inputData.area2 = this.citySelect;
-    console.log(this.inputData.area2);
   }
 
   /**
    * 希望日入力イベント
    */
   inputPreferredDate(event: MatDatepickerInputEvent<any>) {
-    console.log(event);
     this.errorDayFlg = false;
     this.errormessage = ''
     // 入力不正値の場合は処理終了しデフォルト値のクリア
@@ -472,8 +459,6 @@ export class ServiceEditComponent implements OnInit {
 
     // 日付をyyyymmdd形式にする
     const mon = _find(monthMap, month => month.month === result[1]);
-    console.log(result[1]);
-    console.log(mon);
     // 日付を設定する
     this.inputData.preferredDate = Number(result[3] + mon?.monthNum + result[2]);
     // 必須を非表示
@@ -499,7 +484,6 @@ export class ServiceEditComponent implements OnInit {
    * 希望時間入力イベント
    */
   selectTime() {
-    console.log(this.timeSelect);
     const ti = _find(this.timeData, data => data.label === String(this.timeSelect));
     if (_isNil(ti)) {
       this.inputData.preferredTime = 0;
@@ -542,7 +526,6 @@ export class ServiceEditComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       result => {
         // 返却値　無理に閉じたらundifind
-        console.log('画像モーダル結果:' + result)
         if (result != undefined && result != null) {
           this.img = result;
         }
@@ -587,14 +570,11 @@ export class ServiceEditComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       result => {
         // 返却値　無理に閉じたらundifind
-        console.log('画像モーダル結果:' + result)
         if (result != undefined && result != null) {
-          console.log(result);
           this.unspecifiedDiv = result.unspecifiedDiv
           if (!result.unspecifiedDiv) {
             this.inputData.vehicleDiv = result.resultData.vehicleDiv;
             this.inputData.targetVehcle = result.resultData;
-            console.log(this.inputData);
           }
         }
       }
@@ -614,8 +594,6 @@ export class ServiceEditComponent implements OnInit {
     this.inputData.title = this.title.value;
     this.inputData.price = this.formPrice.value;
     this.inputData.explanation = this.explanation.value;
-    // console.log('確定反応')
-    console.log(this.inputData);
 
     // 工場、メカニックとして依頼する場合
     if (this.inputData.serviceType !== '0') {
@@ -836,7 +814,6 @@ export class ServiceEditComponent implements OnInit {
       this.explanation.setValue(slip.explanation);
       this.formPrice.setValue(slip.price);
       this.inputData.price = slip.price;
-      console.log('日付' + slip.preferredDate);
 
       this.inputData.preferredDate = slip.preferredDate;
       const stDate = String(slip.preferredDate);
@@ -1042,11 +1019,8 @@ export class ServiceEditComponent implements OnInit {
           count++;
           if (data) {
             this.locationList.push(data.Location);
-            console.log(data);
           }
           if (count == this.img.length) {
-            console.log('処理完了');
-            console.log(this.locationList);
             this.inputData.imageUrlList = this.locationList;
             this.postSlip();
           }
@@ -1064,10 +1038,9 @@ export class ServiceEditComponent implements OnInit {
    * 都道府県から市町村データを取得し設定する
    */
   private getCityInfo() {
-    const areaa = _find(this.areaData, data => data.code === this.areaSelect);
-    console.log(areaa)
-    if (areaa) {
-      this.apiService.serchArea(areaa.prefectures)
+    const area = _find(this.areaData, data => data.code === this.areaSelect);
+    if (area) {
+      this.apiService.serchArea(area.prefectures)
         .subscribe(data => {
           if (data.response.location.length > 0) {
             this.areaCityData = data.response.location;
@@ -1101,9 +1074,7 @@ export class ServiceEditComponent implements OnInit {
         this.overlayRef.detach();
         this.loading = false;
         this.location.back();
-        // this.router.navigate(["/main_menu"]);
       }
-      console.log(result);
       // ローディング解除
       this.overlayRef.detach();
       this.loading = false;

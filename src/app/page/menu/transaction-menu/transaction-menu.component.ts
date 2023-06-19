@@ -209,7 +209,6 @@ export class TransactionMenuComponent implements OnInit {
       if(locationDiv) {
         this.router.navigate(["/main_menu"]);
       }
-      console.log(result);
       // ローディング解除
       this.overlayRef.detach();
       return;

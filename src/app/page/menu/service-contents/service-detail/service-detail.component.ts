@@ -124,7 +124,6 @@ export class ServiceDetailComponent implements OnInit {
     this.overlayRef.attach(new ComponentPortal(MatProgressSpinner));
     this.loading = true;
     this.route.queryParams.subscribe(params => {
-      console.log(params['serviceId']);
       const serviceId: string = params['serviceId'];
       const serviceType = params['searchTargetService'];
       this.setServiceTypeName();
@@ -162,7 +161,6 @@ export class ServiceDetailComponent implements OnInit {
    * 取引するボタン押下時の処理
    */
   onTransaction() {
-    console.log('serviceType1:' + this.serviceType)
     this.router.navigate(["service-transaction"],
       {
         queryParams: {
@@ -181,7 +179,6 @@ export class ServiceDetailComponent implements OnInit {
     TransactionRequestModalComponent
     // ダイアログ表示（ログインしてください）し前画面へ戻る
     const dialogData: user = this.acceseUserInfo as user;
-    console.log(dialogData + ':取引モーダルデータ')
     // 確認ダイアログを表示
     const dialogRef = this.dialog.open(TransactionRequestModalComponent, {
       width: '400px',
@@ -189,7 +186,6 @@ export class ServiceDetailComponent implements OnInit {
       data: dialogData
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result) {
         this.sendTransactionReq(result)
       }
@@ -255,7 +251,6 @@ export class ServiceDetailComponent implements OnInit {
    * @param id
    */
   onServiceAdmin(id: string) {
-    console.log(id);
     this.router.navigate(["service-admin-reference"],
       {
         queryParams: {
@@ -287,7 +282,6 @@ export class ServiceDetailComponent implements OnInit {
       const msg = '完了日を更新しますがよろしいですか？';
       this.selectMsgDialog(msg).subscribe(result => {
         if (!result) {
-          // TODO
           this.dispDate = this.service.dateFormat(this.dispContents.completionDate);
           return;
         }
@@ -509,20 +503,16 @@ export class ServiceDetailComponent implements OnInit {
     if (this.serviceType == ServiceType.USER_REQUEST) {
       this.serviceAdminInfo.id = this.dispContents.slipAdminUserId;
       this.serviceAdminInfo.name = this.dispContents.slipAdminUserName;
-      console.log(this.serviceAdminInfo);
     } else if (this.serviceType == ServiceType.OFFICE_SERVICE && this.dispContents.slipAdminOfficeId) {
       this.serviceAdminInfo.id = this.dispContents.slipAdminOfficeId;
       this.serviceAdminInfo.name = this.dispContents.slipAdminOfficeName;
-      console.log(this.serviceAdminInfo);
     } else if (this.serviceType == ServiceType.MECHANIC_SERVICE && this.dispContents.slipAdminMechanicId) {
       this.serviceAdminInfo.id = this.dispContents.slipAdminMechanicId;
       this.serviceAdminInfo.name = this.dispContents.slipAdminMechanicName;
-      console.log(this.serviceAdminInfo);
     } else {
       // これはあり得ないが…
       this.serviceAdminInfo.id = '';
       this.serviceAdminInfo.name = '';
-      console.log(this.serviceAdminInfo);
     }
   }
 
@@ -612,7 +602,6 @@ export class ServiceDetailComponent implements OnInit {
     this.loading = true;
     this.service.transactionReq(this.dispContents.slipNo, this.serviceType, this.acceseUserId, userSetviceType).subscribe(
       result => {
-        console.log(result)
         if (result == 200) {
           this.openMsgDialog(messageDialogMsg.Sender, false);
           this.sentTransactionReq();
@@ -636,7 +625,6 @@ export class ServiceDetailComponent implements OnInit {
       data: this.tranReqList
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result) {
         this.approvalRequest(result);
       }
@@ -684,7 +672,6 @@ export class ServiceDetailComponent implements OnInit {
       data: dialogData
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (locationDiv) {
         this.loading = false;
         this.overlayRef.detach();

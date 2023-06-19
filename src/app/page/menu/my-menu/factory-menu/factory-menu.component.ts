@@ -256,7 +256,6 @@ export class FactoryMenuComponent implements OnInit {
    */
   onInputChange(event: any) {
     const file = event.target.files[0];
-    console.log(file);
     this.imageFile = file;
   }
 
@@ -329,7 +328,6 @@ export class FactoryMenuComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       result => {
         // 返却値　無理に閉じたらundifind
-        console.log('画像モーダル結果:' + result)
         if (result != undefined && result != null) {
           if (result.length != 0) {
             this.imageFile = result;
@@ -354,7 +352,6 @@ export class FactoryMenuComponent implements OnInit {
    */
   onSelectCity() {
     this.dispInfo.officeArea = this.citySelect;
-    // console.log(this.inputData.area2);
   }
 
 
@@ -391,7 +388,6 @@ export class FactoryMenuComponent implements OnInit {
       return;
     }
     this.apiService.getOfficeInfo(this.user.officeId).subscribe(res => {
-      console.log(res);
       if (!res[0]) {
         this.openMsgDialog(messageDialogMsg.AnSerchAgainOperation, true);
         return
@@ -414,7 +410,6 @@ export class FactoryMenuComponent implements OnInit {
     this.dispInfo.officeId = info.officeId;
     this.officeArea1.setValue(info.officeArea1);
     this.areaSelect = info.officeArea1;
-    console.log(this.areaSelect);
     this.dispInfo.officeArea = info.officeArea;
     this.dispInfo.officeAdress = info.officeAdress;
     this.citySelect = this.dispInfo.officeArea;
@@ -475,11 +470,9 @@ export class FactoryMenuComponent implements OnInit {
   private setImageUrl() {
     this.s3.onManagedUpload(this.imageFile[0].file).then((data) => {
       if (data) {
-        console.log(data);
         this.officeResister();
       }
     }).catch((err) => {
-      console.log(err);
     });
   }
 
@@ -541,7 +534,6 @@ export class FactoryMenuComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       result => {
         // 返却値　無理に閉じたらundifind
-        console.log('画像モーダル結果:' + result)
         if (result != undefined && result != null) {
           this.officeInfo = result;
         }
@@ -564,7 +556,6 @@ export class FactoryMenuComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       result => {
         // 返却値　無理に閉じたらundifind
-        console.log('画像モーダル結果:' + result)
         if (result != undefined && result != null) {
           this.officeInfo = result;
         }
@@ -589,7 +580,6 @@ export class FactoryMenuComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       result => {
         // 返却値　無理に閉じたらundifind
-        console.log('画像モーダル結果:' + result)
         if (result != undefined && result != null) {
           this.officeInfo = result;
         }
@@ -601,12 +591,10 @@ export class FactoryMenuComponent implements OnInit {
    * 都道府県から市町村データを取得し設定する
    */
   private getCityInfo() {
-    const areaa = _find(this.areaData, data => data.code === this.areaSelect);
-    console.log(areaa)
-    if (areaa) {
-      this.apiService.serchArea(areaa.prefectures)
+    const area = _find(this.areaData, data => data.code === this.areaSelect);
+    if (area) {
+      this.apiService.serchArea(area.prefectures)
         .subscribe(data => {
-          console.log(data.response.location);
           if (data.response.location.length > 0) {
             this.areaCityData = data.response.location;
           }
@@ -621,12 +609,10 @@ export class FactoryMenuComponent implements OnInit {
   private getPostCode(postCode: string) {
     this.apiService.serchPostCode(postCode)
       .subscribe(data => {
-        console.log(data.response.location);
         if (data.response.location.length > 0) {
           const postCodeConectData = data.response.location[0];
           const areaCode = _find(this.areaData, area => area.prefectures === postCodeConectData.prefecture);
           if (!areaCode) {
-            console.log('no-area');
             return;
           }
           // 地域1(都道府県名)
@@ -665,7 +651,6 @@ export class FactoryMenuComponent implements OnInit {
       if (locationDiv) {
         this.router.navigate(["/main_menu"]);
       }
-      console.log(result);
       // ローディング解除
       this.overlayRef.detach();
       this.loading = false;

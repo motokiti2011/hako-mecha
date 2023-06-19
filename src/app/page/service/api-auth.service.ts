@@ -23,7 +23,6 @@ export class ApiAuthService {
   public authenticationExpired() {
     const authUser = this.cognito.initAuthenticated();
     if(authUser == null) {
-      console.log('認証解除済')
       // 重複で処理が行われる可能性もありその場合処理終了
       return;
     }
@@ -32,7 +31,6 @@ export class ApiAuthService {
       "userId": authUser
     };
     this.http.post<boolean>(this.apiEndPoint + '/logout', body).subscribe(data => {
-      console.log(data+':認証解除済')
       this.cognito.logout();
     })
   }

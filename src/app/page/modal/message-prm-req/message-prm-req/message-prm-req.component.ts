@@ -18,7 +18,6 @@ export class MessagePrmReqComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    console.log(this.data)
     if(this.data) {
       this.requestDiv = true;
     }

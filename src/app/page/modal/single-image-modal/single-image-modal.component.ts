@@ -37,7 +37,7 @@ export class SingleImageModalComponent implements OnInit {
    * 決定ボタン押下イベント
    */
   getResult() {
-    this._dialogRef.close(this.img);    
+    this._dialogRef.close(this.img);
   }
 
   // ダイアログを閉じる
@@ -60,7 +60,7 @@ export class SingleImageModalComponent implements OnInit {
 
   /**
    * ドラッグインプット(参照もこちら)
-   * @param event 
+   * @param event
    */
   onChangeDragAreaInput(event: any) {
     // ファイルの情報はevent.target.filesにある
@@ -70,16 +70,13 @@ export class SingleImageModalComponent implements OnInit {
     reader.onload = () => {
       const imgFileData: imgFile = {file:file, url: reader.result }
       this.img.push(imgFileData);
-      // TODO
-      // this.img.push(file);
-      console.log(this.img)
     };
   }
 
 
   /**
    * 削除する押下イベント
-   * @param i 
+   * @param i
    */
   onRemove(i: any) {
     const hoge:any[] = []
@@ -89,7 +86,6 @@ export class SingleImageModalComponent implements OnInit {
       }
     });
     this.img = hoge;
-    console.log(this.img)
   }
 
 
@@ -100,8 +96,8 @@ export class SingleImageModalComponent implements OnInit {
 
   /**
    * イメージドロップイベント
-   * @param event 
-   * @returns 
+   * @param event
+   * @returns
    */
   imgDrop(event: DragEvent) {
     // ブラウザで画像を開かないようにする
@@ -112,8 +108,6 @@ export class SingleImageModalComponent implements OnInit {
     const file:FileList = event.dataTransfer.files;
     this.fileList.push(file[0])
     const fileList = Object.entries(file).map(f => f[1]);
-    console.log(fileList);
-
     fileList.forEach(f => {
       let reader = new FileReader();
       reader.readAsDataURL(f);

@@ -79,7 +79,6 @@ export class ServiceAdmininfoRelistedComponent implements OnInit {
     this.overlayRef.attach(new ComponentPortal(MatProgressSpinner));
     this.loading = true;
     this.route.queryParams.subscribe(params => {
-      console.log(params['serviceId']);
       const serviceId: string = params['serviceId'];
       this.id = params['id'];
       this.serviceType = params['serviceType'];
@@ -92,7 +91,6 @@ export class ServiceAdmininfoRelistedComponent implements OnInit {
       if (authUser !== null) {
         this.apiservice.getUser(authUser).subscribe(user => {
           if(user.length > 0) {
-            console.log(user);
             this.user = user;
             // ローディング解除
             this.overlayRef.detach();
@@ -197,10 +195,8 @@ export class ServiceAdmininfoRelistedComponent implements OnInit {
         created: '',
         updated: ''
     }
-    console.log(addFavorite)
     this.apiservice.postFcMcFavorite(addFavorite).subscribe(result => {
       console.log(result);
-      // alert(result)
     })
   }
 
@@ -255,7 +251,6 @@ private openMsgDialog(msg: string, locationDiv: boolean) {
       this.overlayRef.detach();
       this.router.navigate(["/main_menu"]);
     }
-    console.log(result);
     // ローディング解除
     this.overlayRef.detach();
     return;

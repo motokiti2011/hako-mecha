@@ -27,7 +27,6 @@ export class ServiceCreateModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.data);
     if(this.data.officeId != ''
     || this.data.officeId != null) {
       this.officeBtnDiv = true;
@@ -37,7 +36,6 @@ export class ServiceCreateModalComponent implements OnInit {
   }
 
   onClick(result: string) {
-    console.log(result);
     this.select = result;
     this._dialogRef.close(result);
   }

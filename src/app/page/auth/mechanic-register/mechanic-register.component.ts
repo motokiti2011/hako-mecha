@@ -141,7 +141,6 @@ export class MechanicRegisterComponent implements OnInit {
           this.openMsgDialog(messageDialogMsg.LoginRequest, true);
           return;
         }
-        console.log(user);
         this.inputData.adminUserId = user[0].userId;
         this.user = user[0];
         this.initForm();
@@ -255,7 +254,6 @@ export class MechanicRegisterComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       result => {
         // 返却値　無理に閉じたらundifind
-        console.log('画像モーダル結果:' + result)
         if (result != undefined && result != null) {
           if (result.length != 0) {
             this.imageFile = result;
@@ -277,7 +275,6 @@ export class MechanicRegisterComponent implements OnInit {
   private setImageUrl() {
     this.s3.onManagedUpload(this.imageFile[0].file).then((data) => {
       if (data) {
-        console.log(data);
         this.inputData.profileImageUrl = data.Location;
         this.mechanicResister();
       }
@@ -311,7 +308,6 @@ export class MechanicRegisterComponent implements OnInit {
    * 資格情報をデータに格納する
    */
   private setQualification() {
-    console.log(this.qualificationOne);
     const qualificationArray = this.options.value as { name: string }[];
     const result: string[] = []
     // 資格情報を格納
@@ -375,7 +371,6 @@ export class MechanicRegisterComponent implements OnInit {
       data: dialogData
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (locationDiv) {
         this.loading = false;
         this.overlayRef.detach();

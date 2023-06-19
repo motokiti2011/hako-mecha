@@ -134,7 +134,6 @@ export class EditUserInfoComponent implements OnInit {
       this.apiAuth.authenticationExpired();
       return;
     }
-    console.log(user);
     this.setDispDate(user);
   }
 
@@ -179,7 +178,6 @@ export class EditUserInfoComponent implements OnInit {
    */
   onInputChange(event: any) {
     const file = event.target.files[0];
-    console.log(file);
     this.imageFile = file;
   }
 
@@ -188,7 +186,6 @@ export class EditUserInfoComponent implements OnInit {
    */
   onResister() {
     this.inputCheck();
-    console.log(this.user);
     if (this.imageFile.length != 0) {
       this.setImageUrl();
     } else {
@@ -226,7 +223,6 @@ export class EditUserInfoComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       result => {
         // 返却値　無理に閉じたらundifind
-        console.log('画像モーダル結果:' + result)
         if (result != undefined && result != null) {
           if (result.length != 0) {
             this.imageFile = result;
@@ -238,7 +234,6 @@ export class EditUserInfoComponent implements OnInit {
 
   onSelectCity() {
     this.inputData.areaNo2 = this.citySelect;
-    // console.log(this.inputData.area2);
   }
 
 
@@ -293,7 +288,6 @@ export class EditUserInfoComponent implements OnInit {
   private setImageUrl() {
     this.s3.onManagedUpload(this.imageFile[0].file).then((data) => {
       if (data) {
-        console.log(data);
         this.user.profileImageUrl = data.Location;
         this.userResister();
       }
@@ -306,7 +300,6 @@ export class EditUserInfoComponent implements OnInit {
    * ユーザー情報を登録する
    */
   private userResister() {
-    console.log(this.inputData);
     if (_isNil(this.inputData.areaNo1)
       || this.inputData.areaNo1 == '') {
       this.openMsgDialog(messageDialogMsg.Required, false);
@@ -325,9 +318,7 @@ export class EditUserInfoComponent implements OnInit {
       this.apiService.postUser(this.user).subscribe(result => {
         let msg = ''
         if (result == undefined) {
-          // TODO
           msg = messageDialogMsg.AnResister;
-
         } else {
           msg = messageDialogMsg.Changed;
         }
@@ -341,14 +332,10 @@ export class EditUserInfoComponent implements OnInit {
    * 都道府県から市町村データを取得し設定する
    */
   private getCityInfo() {
-    const areaa = _find(this.areaData, data => data.code === this.areaSelect);
-    console.log(areaa)
-    if (areaa) {
-      this.apiService.serchArea(areaa.prefectures)
+    const area = _find(this.areaData, data => data.code === this.areaSelect);
+    if (area) {
+      this.apiService.serchArea(area.prefectures)
         .subscribe(data => {
-          // console.log(data);
-          // console.log(data.response);
-          console.log(data.response.location);
           if (data.response.location.length > 0) {
             this.areaCityData = data.response.location;
           }
@@ -366,12 +353,10 @@ export class EditUserInfoComponent implements OnInit {
   private getPostCode(postCode: string) {
     this.apiService.serchPostCode(postCode)
       .subscribe(data => {
-        console.log(data.response.location);
         if (data.response.location.length > 0) {
           const postCodeConectData = data.response.location[0];
           const areaCode = _find(this.areaData, area => area.prefectures === postCodeConectData.prefecture);
           if (!areaCode) {
-            console.log('no-area');
             return;
           }
           // 地域1(都道府県名)
@@ -414,7 +399,6 @@ export class EditUserInfoComponent implements OnInit {
         this.loading = false;
         this.router.navigate(["/main_menu"]);
       }
-      console.log(result);
       return;
     });
   }

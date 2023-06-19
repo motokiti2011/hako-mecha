@@ -54,7 +54,6 @@ export class ReissuePasswdComponent implements OnInit {
     this.loading = true;
     this.forgotPassword()
       .then((result) => {
-        console.log(result);
         this.loading = false;
         this.overlayRef.detach();
       }).catch((err) => {
@@ -66,8 +65,8 @@ export class ReissuePasswdComponent implements OnInit {
 
   /**
    * 確認コード、新パスワード入力イベント
-   * @param verificationCode 
-   * @param newPassword 
+   * @param verificationCode
+   * @param newPassword
    */
   onConfirmation(verificationCode: string, newPassword: string) {
     this.confirmPassword(verificationCode, newPassword)
@@ -91,8 +90,8 @@ export class ReissuePasswdComponent implements OnInit {
   /***************** 以下内部データ  ********************/
   /**
    * パスワード再送信イベント
-   * @param username 
-   * @param password 
+   * @param username
+   * @param password
    */
   async forgotPassword(): Promise<any> {
     try {
@@ -108,8 +107,8 @@ export class ReissuePasswdComponent implements OnInit {
 
   /**
    * 確認コード、新パスワード送信イベント
-   * @param username 
-   * @param password 
+   * @param username
+   * @param password
    */
   async confirmPassword(verificationCode: string, newPassword: string): Promise<any> {
     try {
@@ -144,10 +143,8 @@ export class ReissuePasswdComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (locationDiv) {
-        // this.closeModal();
         this.router.navigate(["/main_menu"]);
       }
-      console.log(result);
       // ローディング解除
       this.overlayRef.detach();
       return;

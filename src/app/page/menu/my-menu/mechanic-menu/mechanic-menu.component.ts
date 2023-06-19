@@ -135,7 +135,6 @@ export class MechanicMenuComponent implements OnInit {
     if (authUser !== null) {
       this.apiService.getUser(authUser).subscribe(user => {
         if (user.length > 0) {
-          console.log(user);
           this.user = user[0];
           if (this.user.officeId != '0' && this.user.officeId != null) {
             // // 工場登録ある場合表示
@@ -231,22 +230,8 @@ export class MechanicMenuComponent implements OnInit {
    */
   onInputChange(event: any) {
     const file = event.target.files[0];
-    console.log(file);
     this.imageFile = file;
   }
-
-  // /**
-  //  * 工場情報の表示切替を行う
-  //  */
-  // onFactoryDisp() {
-  //   if (!this.factoryDispDiv) {
-  //     this.factoryBtnText = '閉じる';
-  //     this.factoryDispDiv = true;
-  //     return;
-  //   }
-  //   this.factoryDispDiv = false
-  //   this.factoryBtnText = '工場情報を編集する';
-  // }
 
   /**
    * 工場登録（本所属工場新規登録）
@@ -286,7 +271,6 @@ export class MechanicMenuComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       result => {
         // 返却値　無理に閉じたらundifind
-        console.log('画像モーダル結果:' + result)
         if (result != undefined && result != null) {
           if (result.length != 0) {
             this.imageFile = result;
@@ -308,7 +292,6 @@ export class MechanicMenuComponent implements OnInit {
   private setImageUrl() {
     this.s3.onManagedUpload(this.imageFile[0].file).then((data) => {
       if (data) {
-        console.log(data);
         this.mechanicInfo.profileImageUrl = data.Location;
         this.mechanicResister();
       }
@@ -322,8 +305,6 @@ export class MechanicMenuComponent implements OnInit {
    */
   private mechanicResister() {
     this.setQualification();
-    console.log(this.inputData);
-    console.log(this.mechanicInfo);
     this.apiUniqeService.postMechanic(this.mechanicInfo, this.officeDiv).subscribe(result => {
       if (result != 200) {
         this.openMsgDialog(messageDialogMsg.AnResister, false);
@@ -503,7 +484,6 @@ export class MechanicMenuComponent implements OnInit {
       if (locationDiv) {
         this.router.navigate(["/main_menu"]);
       }
-      console.log(result);
       // ローディング解除
       this.overlayRef.detach();
       return;

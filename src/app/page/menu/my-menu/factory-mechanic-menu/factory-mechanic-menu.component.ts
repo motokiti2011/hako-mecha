@@ -104,8 +104,6 @@ export class FactoryMechanicMenuComponent implements OnInit {
           this.openMsgDialog(messageDialogMsg.LoginRequest, true);
           return;
         }
-
-        console.log(user);
         this.user = user[0];
         if (this.user.officeId != '0' && this.user.officeId != null) {
           // 工場登録ある場合表示
@@ -277,7 +275,6 @@ export class FactoryMechanicMenuComponent implements OnInit {
       if (locationDiv) {
         this.router.navigate(["/main_menu"]);
       }
-      console.log(result);
       // ローディング解除
       this.overlayRef.detach();
       this.loading = false;

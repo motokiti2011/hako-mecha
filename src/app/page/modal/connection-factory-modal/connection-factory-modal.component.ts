@@ -115,7 +115,6 @@ export class ConnectionFactoryModalComponent implements OnInit {
       this.citySelect = '';
       this.formArea2.setValue(this.citySelect);
     }
-    console.log(this.areaSelect)
     this.getCityInfo();
   }
 
@@ -125,7 +124,6 @@ export class ConnectionFactoryModalComponent implements OnInit {
   onSelectCity() {
     this.serchInfo.area2 = this.citySelect;
     this.formArea2.setValue(this.citySelect);
-    console.log(this.serchInfo.area2);
   }
 
   /**
@@ -133,7 +131,6 @@ export class ConnectionFactoryModalComponent implements OnInit {
    */
   onSerch() {
     console.log(this.serchAreaSwitchDiv);
-    // console.log(this.serchInfo);
   }
 
   /**
@@ -160,7 +157,6 @@ export class ConnectionFactoryModalComponent implements OnInit {
    * @param office
    */
   onSerchOffice(office: fcmcSerchResult) {
-    console.log(office);
     if (office) {
       this.selectData = office;
     } else {
@@ -234,14 +230,10 @@ export class ConnectionFactoryModalComponent implements OnInit {
    * 都道府県から市町村データを取得し設定する
    */
   private getCityInfo() {
-    const areaa = _find(this.areaData, data => data.code === this.areaSelect);
-    console.log(areaa)
-    if (areaa) {
-      this.apiService.serchArea(areaa.prefectures)
+    const area = _find(this.areaData, data => data.code === this.areaSelect);
+    if (area) {
+      this.apiService.serchArea(area.prefectures)
         .subscribe(data => {
-          // console.log(data);
-          // console.log(data.response);
-          console.log(data.response.location);
           if (data.response.location.length > 0) {
             this.areaCityData = data.response.location;
           }
