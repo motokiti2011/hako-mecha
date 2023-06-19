@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <div *ngIf="serviceType == '0' else serviceRequest">
+  <div *ngIf="serviceType === '0' else serviceRequest">
     <!-- ユーザー依頼表示 -->
 
     <div class="vehicle_list_area" *ngIf="registerVehicle.length > 0 else ElseContents">
@@ -38,13 +38,7 @@
       <div class="vehicle_msg">登録中の車両はありません</div>
     </ng-template>
 
-    <!-- <div class="row">
-      <div class="col-3"></div>
-      <label>この伝票に車両を登録</label>
-    </div> -->
-
     <div class="row">
-      <!-- <div class="col-1"></div> -->
       <label>車名</label>
     </div>
 
@@ -60,15 +54,14 @@
         <ng-container *ngFor="let data of vehicleDivData; index as i">
           <label>
             <input type="radio" name="vehicle_div" id="book{{i}}" [(ngModel)]="dispVehicleDiv" [value]="data.vehicleDiv"
-              [checked]="dispVehicleDiv == data.vehicleDiv" (change)="onSelectVehicleDiv(i)">{{data.value}}
+              [checked]="dispVehicleDiv === data.vehicleDiv" (change)="onSelectVehicleDiv(i)">{{data.value}}
           </label><br />
         </ng-container>
       </form>
     </div>
 
-    <div *ngIf="dispVehicleDiv == '0' && '1'">
+    <div *ngIf="dispVehicleDiv === '0' && '1'">
       <div class="row">
-        <!-- <div class="col-1"></div> -->
         <label>メーカー</label>
       </div>
 
@@ -86,7 +79,6 @@
       </div>
 
       <div class="row">
-        <!-- <div class="col-1"></div> -->
         <label>車両形状</label>
       </div>
 
@@ -108,7 +100,6 @@
   <ng-template #serviceRequest>
     <!-- メカニック、工場依頼表示 -->
     <div class="row">
-      <!-- <div class="col-1"></div> -->
       <label>車名</label>
     </div>
 
@@ -124,7 +115,7 @@
         <ng-container *ngFor="let data of vehicleDivData; index as i">
           <label>
             <input type="radio" name="vehicle_div" id="book{{i}}" [(ngModel)]="dispVehicleDiv" [value]="data.vehicleDiv"
-              [checked]="dispVehicleDiv == data.vehicleDiv" (change)="onSelectVehicleDiv(i)">{{data.value}}
+              [checked]="dispVehicleDiv === data.vehicleDiv" (change)="onSelectVehicleDiv(i)">{{data.value}}
           </label><br />
         </ng-container>
       </form>
@@ -132,17 +123,15 @@
 
 
     <div class="unspecified_check">
-      <!-- <div class="col-1"></div> -->
       <input type="checkbox" name="unspecified" [(ngModel)]="unspecifiedDiv" (change)="onUnspecified()">
       <label>　指定しない</label>
     </div>
 
 
-    <div *ngIf="dispVehicleDiv == '0' && '1' && !unspecifiedDiv">
+    <div *ngIf="dispVehicleDiv === '0' && '1' && !unspecifiedDiv">
 
 
       <div class="row">
-        <!-- <div class="col-1"></div> -->
         <label>メーカー</label>
       </div>
 
@@ -159,7 +148,6 @@
       </div>
 
       <div class="row">
-        <!-- <div class="col-1"></div> -->
         <label>車両形状</label>
       </div>
 

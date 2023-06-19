@@ -1,5 +1,4 @@
 <!-- 工場管理者設定モーダル -->
-<!-- <p>factory-admin-setting-modal works!</p> -->
 
 <div *ngIf="loading; else mainContent" class="loading">
   <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
@@ -34,7 +33,7 @@
               {{adminUser.mechanicName}}
             </td>
             <td>
-              <div *ngIf="adminUser.belongsDiv == '0' else elseContents">
+              <div *ngIf="adminUser.belongsDiv === '0' else elseContents">
                 <div>管理者</div>
               </div>
               <ng-template #elseContents>
@@ -46,7 +45,7 @@
               </ng-template>
             </td>
             <td>
-              <div *ngIf="adminUser.roleDiv == '0' else elseDispContents">
+              <div *ngIf="adminUser.roleDiv === '0' else elseDispContents">
                 <div>管理者</div>
               </div>
               <ng-template #elseDispContents>

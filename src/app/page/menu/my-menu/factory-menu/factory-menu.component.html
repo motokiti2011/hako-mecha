@@ -82,8 +82,6 @@
                 <option *ngFor="let area of areaData" [value]="area.code" [selected]="area.code === areaSelect">
                   {{area.prefectures}}</option>
               </select>
-
-              <!-- <input class="form-control" id="id" type="text" [(ngModel)]="dispInfo.officeArea1" /> -->
             </div>
             <div class="col-3">
               <div>公開されます。</div>
@@ -93,9 +91,8 @@
           <div class="row row_item">
             <div class="col-3 item">市町村</div>
             <div class="col-5">
-              <!-- <input class="form-control" id="id" type="text" [(ngModel)]="dispInfo.officeArea" /> -->
               <select id="area_select" name="area" [(ngModel)]="citySelect" (change)="onSelectCity()"
-                [disabled]="areaSelect == ''">
+                [disabled]="areaSelect === ''">
                 <option value="">地域を選択してください。</option>
                 <option *ngFor="let city of areaCityData" [value]="city.city"
                   [selected]="city.city === citySelect">
@@ -205,7 +202,6 @@
           <div class="row row_item">
             <div class="col-1"></div>
             <div class="col-6 item">以下は公開されない工場情報の設定となります。</div>
-            <!-- <div class="col-5"></div> -->
           </div>
 
 
@@ -244,18 +240,6 @@
               </div>
             </div>
           </div>
-
-
-
-
-          <!-- <div class="row">
-            <div class="col-3"></div>
-            <div class="col-6">
-              <div class="bt_area">
-                <button type="submit" class="btn btn-primary" on-click="onResister()">登録</button>
-              </div>
-            </div>
-          </div> -->
 
         </div>
       </div>

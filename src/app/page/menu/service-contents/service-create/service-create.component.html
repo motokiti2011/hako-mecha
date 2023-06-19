@@ -15,7 +15,6 @@
 
       <div class="container">
         <table >
-          <!--タイトル　-->
           <tr>
             <td>タイトル</td>
             <td>
@@ -34,7 +33,6 @@
           </tr>
 
           <tr>
-            <!-- 作業場所　-->
             <td>作業場所</td>
             <td>
               <div class="mandatory-area">
@@ -56,7 +54,6 @@
           </tr>
 
           <tr>
-            <!-- 地域　-->
             <td>地域</td>
             <td>
               <div class="mandatory-area">
@@ -90,7 +87,6 @@
           </tr>
 
           <tr>
-            <!-- カテゴリー　-->
             <td>カテゴリー</td>
             <td>
 
@@ -106,7 +102,6 @@
           </tr>
 
           <tr>
-            <!-- 対象車両　-->
             <td>対象車両</td>
             <td>
 
@@ -115,7 +110,7 @@
               <button type="button" class="btn btn-outline-primary" (click)="onVehicleSelect()" >車両を選択する</button>
             </td>
             <td>
-              <div *ngIf="inputData.targetVehcle != null else VehicleElseContents">車両あり</div>
+              <div *ngIf="inputData.targetVehcle !== null else VehicleElseContents">車両あり</div>
               <ng-template #VehicleElseContents>
                 <div>車両なし</div>
               </ng-template>
@@ -123,7 +118,6 @@
           </tr>
 
           <tr>
-            <!-- 価格　-->
             <td>価格</td>
             <td>
               <div class="mandatory-area">
@@ -142,10 +136,6 @@
               <div *ngIf="!priceFormDiv; else elseContent">
                 <div>見積もりを依頼します</div>
               </div>
-
-              <!-- <div *ngIf="errorFlg;">
-                <label class="error-message">{{errormessage}}</label>
-              </div> -->
             </td>
 
             <td>
@@ -160,7 +150,6 @@
 
 
           <tr>
-            <!-- 説明　-->
             <td>説明</td>
             <td>
               <div class="mandatory-area">
@@ -179,7 +168,6 @@
 
 
           <tr>
-            <!-- 希望日　-->
             <td>希望日</td>
             <td>
               <div class="mandatory_area">
@@ -210,7 +198,6 @@
 
 
           <tr>
-            <!-- 希望時間　-->
             <td>希望時間</td>
             <td>
               <div class="mandatory-area">
@@ -233,7 +220,6 @@
           </tr>
 
           <tr>
-            <!-- メッセージの公開レベル　-->
             <td>メッセージの<br>公開レベル</td>
             <td></td>
             <td>
@@ -245,26 +231,7 @@
             </td>
           </tr>
 
-          <!-- <tr>
-            管理ユーザー設定　
-            <td>管理ユーザー<br></td>
-            <td></td>
-            <td>
-              <div *ngIf="adminSelectDiv">
-                <select [(ngModel)]="adminSelect" (change)="inputWorkArea()">
-                  <option *ngFor="let admin of adminUserData"
-                  [value]="admin.id"
-                  [selected]="admin.id === adminSelect">{{admin.label}}</option>
-                </select>
-              </div>
-
-                <div>この依頼は{{adminUserName}}によって管理されます。</div>
-
-            </td>
-          </tr> -->
-
           <tr>
-            <!-- 添付画像　-->
             <td>添付画像</td>
             <td></td>
             <td>

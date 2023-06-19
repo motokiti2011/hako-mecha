@@ -115,7 +115,7 @@
               <button type="button" class="btn btn-outline-primary" (click)="onVehicleSelect()" >車両を選択する</button>
             </td>
             <td>
-              <div *ngIf="inputData.targetVehcle != null else VehicleElseContents">車両あり</div>
+              <div *ngIf="inputData.targetVehcle !== null else VehicleElseContents">車両あり</div>
               <ng-template #VehicleElseContents>
                 <div>車両なし</div>
               </ng-template>

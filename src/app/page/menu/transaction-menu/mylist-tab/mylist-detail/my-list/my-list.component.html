@@ -57,7 +57,7 @@
         <div *ngIf="minPageDisp" class="buttom-base" (click)="onContentsForward()">前へ</div>
 
         <ng-container *ngFor="let page of pageIndex">
-          <div [class.buttom-base]="page.index!=currentIndex" [class.index]="page.index==currentIndex"
+          <div [class.buttom-base]="page.index !== currentIndex" [class.index]="page.index === currentIndex"
             (click)="onContentsIndex(page.index)">{{page.page}}</div>
         </ng-container>
 
@@ -67,7 +67,7 @@
     </div>
   </ng-template>
 
-  <div *ngIf="detailList.length == 0" class="empty">
+  <div *ngIf="detailList.length === 0" class="empty">
     お知らせはありません。
   </div>
 

@@ -28,7 +28,7 @@
           <tr *ngFor="let mechanic of dispMechanicList">
             <td>{{mechanic.mechanicName}}</td>
             <td>
-              <div *ngIf="mechanic.belongsDiv == '0' else AdminDisp">
+              <div *ngIf="mechanic.belongsDiv === '0' else AdminDisp">
                 <div>管理者</div>
               </div>
               <ng-template #AdminDisp>
@@ -41,7 +41,7 @@
               </ng-template>
             </td>
             <td>
-              <div *ngIf="mechanic.belongsDiv == '0' else AdminDispConnection">
+              <div *ngIf="mechanic.belongsDiv === '0' else AdminDispConnection">
                 <div>管理者の操作はできません</div>
               </div>
               <ng-template #AdminDispConnection>

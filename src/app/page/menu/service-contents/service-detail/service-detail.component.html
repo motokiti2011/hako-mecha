@@ -8,7 +8,7 @@
     <div class="sid_menu">
       <div class="container">
         <div *ngIf="isLogin else GestContents">
-          <div *ngIf="dispContents.processStatus == '0'">
+          <div *ngIf="dispContents.processStatus === '0'">
             <div class="row button_item">
               <button type="button" class="btn btn-outline-primary" (click)="goBack()">一覧に戻る</button>
             </div>
@@ -41,7 +41,7 @@
 
           </div>
 
-          <div *ngIf="dispContents.processStatus == '1'">
+          <div *ngIf="dispContents.processStatus === '1'">
             <div class="row button_item">
               <button type="button" class="btn btn-outline-primary" (click)="onTransaction()">取引状況を確認する</button>
             </div>
@@ -53,10 +53,6 @@
             <div *ngIf="tranCompBtnDiv" class="row button_item">
               <button type="button" class="btn btn-outline-primary" (click)="onCompletedTransaction()">取引を完了する</button>
             </div>
-
-            <!-- <div *ngIf="tranCompBtnDiv" class="row button_item">
-              <button type="button" class="btn btn-outline-primary" (click)="onTransactionCancel()">取引をキャンセルする</button>
-            </div> -->
 
             <div *ngIf="builderDiv" class="row button_item">
               <label>{{compDateBtnMsg}}</label>
@@ -76,7 +72,7 @@
 
           </div>
 
-          <div *ngIf="dispContents.processStatus == '3'">
+          <div *ngIf="dispContents.processStatus === '3'">
             <div class="row button_item">
               <button type="button" class="btn btn-outline-primary" (click)="onTransaction()">取引状況を確認する</button>
             </div>
@@ -153,7 +149,7 @@
 
         <div class="price">
           <p>価格</p>
-          <div *ngIf="dispPrice != 0 else noPrice">
+          <div *ngIf="dispPrice !== 0 else noPrice">
             <div>　{{dispPrice | currency: 'JPY': true }}</div>
           </div>
           <ng-template #noPrice>

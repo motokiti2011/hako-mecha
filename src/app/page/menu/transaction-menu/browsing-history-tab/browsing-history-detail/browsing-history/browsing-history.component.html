@@ -1,18 +1,9 @@
-<!-- <button (click)="goBack()">戻る</button> -->
 
 <div class="service-contents">
   <div *ngIf="loading; else mainContent" class="loading">
     <mat-progress-spinner class="spinner" mode="indeterminate"></mat-progress-spinner>
   </div>
   <ng-template #mainContent>
-
-    <!-- <div *ngIf="detailList.length > 0">
-      <select class="select-btn" [(ngModel)]="selected" (change)="changeOrder()">
-        <option value="">並び順</option>
-        <option *ngFor="let item of orderMenu" [value]="item.value" [selected]="item.value === selected">{{item.value}}
-        </option>
-      </select>
-    </div> -->
 
     <div class="contants">
       <div *ngIf="detailList.length > 0; ElseContents" class="table_area">
@@ -53,6 +44,6 @@
   </ng-template>
 </div>
 
-<div *ngIf="detailList.length == 0" class="empty">
+<div *ngIf="detailList.length === 0" class="empty">
   閲覧履歴がありません。
 </div>

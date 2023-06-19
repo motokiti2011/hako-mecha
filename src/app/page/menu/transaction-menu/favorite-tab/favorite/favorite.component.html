@@ -7,15 +7,6 @@
     <div class="contants">
       <div *ngIf="detailList.length > 0; ElseContents" class="table_area">
 
-        <!-- <div>
-          <select class="select-btn" [(ngModel)]="selected" (change)="changeOrder()">
-            <option value="">並び順</option>
-            <option *ngFor="let item of orderMenu" [value]="item.value" [selected]="item.value === selected">
-              {{item.value}}
-            </option>
-          </select>
-        </div> -->
-
         <table class="table">
           <thead>
             <tr>
@@ -48,12 +39,9 @@
         </div>
       </div>
 
-
-      <!-- <ng-template #ElseContents> -->
-      <div *ngIf="detailList.length == 0" class="empty">
+      <div *ngIf="detailList.length === 0" class="empty">
         お気に入り登録がありません。
       </div>
-      <!-- </ng-template> -->
 
     </div>
   </ng-template>

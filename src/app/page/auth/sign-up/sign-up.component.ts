@@ -85,10 +85,6 @@ export class SignUpComponent implements OnInit {
         this.overlayRef.detach();
         this.loading = false;
       }).catch((err) => {
-        // this.dispMsg = errorMsg[0].value;
-        // if (err == errorMsg[1].message) {
-        //   this.dispMsg = errorMsg[1].value;
-        // }
         this.openMsgDialog(messageDialogMsg.AnResister, false);
         console.log(err);
         this.overlayRef.detach();

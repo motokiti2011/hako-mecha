@@ -60,9 +60,6 @@
             </div>
           </div>
           <div class="col-1"></div>
-          <!-- <span *ngIf="telNo1.errors?.required">tel1</span>
-            <span *ngIf="telNo2.errors?.required">tel2</span>
-            <span *ngIf="telNo3.errors?.required">tel3</span> -->
         </div>
 
 
@@ -106,9 +103,8 @@
           </div>
           <div class="col-2"></div>
           <div class="col-6">
-            <!-- <input class="form-control" id="name" type="text" [(ngModel)]="inputData.areaNo2" /> -->
             <select id="area_select" name="area" [(ngModel)]="citySelect" (change)="onSelectCity()"
-            [disabled]="areaSelect == ''">
+            [disabled]="areaSelect === ''">
               <option value="">地域を選択してください。</option>
               <option *ngFor="let city of areaCityData" [value]="city.city"
                 [selected]="city.city === citySelect">
@@ -140,7 +136,6 @@
           <div class="col-2"></div>
           <div class="col-6">
             <textarea cols="40" rows="6" id="introduction" [(ngModel)]="inputData.introduction"></textarea>
-            <!-- <input class="form-control" id="introduction" type="text" [(ngModel)]="inputData.introduction" /> -->
           </div>
           <div class="col-1"></div>
         </div>
@@ -158,8 +153,6 @@
             <div>画像なし</div>
           </ng-template>
         </div>
-
-
 
         <div class="row">
           <div class="col-4"></div>

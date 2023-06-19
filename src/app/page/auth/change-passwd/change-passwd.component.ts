@@ -77,10 +77,6 @@ export class ChangePasswdComponent implements OnInit {
   }
 
 
-
-
-
-
   /***************** 以下内部データ  ********************/
   /**
    * パスワード再送信イベント

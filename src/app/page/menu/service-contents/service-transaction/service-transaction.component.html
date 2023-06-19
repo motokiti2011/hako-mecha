@@ -8,7 +8,7 @@
       <input type="button" class="btn_item" on-click="onServiceList()" value="一覧に戻る">
       <input type="button" class="btn_item" on-click="onQuestion()" value="質問">
 
-      <div *ngIf="processStatus == '0'">
+      <div *ngIf="processStatus === '0'">
         <div *ngIf="privateDiv">
           <p class="private_message">このサービスのメッセージは<br>非公開です。</p>
         </div>
@@ -44,26 +44,19 @@
 
       </div>
 
-      <div *ngIf="processStatus == '1'">
+      <div *ngIf="processStatus === '1'">
 
         <div *ngIf="tranCompBtnDiv"  class="row button_item">
-          <!-- <button type="button" class="btn btn-outline-primary" (click)="onCompletedTransaction()">取引を完了する</button> -->
           <input type="button" class="btn_item" on-click="onCompletedTransaction()" value="取引を完了する">
-
         </div>
-
       </div>
-
-
     </div>
-
 
     <div class="main_area">
       <div class="messages">
         <app-transaction-message></app-transaction-message>
       </div>
     </div>
-
 
     <div class="sb-area">
       <div class="sb-disp">
@@ -78,8 +71,7 @@
 
       <div class="sb-disp">
         <p class="title">価格</p>
-        <!-- <div class="item">{{dispPrice}}</div> -->
-        <div class="item" *ngIf="dispPrice != 0 else noPrice">
+        <div class="item" *ngIf="dispPrice !== 0 else noPrice">
           <div>　{{dispPrice | currency: 'JPY': true }}</div>
         </div>
         <ng-template #noPrice>

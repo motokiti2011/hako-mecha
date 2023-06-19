@@ -2,7 +2,7 @@
 
   <aside>
     <app-service-list-side-menu [serchArea1]="serchArea1" [serchCategory]="serchCategory" [favoriteList]="favoriteList"
-      [acseccUser]="acseccUser" 
+      [acseccUser]="acseccUser"
       (serviceSerchValue)="onServiceSerch($event)">
     </app-service-list-side-menu>
   </aside>
@@ -59,7 +59,7 @@
               <div class="buttom-base" (click)="onContentsForward()">前へ</div>
 
               <ng-container *ngFor="let page of pageIndex">
-                <div [class.buttom-base]="page.index!=currentIndex" [class.index]="page.index==currentIndex"
+                <div [class.buttom-base]="page.index !== currentIndex" [class.index]="page.index === currentIndex"
                   (click)="onContentsIndex(page.index)">{{page.page}}</div>
               </ng-container>
 

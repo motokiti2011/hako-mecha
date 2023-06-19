@@ -58,7 +58,6 @@
           <div class="col-1"></div>
         </div>
 
-
         <div class="row">
           <div class="col-3">
             <div>郵便番号</div>
@@ -100,7 +99,7 @@
           <div class="col-2"></div>
           <div class="col-6">
             <select id="area_select" name="area" [(ngModel)]="citySelect" (change)="onSelectCity()"
-              [disabled]="inputData.areaNo1 == ''">
+              [disabled]="inputData.areaNo1 === ''">
               <option value="">地域を選択してください。</option>
               <option *ngFor="let city of areaCityData" [value]="city.city" [selected]="city.city === citySelect">
                 {{city.city}}</option>

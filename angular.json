@@ -1,7 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "analytics": "4a260307-a8cf-4564-93a6-cd5d5348da81"
+    "analytics": "4a260307-a8cf-4564-93a6-cd5d5348da81",
+    "defaultCollection": "@angular-eslint/schematics"
   },
   "version": 1,
   "newProjectRoot": "projects",
@@ -75,7 +76,7 @@
         },
         "serve": {
           "options": {
-            "browserTarget":"client:build",
+            "browserTarget": "client:build",
             "proxyConfig": "src/.proxy.conf.json"
           },
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -112,6 +113,15 @@
               "src/styles.scss"
             ],
             "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         }
       }

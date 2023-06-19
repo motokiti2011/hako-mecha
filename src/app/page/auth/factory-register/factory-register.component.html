@@ -5,8 +5,6 @@
   </div>
 
   <div class="main">
-
-
     <div class="container">
       <div class="row mt-4">
         <div class="col-4"></div>
@@ -109,7 +107,7 @@
         </div>
         <div class="col-4">
           <select id="area_select" name="area" [(ngModel)]="citySelect" (change)="onSelectCity()"
-            [disabled]="officeArea1 == ''">
+            [disabled]="officeArea1 === ''">
             <option value="">地域を選択してください。</option>
             <option *ngFor="let city of areaCityData" [value]="city.city"
               [selected]="city.city === citySelect">
